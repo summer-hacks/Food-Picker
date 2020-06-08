@@ -7,5 +7,6 @@
 - selecting yes/no on a restaurant will update a yes/no counter for that restaurant record for that room
 - after swiping through all restaurants, will redirect to "my rooms" page (basically blank & functionless page atm)
 - idk if you all can access my firebase real-time database (?) so here's a quick ss: 
-<img src="assets/Screen Shot 2020-06-08 at 12.50.54 AM.png" width=200>
+<img src="assets/Screen Shot 2020-06-08 at 12.50.54 AM.png" width=400>
+<img src="assets/Screen Shot 2020-06-08 at 12.55.01 AM.png" width=400>
 
