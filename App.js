@@ -1,19 +1,29 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Tinder from './components/Tinder';
+import Search from './components/Search';
+import HomeScreen from './components/HomeScreen';
+import CreateRoom from './components/CreateRoom';
+import JoinRoom from './components/JoinRoom.js';
+import MyRooms from './components/MyRooms.js';
 
-export default function App() {
+// set up navigation
+const Stack = createStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Main Menu' }} />
+        <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="Tinder" component={Tinder} />
+        <Stack.Screen name="JoinRoom" component={JoinRoom} />
+        <Stack.Screen name="CreateRoom" component={CreateRoom} />
+        <Stack.Screen name="MyRooms" component={MyRooms} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
