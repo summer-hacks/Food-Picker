@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
-import firebase from '../firebase.js';
+import React from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 
 const Card = ({restaurant, handleChoice, navigation}) => {
@@ -25,12 +24,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         backgroundColor: "white",
       },
-    item: {
-      backgroundColor:'#161a7e',
-      padding: 20,
-      marginVertical: 8,
-      marginHorizontal: 5,
-    },
     text: {
       fontSize: 20,
       color: 'black'

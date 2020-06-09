@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import Card from './Card'
 
 const Stack = ({cards, cb, nav}) => {
