@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
 import firebase from '../firebase.js';
+import Stack from './Stack'
 
 const Tinder = ({route, navigation}) => {
   const [restaurants, setRestaurants] = useState([]);
@@ -67,19 +68,8 @@ const Tinder = ({route, navigation}) => {
     <View style={styles.container}>
       <Text>Tinder Screen</Text>
       <Text>roomId: {roomId}</Text>
-      <FlatList
-        data={restaurants}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <View>
-            <Text style={styles.text}>{item.name}</Text>
-            <View style = {styles.btnContainer}>
-              <Button color="green" style={styles.btnYes} onPress={() => {handleChoice("yes",item.id, navigation)}} title="yes"/>
-              <Button color="red" onPress={() => {handleChoice("no",item.id, navigation)}} title="no"/>
-            </View>
-          </View>  
-        )}
-        />
+      <Text>{restaurants.length} remaining</Text>
+      <Stack cards={restaurants} cb={handleChoice} nav={navigation}/>
     </View>
   )
 }
