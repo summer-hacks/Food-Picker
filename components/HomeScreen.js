@@ -7,6 +7,8 @@ function HomeScreen({ navigation }) {
     const [user, setUser] = useState("");
 
     useEffect(() => {
+      // returns a user object from firebase authentication
+      // access user data in real-time database with a reference to users/currentUser.uid
       const currentUser = firebase.auth().currentUser;
       if (currentUser){
         setUser(currentUser)

@@ -6,11 +6,11 @@ function MyRooms({route, navigation}) {
     const [rooms, setRooms] = useState([])
 
     useEffect(() => {
-      user.once('value', snap => {
+      userRef = firebase.database().ref('users/' + user.uid)
+      userRef.once('value', snap => {
         console.log(snap.val().rooms)
         setRooms(snap.val().rooms)
       })
-      
     }, [])
 
     return (

@@ -16,13 +16,14 @@ function createRoomRecord(roomId, restaurants, partySize, partyName, user) {
   })
 
   // add the room id to the user's data record
-  user.once('value', snap => {
+  userRef = firebase.database().ref('users/' + user.uid)
+  userRef.set('value', snap => {
     if (snap.val().rooms){
-      user.update({
+      userRef.update({
         rooms: [...snap.val().rooms, roomId]
       })
     } else {
-      user.update({
+      userRef.update({
         rooms: [roomId]
       })
     }
