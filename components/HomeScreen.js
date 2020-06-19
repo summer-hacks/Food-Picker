@@ -5,22 +5,18 @@ import firebase from '../firebase.js';
 // main menu assuming the user has already logged in
 function HomeScreen({ navigation }) {
     const [user, setUser] = useState("");
-    const [userName, setUserName] = useState("");
 
     useEffect(() => {
-      // var currentUser = firebase.auth().currentUser;
-
-      // for testing purposes: 
-      const currentUser = firebase.database().ref('users/DVSTISolSuXLJhcvLnQ40Qet1312')
+      var currentUser = firebase.auth().currentUser;
+      console.log(currentUser)
       if (currentUser){
         setUser(currentUser)
-        currentUser.once('value', snap => setUserName(snap.val().name), error => alert(error));
       }
     }, [])
     
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Welcome {userName}!</Text>
+        <Text>Welcome {user.displayName}!</Text>
         <Button
           title="Create Room"
           onPress={() => navigation.navigate('PartyInfo', {user: user})}
