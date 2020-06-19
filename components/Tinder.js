@@ -6,6 +6,7 @@ import Stack from './Stack'
 const Tinder = ({route, navigation}) => {
   const [restaurants, setRestaurants] = useState([]);
   const { roomId } = route.params;
+  const { user } = route.params;
 
   // get restaurant data from firebase for given room id (passed in from CreateRoom component)
   useEffect(() => {
@@ -60,7 +61,7 @@ const Tinder = ({route, navigation}) => {
           }
         }
       )
-      navigation.navigate('MyRooms')
+      navigation.navigate('MyRooms', {user: user})
     }
   }
     

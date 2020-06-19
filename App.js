@@ -7,6 +7,7 @@ import HomeScreen from './components/HomeScreen';
 import CreateRoom from './components/CreateRoom';
 import JoinRoom from './components/JoinRoom.js';
 import MyRooms from './components/MyRooms.js';
+import PartyInfo from './components/PartyInfo.js';
 
 // set up navigation
 const Stack = createStackNavigator();
@@ -16,6 +17,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Main Menu' }} />
+        <Stack.Screen name="PartyInfo" component={PartyInfo} />
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Tinder" component={Tinder} />
         <Stack.Screen name="JoinRoom" component={JoinRoom} />

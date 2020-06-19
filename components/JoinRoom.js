@@ -27,9 +27,9 @@ function joinRoom(roomId, navigation) {
     });
 }
 
-const JoinRoom = () => {
-    const navigation = useNavigation();
+const JoinRoom = ({ route, navigation}) => {
     const [roomId, setRoomId] = useState(0)
+    const {user} = route.params
 
     const onChangeRoomId = roomId => {
         setRoomId(roomId);
