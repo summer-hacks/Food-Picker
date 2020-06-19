@@ -7,8 +7,7 @@ function HomeScreen({ navigation }) {
     const [user, setUser] = useState("");
 
     useEffect(() => {
-      var currentUser = firebase.auth().currentUser;
-      console.log(currentUser)
+      const currentUser = firebase.auth().currentUser;
       if (currentUser){
         setUser(currentUser)
       }
