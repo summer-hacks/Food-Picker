@@ -24,6 +24,7 @@ const fetchFonts = () => {
   return Font.loadAsync({
     "karla-bold": require("./assets/fonts/Karla-Bold.ttf"),
     "karla-italic": require("./assets/fonts/Karla-Italic.ttf"),
+    "karla-bolditalic": require("./assets/fonts/Karla-BoldItalic.ttf"),
     "karla-regular": require("./assets/fonts/Karla-Regular.ttf"),
   });
 };
