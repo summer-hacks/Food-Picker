@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  View,
+  Image,
+  Text,
+} from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Tinder from "./screens/Tinder";
 import Search from "./screens/Search";
@@ -9,6 +14,7 @@ import JoinRoom from "./screens/JoinRoom.js";
 import MyRooms from "./screens/MyRooms";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
+import { Ionicons } from "@expo/vector-icons";
 
 import StartSignUp from "./screens/SignUp/StartSignUp";
 import NameSignUp from "./screens/SignUp/NameSignUp";
@@ -52,8 +58,42 @@ function App() {
           component={Login}
           options={{ title: "Login", headerShown: false }}
         />
-        <Stack.Screen name="StartSignUp" component={StartSignUp} />
-        <Stack.Screen name="NameSignUp" component={NameSignUp} />
+        <Stack.Screen
+          name="StartSignUp"
+          component={StartSignUp}
+          options={{
+            headerTintColor: global.orange,
+            headerLeftContainerStyle: { marginHorizontal: 15 },
+            headerStyle: {
+              backgroundColor: "white",
+              borderWidth: 0,
+              shadowRadius: 0,
+              shadowOffset: {
+                height: 0,
+              },
+            },
+            headerBackTitleVisible: false,
+            headerTitle: null,
+          }}
+        />
+        <Stack.Screen
+          name="NameSignUp"
+          component={NameSignUp}
+          options={{
+            headerTintColor: global.orange,
+            headerLeftContainerStyle: { marginHorizontal: 15 },
+            headerStyle: {
+              backgroundColor: "white",
+              borderWidth: 0,
+              shadowRadius: 0,
+              shadowOffset: {
+                height: 0,
+              },
+            },
+            headerBackTitleVisible: false,
+            headerTitle: null,
+          }}
+        />
         <Stack.Screen name="BirthdaySignUp" component={BirthdaySignUp} />
         <Stack.Screen name="EmailSignUp" component={EmailSignUp} />
         <Stack.Screen name="LocationSignUp" component={LocationSignUp} />

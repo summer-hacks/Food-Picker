@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import firebase from "../firebase.js";
 import { useNavigation } from "@react-navigation/native";
-import Svg, { Circle } from "react-native-svg";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import "../global";
 
@@ -22,7 +21,8 @@ const Login = () => {
   });
 
   const handleLogin = () => {
-    const { email, password } = this.state;
+    const email = userInfo.email;
+    const password = userInfo.password;
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -62,13 +62,14 @@ const Login = () => {
           value={userInfo.password}
         />
       </View>
-      {/* <Button title="Login" onPress={this.handleLogin} /> */}
-      {/* <Button
+      {/* <Button title="Login" onPress={handleLogin} />
+      <Button
         title="Don't have an account? Sign Up"
-        onPress={() => navigation.navigate("SignUp")}
+        onPress={() => navigation.navigate("LocationSignUp")}
       /> */}
       <View style={styles.buttonView}>
-        <TouchableOpacity onPress={handleLogin}>
+        {/* <TouchableOpacity onPress={handleLogin}> */}
+        <TouchableOpacity onPress={() => navigation.navigate("StartSignUp")}>
           <View style={styles.button}>
             <Icon style={{ color: "white" }} name="chevron-right" size={35} />
           </View>
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
-    top: 110,
+    top: "100%",
   },
   textInput: {
     alignSelf: "stretch",
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: deviceWidth * 0.75,
     borderBottomWidth: 3,
-    bottom: 100,
+    bottom: "15%",
   },
 });
 
