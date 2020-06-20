@@ -7,6 +7,7 @@ import HomeScreen from './components/HomeScreen';
 import CreateRoom from './components/CreateRoom';
 import JoinRoom from './components/JoinRoom.js';
 import MyRooms from './components/MyRooms.js';
+import RoomPage from './components/RoomPage.js';
 import PartyInfo from './components/PartyInfo.js';
 
 // set up navigation
@@ -23,6 +24,7 @@ function App() {
         <Stack.Screen name="JoinRoom" component={JoinRoom} />
         <Stack.Screen name="CreateRoom" component={CreateRoom} />
         <Stack.Screen name="MyRooms" component={MyRooms} />
+        <Stack.Screen name="RoomPage" component={RoomPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

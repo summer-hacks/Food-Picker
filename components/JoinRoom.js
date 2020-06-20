@@ -12,8 +12,8 @@ function joinRoom(roomId, navigation, user) {
             });
             
             // add the room id to the user's data record
-            userRef = firebase.database().ref('users/' + user.uid)
-            userRef.set('value', snap => {
+            const userRef = firebase.database().ref('users/' + user.uid)
+            userRef.once('value', snap => {
               if (snap.val().rooms){
                 userRef.update({
                   rooms: [...snap.val().rooms, roomId]
