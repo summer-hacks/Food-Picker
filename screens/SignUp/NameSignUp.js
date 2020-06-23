@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,16 +6,16 @@ import {
   View,
   Button,
   TouchableOpacity,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const StartSignUp = () => {
   const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
-    fullName: "",
-    phoneNum: "",
+    email: '',
+    password: '',
+    fullName: '',
+    phoneNum: '',
     errorMessage: null,
   });
 
@@ -25,22 +25,22 @@ const StartSignUp = () => {
       <Text style={styles.step}>Step 1 of 4</Text>
       <View>
         <View style={styles.icon}>
-          <Icon color="black" name="account-outline" size={25} />
+          <Icon color='black' name='account-outline' size={25} />
         </View>
       </View>
       <Text style={styles.normTxt}>What's your name?</Text>
       <TextInput
-        placeholder="First Name"
-        autoCapitalize="none"
+        placeholder='First Name'
+        autoCapitalize='none'
         onChangeText={(firstName) =>
-          setUserInfo({ ...userInfo, lastName: firstName })
+          setUserInfo({ ...userInfo, firstName: firstName })
         }
         value={userInfo.firstName}
         style={styles.textInput}
       />
       <TextInput
-        placeholder="Last Name"
-        autoCapitalize="none"
+        placeholder='Last Name'
+        autoCapitalize='none'
         onChangeText={(lastName) =>
           setUserInfo({ ...userInfo, lastName: lastName })
         }
@@ -49,9 +49,9 @@ const StartSignUp = () => {
       />
       <View style={styles.buttonView}>
         {/* <TouchableOpacity onPress={handleLogin}> */}
-        <TouchableOpacity onPress={() => navigation.navigate("BirthdaySignUp")}>
+        <TouchableOpacity onPress={() => navigation.navigate('BirthdaySignUp')}>
           <View style={styles.button}>
-            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
+            <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
           </View>
         </TouchableOpacity>
       </View>
@@ -65,59 +65,59 @@ const StartSignUp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "flex-start",
-    backgroundColor: "white",
-    paddingLeft: "15%",
-    paddingRight: "15%",
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'flex-start',
+    backgroundColor: 'white',
+    paddingLeft: '15%',
+    paddingRight: '15%',
   },
   buttonView: {
-    alignSelf: "flex-end",
-    marginRight: "-10%",
-    marginBottom: "10%",
+    alignSelf: 'flex-end',
+    marginRight: '-10%',
+    marginBottom: '10%',
   },
   button: {
     width: 54,
     height: 54,
     backgroundColor: global.orange,
     borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   icon: {
     width: 44,
     height: 44,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderWidth: 3,
     borderColor: global.orange,
     borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    top: "50%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: '50%',
   },
   textInput: {
-    alignSelf: "stretch",
+    alignSelf: 'stretch',
     padding: 5,
-    fontFamily: "karla-bold",
+    fontFamily: 'karla-bold',
     fontSize: 35,
-    borderBottomColor: "#000",
+    borderBottomColor: '#000',
     margin: 5,
     marginBottom: 20,
     // width: deviceWidth * 0.75,
     borderBottomWidth: 3,
-    bottom: "15%",
+    bottom: '15%',
   },
   normTxt: {
-    fontFamily: "karla-bold",
+    fontFamily: 'karla-bold',
     fontSize: 40,
-    marginBottom: "40%",
+    marginBottom: '40%',
   },
   step: {
-    alignSelf: "center",
+    alignSelf: 'center',
     fontSize: 24,
-    fontFamily: "karla-bold",
-    marginTop: "5%",
+    fontFamily: 'karla-bold',
+    marginTop: '5%',
   },
 });
 
