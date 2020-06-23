@@ -16,6 +16,7 @@ function HomeScreen({ navigation }) {
         displayName: "Janet",
         uid: "jhuang"
       }
+
       if (currentUser){
         setUser(currentUser)
       }
@@ -38,7 +39,6 @@ function HomeScreen({ navigation }) {
         />
       </View>
     );
-    
   }
 
   export default HomeScreen;

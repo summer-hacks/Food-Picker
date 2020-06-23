@@ -28,6 +28,7 @@ const Search = ({ route, navigation }) => {
     }
 
     // get restaurant data via Yelp API (this is passed to the CreateRoom component and then stored in firebase)
+    // submitting blank form raises error
     const getData = async(location, radius, maxRes) => {
       if (!location || !radius || !maxRes) {
         Alert.alert(

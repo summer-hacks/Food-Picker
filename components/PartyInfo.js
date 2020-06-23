@@ -8,6 +8,8 @@ const url = 'https://api.yelp.com/v3/businesses/search?'
 const PartyInfo = ({ route, navigation }) => {
     const [partyName, setPartyName] = useState('')
     const [partySize, setPartySize] = useState(0)
+
+    // extract data from route (variable name must equal whatever passed in)
     const {user} = route.params
 
     // helper functions to handle user input
@@ -16,7 +18,7 @@ const PartyInfo = ({ route, navigation }) => {
     }
 
     const onChangePartyName = partyName => {
-        setPartyName(partyName);
+      setPartyName(partyName);
     }
 
     return(

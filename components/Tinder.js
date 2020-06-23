@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import firebase from '../firebase.js';
 import Stack from './Stack'
 
