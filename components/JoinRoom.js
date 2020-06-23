@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import firebase from '../firebase.js';
-import { useNavigation } from '@react-navigation/native';
 
 // checks if room exists & is not yet full -- increments number of users joined if both conditions satisfied 
-function joinRoom(roomId, navigation) {
+function joinRoom(roomId, navigation, user) {
     firebase.database().ref('rooms/'+ roomId).once("value",snap => {
         if (snap.exists()){
           if (snap.val().numJoined < snap.val().partySize) {
@@ -12,10 +11,23 @@ function joinRoom(roomId, navigation) {
               numJoined: ++snap.val().numJoined
             });
             
-            // would also need to add the room id to the user's data record
+            // add the room id to the user's data record
+            const userRef = firebase.database().ref('users/' + user.uid)
+            userRef.once('value', snap => {
+              if (snap.val().rooms){
+                userRef.update({
+                  rooms: [...snap.val().rooms, roomId]
+                })
+              } else {
+                userRef.update({
+                  rooms: [roomId]
+                })
+              }
+            }, error => alert(error));
 
             navigation.navigate('Tinder', {
-              roomId: roomId
+              roomId: roomId,
+              user: user
             })
             
           } else {
@@ -27,9 +39,9 @@ function joinRoom(roomId, navigation) {
     });
 }
 
-const JoinRoom = () => {
-    const navigation = useNavigation();
+const JoinRoom = ({ route, navigation}) => {
     const [roomId, setRoomId] = useState(0)
+    const {user} = route.params
 
     const onChangeRoomId = roomId => {
         setRoomId(roomId);
@@ -42,7 +54,7 @@ const JoinRoom = () => {
         style={styles.input}
         onChangeText={onChangeRoomId}
       />
-      <TouchableOpacity style={styles.btn} onPress={() => joinRoom(roomId, navigation)}>
+      <TouchableOpacity style={styles.btn} onPress={() => joinRoom(roomId, navigation, user)}>
         <Text style={styles.btnText}>Join</Text>
       </TouchableOpacity>
     </View>
