@@ -13,6 +13,11 @@ const Search = ({ route, navigation }) => {
     const [location, setLocation] = useState('')
     const [radius, setRadius] = useState(0)
     const [maxRes, setMaxRes] = useState(0)
+    const [dollars, setDollars] = useState([])
+    const [$clicked, set$] = useState(false)
+    const [$$clicked, set$$] = useState(false)
+    const [$$$clicked, set$$$] = useState(false)
+    const [$$$$clicked, set$$$$] = useState(false)
 
     // helper functions to handle user input
     const onChangeLocation = location => {
@@ -27,9 +32,46 @@ const Search = ({ route, navigation }) => {
       setMaxRes(maxRes);
     }
 
+    const handle$ = () => {
+      if ($clicked){
+        setDollars(prev => prev.filter(ele => ele !== 1))
+      } else {
+        setDollars(prev => [...prev, 1])
+      }
+      set$(prev => !prev)
+    }
+
+    const handle$$ = () => {
+      if ($$clicked){
+        setDollars(prev => prev.filter(ele => ele !== 2))
+      } else {
+        setDollars(prev => [...prev, 2])
+      }
+      set$$(prev => !prev)
+    }
+
+    const handle$$$ = () => {
+      if ($$$clicked){
+        setDollars(prev => prev.filter(ele => ele !== 3))
+      } else {
+        setDollars(prev => [...prev, 3])
+      }
+      set$$$(prev => !prev)
+    }
+
+    const handle$$$$ = () => {
+      if ($$$$clicked){
+        setDollars(prev => prev.filter(ele => ele !== 4))
+      } else {
+        setDollars(prev => [...prev, 4])
+      }
+      set$$$$(prev => !prev)
+    }
+
     // get restaurant data via Yelp API (this is passed to the CreateRoom component and then stored in firebase)
     // submitting blank form raises error
-    const getData = async(location, radius, maxRes) => {
+    const getData = async(location, radius, maxRes, dollars) => {   
+      const prices = dollars.join(',')
       if (!location || !radius || !maxRes) {
         Alert.alert(
           'Empty field',
@@ -43,17 +85,18 @@ const Search = ({ route, navigation }) => {
           {cancelable: true},
         );
       } else {
-        const res = await fetch(url + `location=${location}&radius=${radius}&categories=restaurants&limit=${maxRes}`, {
+        const res = await fetch(url + `location=${location}&radius=${radius}&categories=restaurants&limit=${maxRes}&price=${prices}`, {
           method: "GET",
           headers: {
             Authorization: "Bearer " + api_key
           }
         })
         const resJson = await res.json();
+        console.log(url + `location=${location}&radius=${radius}&categories=restaurants&limit=${maxRes}&price=${prices}`)
         return resJson.businesses
         }
     }
-
+    
     return(
     <View style={styles.container}>
       <TextInput 
@@ -73,8 +116,22 @@ const Search = ({ route, navigation }) => {
         style={styles.input}
         onChangeText={onChangeMaxRes}
       />
+      <View style={{flex: 1, flexDirection: 'row', justifyContent:'space-evenly'}}>
+        <TouchableOpacity style={{height: 50,width: 50, justifyContent: 'center',borderRadius: 10, backgroundColor: $clicked ? 'salmon' : 'white' }} onPress={handle$}>
+          <Text style={{textAlign: 'center', color: $clicked ? 'white' : 'salmon'}}>$</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{height: 50,width: 50, justifyContent: 'center',borderRadius: 10, backgroundColor: $$clicked ? 'salmon' : 'white' }} onPress={handle$$}>
+          <Text style={{textAlign: 'center', color: $$clicked ? 'white' : 'salmon'}}>$$</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{height: 50,width: 50, justifyContent: 'center',borderRadius: 10, backgroundColor: $$$clicked ? 'salmon' : 'white' }} onPress={handle$$$}>
+          <Text style={{textAlign: 'center', color: $$$clicked ? 'white' : 'salmon'}}>$$$</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{height: 50,width: 50, justifyContent: 'center',borderRadius: 10, backgroundColor: $$$$clicked ? 'salmon' : 'white' }} onPress={handle$$$$}>
+          <Text style={{textAlign: 'center', color: $$$$clicked ? 'white' : 'salmon'}}>$$$$</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity style={styles.btn} onPress={async() => {
-         const data = await getData(location, radius, maxRes);
+         const data = await getData(location, radius, maxRes, dollars);
          navigation.navigate('CreateRoom', {
           restaurants: data,
           partySize: partySize,
@@ -108,7 +165,14 @@ const styles = StyleSheet.create({
         color: 'darkslateblue',
         fontSize: 20,
         textAlign: 'center'
-    }
+    },
+    dollar: {
+      height: 50,
+      width: 50,
+      justifyContent: 'center',
+      // backgroundColor: 'salmon',
+      borderRadius: 10
+    },
 });
 
 export default Search;
