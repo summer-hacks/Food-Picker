@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Button, Image, TextInput, TouchableOpacity, Alert,Keyboard} from 'react-native';
+import * as Location from 'expo-location';
 
 // prob shouldn't be hardcoding api key in here but works for now 
 const api_key = 'rfzFsGmwjhmXJqBMeXgjk8VTwpz8zevZE0xPzGz2YAzDiP15VI5alXOxkDD_GlFneIOTsee7mp5RYx5DVb10CJOlNw58NqlfmwItWr4D5NzfFWge7XEnp8kNrE7UXnYx'
@@ -11,6 +12,8 @@ const Search = ({ route, navigation }) => {
     const { partyName } = route.params;
 
     const [location, setLocation] = useState('')
+    const [latitude, setLatitude] = useState(0)
+    const [longitude, setLongitude] = useState(0)
     const [radius, setRadius] = useState(0)
     const [maxRes, setMaxRes] = useState(0)
     const [dollars, setDollars] = useState([])
@@ -18,6 +21,19 @@ const Search = ({ route, navigation }) => {
     const [$$clicked, set$$] = useState(false)
     const [$$$clicked, set$$$] = useState(false)
     const [$$$$clicked, set$$$$] = useState(false)
+
+    const getCurrLocation = async() => {
+      console.log('clicked')
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+      } else {
+        let location = await Location.getCurrentPositionAsync({});
+        setLongitude(location.coords.longitude)
+        setLatitude(location.coords.latitude)
+        setLocation("Current Location");
+      }
+    }
 
     // helper functions to handle user input
     const onChangeLocation = location => {
@@ -33,6 +49,7 @@ const Search = ({ route, navigation }) => {
     }
 
     const handle$ = () => {
+      Keyboard.dismiss()
       if ($clicked){
         setDollars(prev => prev.filter(ele => ele !== 1))
       } else {
@@ -42,6 +59,7 @@ const Search = ({ route, navigation }) => {
     }
 
     const handle$$ = () => {
+      Keyboard.dismiss()
       if ($$clicked){
         setDollars(prev => prev.filter(ele => ele !== 2))
       } else {
@@ -51,6 +69,7 @@ const Search = ({ route, navigation }) => {
     }
 
     const handle$$$ = () => {
+      Keyboard.dismiss()
       if ($$$clicked){
         setDollars(prev => prev.filter(ele => ele !== 3))
       } else {
@@ -60,6 +79,7 @@ const Search = ({ route, navigation }) => {
     }
 
     const handle$$$$ = () => {
+      Keyboard.dismiss()
       if ($$$$clicked){
         setDollars(prev => prev.filter(ele => ele !== 4))
       } else {
@@ -70,7 +90,7 @@ const Search = ({ route, navigation }) => {
 
     // get restaurant data via Yelp API (this is passed to the CreateRoom component and then stored in firebase)
     // submitting blank form raises error
-    const getData = async(location, radius, maxRes, dollars) => {   
+    const getData = async(location, longitude, latitude, radius, maxRes, dollars) => {   
       const prices = dollars.join(',')
       if (!location || !radius || !maxRes) {
         Alert.alert(
@@ -85,25 +105,45 @@ const Search = ({ route, navigation }) => {
           {cancelable: true},
         );
       } else {
-        const res = await fetch(url + `location=${location}&radius=${radius}&categories=restaurants&limit=${maxRes}&price=${prices}`, {
+        let full_url = ""
+        if (location == "Current Location"){
+          full_url = url + `latitude=${latitude}&longitude=${longitude}&radius=${radius}&categories=restaurants&limit=${maxRes}&price=${prices}`
+        } else {
+          full_url = url + `location=${location}&radius=${radius}&categories=restaurants&limit=${maxRes}&price=${prices}`
+        }
+
+        const res = await fetch(full_url, {
           method: "GET",
           headers: {
             Authorization: "Bearer " + api_key
           }
         })
         const resJson = await res.json();
-        console.log(url + `location=${location}&radius=${radius}&categories=restaurants&limit=${maxRes}&price=${prices}`)
         return resJson.businesses
         }
     }
-    
+    let defaultLocation = ""
+
+    if (longitude && latitude) {
+      defaultLocation = "Current Location"
+    }
+
     return(
     <View style={styles.container}>
-      <TextInput 
-        placeholder="Location" 
-        style={styles.input}
-        onChangeText={onChangeLocation}
-      />
+      <View style={{flexDirection:'row',alignItems:'center', justifyContent:'center'}}>
+        <View style={{flex:4}}>
+          <TextInput
+          placeholder="Location" 
+          style={styles.input}
+          onChangeText={onChangeLocation}
+          defaultValue={defaultLocation}
+          value={location}
+          />
+        </View>
+        <View style={{flex:1}}>
+          <Button title="CL"onPress={getCurrLocation}/>
+        </View>
+      </View>
       <TextInput 
         placeholder="Radius (meters)" 
         keyboardType={'numeric'}
@@ -131,7 +171,7 @@ const Search = ({ route, navigation }) => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.btn} onPress={async() => {
-         const data = await getData(location, radius, maxRes, dollars);
+         const data = await getData(location, longitude, latitude, radius, maxRes, dollars);
          navigation.navigate('CreateRoom', {
           restaurants: data,
           partySize: partySize,
@@ -159,7 +199,7 @@ const styles = StyleSheet.create({
     btn: {
         backgroundColor: '#c2bad8',
         padding: 9,
-        margin: 5
+        marginBottom: 200
     },
     btnText: {
         color: 'darkslateblue',
@@ -170,7 +210,6 @@ const styles = StyleSheet.create({
       height: 50,
       width: 50,
       justifyContent: 'center',
-      // backgroundColor: 'salmon',
       borderRadius: 10
     },
 });
