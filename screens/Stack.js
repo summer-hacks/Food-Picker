@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Card from './Card'
+import Card from '../components/Card'
 
-const Stack = ({cards, cb, nav}) => {
-    return(
-        <View style = {styles.container}>
-            {cards.map(card => <Card key={card.id} restaurant={card} handleChoice={cb} navigation={nav}/>)}            
+const Stack = ({ cards, cb, nav }) => {
+    return (
+        <View style={styles.container}>
+            {cards.map(card => <Card key={card.id} restaurant={card} handleChoice={cb} navigation={nav} />)}
         </View>
-       
+
     )
 }
 const styles = StyleSheet.create({
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-      }
+    }
 })
 
 export default Stack
