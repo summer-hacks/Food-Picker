@@ -10,13 +10,13 @@ import Tinder from "./screens/Tinder";
 import Search from "./screens/Search";
 import HomeScreen from "./screens/HomeScreen";
 import CreateRoom from "./screens/CreateRoom";
-import JoinRoom from "./screens/JoinRoom.js";
+import JoinRoom from "./screens/JoinRoom";
 import MyRooms from "./screens/MyRooms";
-import RoomPage from "./components/RoomPage.js";
+import RoomPage from "./screens/RoomPage";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import { Ionicons } from "@expo/vector-icons";
-import PartyInfo from "./components/PartyInfo.js";
+import PartyInfo from "./screens/PartyInfo.js";
 import StartSignUp from "./screens/SignUp/StartSignUp";
 import NameSignUp from "./screens/SignUp/NameSignUp";
 import EmailSignUp from "./screens/SignUp/EmailSignUp";
@@ -54,7 +54,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="PhoneNumberLogin"
           component={Login}
           options={{ title: "Login", headerShown: false }}
@@ -100,7 +100,7 @@ function App() {
         <Stack.Screen name="LocationSignUp" component={LocationSignUp} />
         <Stack.Screen name="DoneSignUp" component={DoneSignUp} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="SignUp" component={SignUp} /> */}
         <Stack.Screen
           name="Home"
           component={HomeScreen}
