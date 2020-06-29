@@ -3,24 +3,40 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import firebase from '../firebase.js';
 
 // create a room record in firebase containing the party info + restaurant results
-function createRoomRecord(roomId, restaurants, partySize) {
+function createRoomRecord(roomId, restaurants, partySize, partyName, user) {
   firebase.database().ref('rooms/' + roomId).set({
     numCompleted: 0,
     numJoined: 1,
-    partySize: parseInt(partySize)
+    partySize: parseInt(partySize),
+    partyName: partyName
   });
 
   restaurants.forEach(res => {
     firebase.database().ref('rooms/' + roomId + '/restaurants/' + res.id).set({...res, yes: 0, no: 0})
   })
 
-  // would also need to add the room id to the user's data record
+  // add the room id to the user's data record
+  // sometimes int, sometimes string?
+  const userRef = firebase.database().ref('users/' + user.uid)
+  userRef.once('value', snap => {
+    if (snap.val().rooms){
+      userRef.update({
+        rooms: [...snap.val().rooms, roomId]
+      })
+    } else {
+      userRef.update({
+        rooms: [roomId]
+      })
+    }
+  }, error => alert(error));
 }
 
 const CreateRoom = ({ route, navigation }) => {
   // var name must match that of param passed in via route
   const { restaurants } = route.params;
   const { partySize } = route.params;
+  const { partyName } = route.params;
+  const { user } = route.params;
   const [roomId, setRoomId] = useState(0)
 
   useEffect(() => {
@@ -28,7 +44,7 @@ const CreateRoom = ({ route, navigation }) => {
     const newRoomId = Math.floor(Math.random() * 10 ** 6);
 
     // create the firebase room record
-    createRoomRecord(newRoomId, restaurants, partySize)
+    createRoomRecord(newRoomId, restaurants, partySize, partyName, user)
 
     // update state
     setRoomId(newRoomId)
@@ -42,7 +58,8 @@ const CreateRoom = ({ route, navigation }) => {
         <Text>party size: {partySize}</Text>
         <TouchableOpacity style={styles.btn} onPress={async() => {
           navigation.navigate('Tinder', {
-            roomId: roomId
+              roomId: roomId,
+              user: user
             })
           }
         }>
