@@ -1,73 +1,103 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
-import firebase from '../firebase.js';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import firebase from "../firebase.js";
 
-// checks if room exists & is not yet full -- increments number of users joined if both conditions satisfied 
-function joinRoom(roomId, navigation) {
-    firebase.database().ref('rooms/'+ roomId).once("value",snap => {
-        if (snap.exists()){
-          if (snap.val().numJoined < snap.val().partySize) {
-            firebase.database().ref('rooms/' + roomId).update({
-              numJoined: ++snap.val().numJoined
-            });
-            
-            // would also need to add the room id to the user's data record
+// checks if room exists & is not yet full -- increments number of users joined if both conditions satisfied
+function joinRoom(roomId, navigation, user) {
+  firebase
+    .database()
+    .ref("rooms/" + roomId)
+    .once("value", (snap) => {
+      // check if room exists
+      if (snap.exists()) {
+        // check if room is full
+        if (snap.val().numJoined < snap.val().partySize) {
+          const userRef = firebase.database().ref("users/" + user.uid);
+          userRef.once(
+            "value",
+            (snap) => {
+              // check if user already in room
+              if (snap.val().rooms.includes(roomId)) {
+                alert("already in room");
+              } else {
+                // add room to user's collection
+                userRef.update({
+                  rooms: [...snap.val().rooms, roomId],
+                });
 
-            navigation.navigate('Tinder', {
-              roomId: roomId
-            })
-            
-          } else {
-            alert("full room")
-          }
+                // update num joined for room
+                firebase
+                  .database()
+                  .ref("rooms/" + roomId)
+                  .update({
+                    numJoined: ++snap.val().numJoined,
+                  });
+
+                navigation.navigate("Tinder", {
+                  roomId: roomId,
+                  user: user,
+                });
+              }
+            },
+            (error) => alert(error)
+          );
         } else {
-          alert("nonexisting room")
+          alert("full room");
         }
+      } else {
+        alert("nonexisting room");
+      }
     });
 }
 
-const JoinRoom = () => {
-    const navigation = useNavigation();
-    const [roomId, setRoomId] = useState(0)
+const JoinRoom = ({ route, navigation }) => {
+  const [roomId, setRoomId] = useState(0);
+  const { user } = route.params;
 
-    const onChangeRoomId = roomId => {
-        setRoomId(roomId);
-    }
+  const onChangeRoomId = (roomId) => {
+    setRoomId(parseInt(roomId));
+  };
 
-    return(
+  return (
     <View style={styles.header}>
-      <TextInput 
-        placeholder="Room Id" 
+      <TextInput
+        placeholder="Room Id"
         style={styles.input}
+        keyboardType={"numeric"}
         onChangeText={onChangeRoomId}
       />
-      <TouchableOpacity style={styles.btn} onPress={() => joinRoom(roomId, navigation)}>
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => joinRoom(roomId, navigation, user)}
+      >
         <Text style={styles.btnText}>Join</Text>
       </TouchableOpacity>
     </View>
-  )
+  );
+};
 
-  };
-
-  const styles = StyleSheet.create({
-    input: {
-        height: 60,
-        padding: 8,
-        fontSize: 16
-    },
-    btn: {
-        backgroundColor: '#c2bad8',
-        padding: 9,
-        margin: 5
-    },
-    btnText: {
-        color: 'darkslateblue',
-        fontSize: 20,
-        textAlign: 'center'
-    }
+const styles = StyleSheet.create({
+  input: {
+    height: 60,
+    padding: 8,
+    fontSize: 16,
+  },
+  btn: {
+    backgroundColor: "#c2bad8",
+    padding: 9,
+    margin: 5,
+  },
+  btnText: {
+    color: "darkslateblue",
+    fontSize: 20,
+    textAlign: "center",
+  },
 });
 
 export default JoinRoom;
-
-
