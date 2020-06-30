@@ -79,13 +79,8 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-<<<<<<< HEAD
         {/* <Stack.Screen
           name="PhoneNumberLogin"
-=======
-        <Stack.Screen
-          name='PhoneNumberLogin'
->>>>>>> 330c2bdd2943dcbdcd1544c5d27e1eb63f5677da
           component={Login}
           options={{ title: 'Login', headerShown: false }}
         />
@@ -179,19 +174,12 @@ function App() {
             headerTitle: null,
           }}
         />
-<<<<<<< HEAD
         <Stack.Screen name="BirthdaySignUp" component={BirthdaySignUp} />
         <Stack.Screen name="EmailSignUp" component={EmailSignUp} />
         <Stack.Screen name="LocationSignUp" component={LocationSignUp} />
         <Stack.Screen name="DoneSignUp" component={DoneSignUp} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} /> */}
-=======
-        <Stack.Screen name='DoneSignUp' component={DoneSignUp} />
-
-        <Stack.Screen name='Login' component={Login} />
-        <Stack.Screen name='SignUp' component={SignUp} />
->>>>>>> 330c2bdd2943dcbdcd1544c5d27e1eb63f5677da
         <Stack.Screen
           name='Home'
           component={HomeScreen}
