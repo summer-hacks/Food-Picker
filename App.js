@@ -165,6 +165,8 @@ function App() {
         <Stack.Screen name="Tinder" component={Tinder} />
         <Stack.Screen name="JoinRoom" component={JoinRoom} />
         <Stack.Screen name="CreateRoom" component={CreateRoom} />
+        <Stack.Screen name="PartyInfo" component={PartyInfo} />
+        <Stack.Screen name="RoomPage" component={RoomPage} />
         <Stack.Screen name="MyRooms" component={MyRooms} />
       </Stack.Navigator>
     </NavigationContainer>
