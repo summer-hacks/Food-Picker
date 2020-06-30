@@ -99,12 +99,11 @@ const styles = StyleSheet.create({
   textInput: {
     alignSelf: 'stretch',
     padding: 5,
-    fontFamily: 'karla-bold',
+    fontFamily: 'karla-regular',
     fontSize: 35,
     borderBottomColor: '#000',
     margin: 5,
     marginBottom: 20,
-    // width: deviceWidth * 0.75,
     borderBottomWidth: 3,
     bottom: '15%',
   },

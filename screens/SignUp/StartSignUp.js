@@ -15,10 +15,18 @@ const StartSignUp = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.bigContainer}>
+
+
       <View style={styles.container}>
         <Text style={styles.normTxt}>Looks like you're new!</Text>
         <Text style={styles.normTxt}>Make an account to start a party!</Text>
+
+        <View style={{ height: '1%', width: '10%', padding: 10, backgroundColor: global.yellow }} />
+
+
         <Text style={styles.shadowTxt}>party!</Text>
+
+
       </View>
       <TouchableOpacity
         style={styles.btn}
@@ -26,7 +34,7 @@ const StartSignUp = () => {
       >
         <Text style={styles.btnTxt}>Sign Up</Text>
       </TouchableOpacity>
-    </View>
+    </View >
   );
 };
 
@@ -67,14 +75,8 @@ const styles = StyleSheet.create({
   shadowTxt: {
     fontFamily: "karla-bold",
     fontSize: 40,
-    shadowColor: global.yellow,
-    shadowOffset: {
-      width: 12,
-      height: 12,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 10,
-    elevation: 10,
+    // position: 'absolute'
+
   },
   normTxt: {
     fontFamily: "karla-bold",
