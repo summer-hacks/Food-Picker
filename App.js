@@ -14,6 +14,7 @@ import CreateRoom from "./screens/CreateRoom";
 import JoinRoom from "./screens/JoinRoom";
 import MyRooms from "./screens/MyRooms";
 import RoomPage from "./screens/RoomPage";
+import CardDetail from "./screens/CardDetail";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import { Ionicons } from "@expo/vector-icons";
@@ -167,6 +168,7 @@ function App() {
         <Stack.Screen name="CreateRoom" component={CreateRoom} />
         <Stack.Screen name="PartyInfo" component={PartyInfo} />
         <Stack.Screen name="RoomPage" component={RoomPage} />
+        <Stack.Screen name="CardDetail" component={CardDetail} />
         <Stack.Screen name="MyRooms" component={MyRooms} />
       </Stack.Navigator>
     </NavigationContainer>
