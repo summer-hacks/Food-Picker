@@ -9,15 +9,16 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {connect} from 'react-redux';
 
-const LocationSignUp = () => {
-  const [userInfo, setUserInfo] = useState({
-    email: '',
-    password: '',
-    fullName: '',
-    phoneNum: '',
-    errorMessage: null,
-  });
+const LocationSignUp = ({currentUser}) => {
+  onst [location, setLocation] = useState('');
+
+  const handleLogin = () => {
+    currentUser.location = location;
+    navigation.navigate("EmailSignUp");
+  };
+
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -31,8 +32,7 @@ const LocationSignUp = () => {
       <Text style={styles.normTxt}>Where do you live?</Text>
       {/* Map??? lol */}
       <View style={styles.buttonView}>
-        {/* <TouchableOpacity onPress={() => navigation.navigate('')}> */}
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
             <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
           </View>
@@ -107,4 +107,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LocationSignUp;
+function mapStateToProps(state) {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
+
+export default connect(mapStateToProps)(LocationSignUp);e

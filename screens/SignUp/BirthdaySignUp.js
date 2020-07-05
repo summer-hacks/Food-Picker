@@ -11,12 +11,18 @@ import {
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import {connect} from 'react-redux';
 
-const BirthdaySignUp = () => {
+const BirthdaySignUp = ({currentUser}) => {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
   const [color, setColor] = useState('#d3d3d3');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const handleLogin = () => {
+    currentUser.birthday = date;
+    navigation.navigate("LocationSignUp");
+  };
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -117,8 +123,7 @@ const BirthdaySignUp = () => {
         }}
       />
       <View style={styles.buttonView}>
-        {/* <TouchableOpacity onPress={handleLogin}> */}
-        <TouchableOpacity onPress={() => navigation.navigate('EmailSignUp')}>
+        <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
             <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
           </View>
@@ -180,4 +185,11 @@ const styles = StyleSheet.create({
     top: '-100%',
   },
 });
-export default BirthdaySignUp;
+
+function mapStateToProps(state) {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(BirthdaySignUp);

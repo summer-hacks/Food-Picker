@@ -15,7 +15,6 @@ import JoinRoom from "./screens/JoinRoom";
 import MyRooms from "./screens/MyRooms";
 import RoomPage from "./screens/RoomPage";
 import Login from "./screens/Login";
-import SignUp from "./screens/SignUp";
 import { Ionicons } from "@expo/vector-icons";
 import PartyInfo from "./screens/PartyInfo.js";
 import StartSignUp from "./screens/SignUp/StartSignUp";
@@ -27,21 +26,28 @@ import BirthdaySignUp from "./screens/SignUp/BirthdaySignUp";
 import "./global.js";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+// import reduxThunk from "redux-thunk";
+import reducer from './src/reducers/reducer';
 
-const fetchFonts = () => {
-  return Font.loadAsync({
-    "karla-bold": require("./assets/fonts/Karla-Bold.ttf"),
-    "karla-italic": require("./assets/fonts/Karla-Italic.ttf"),
-    "karla-bolditalic": require("./assets/fonts/Karla-BoldItalic.ttf"),
-    "karla-regular": require("./assets/fonts/Karla-Regular.ttf"),
-  });
-};
+const store = createStore(reducer);
 
-// set up navigation
-const Stack = createStackNavigator();
 
-function App() {
+const App = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
+
+  const fetchFonts = () => {
+    return Font.loadAsync({
+      "karla-bold": require("./assets/fonts/Karla-Bold.ttf"),
+      "karla-italic": require("./assets/fonts/Karla-Italic.ttf"),
+      "karla-bolditalic": require("./assets/fonts/Karla-BoldItalic.ttf"),
+      "karla-regular": require("./assets/fonts/Karla-Regular.ttf"),
+    });
+  };
+  
+  // set up navigation
+  const Stack = createStackNavigator();
 
   if (!dataLoaded) {
     return (
@@ -53,9 +59,10 @@ function App() {
   }
 
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="PhoneNumberLogin"
           component={Login}
           options={{ title: 'Login', headerShown: false }}
@@ -155,7 +162,7 @@ function App() {
         <Stack.Screen name="LocationSignUp" component={LocationSignUp} />
         <Stack.Screen name="DoneSignUp" component={DoneSignUp} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} /> */}
+        <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen
           name="Home"
           component={HomeScreen}
@@ -170,6 +177,7 @@ function App() {
         <Stack.Screen name="MyRooms" component={MyRooms} />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 
