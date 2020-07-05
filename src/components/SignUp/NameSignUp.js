@@ -9,17 +9,19 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useSelector, useDispatch } from 'react-redux';
+import {connect} from 'react-redux';
 
-const StartSignUp = () => {
+const NameSignUp = ({currentUser, actions}) => {
   const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
-    fullName: "",
-    phoneNum: "",
-    errorMessage: null,
+    firstName: '',
+    lastName: ''
   });
-
   const navigation = useNavigation();
+  const handleLogin = () => {
+    currentUser.name = userInfo.firstName + ' ' + userInfo.lastName;
+    navigation.navigate("BirthdaySignUp");
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.step}>Step 1 of 4</Text>
@@ -33,7 +35,7 @@ const StartSignUp = () => {
         placeholder="First Name"
         autoCapitalize="none"
         onChangeText={(firstName) =>
-          setUserInfo({ ...userInfo, lastName: firstName })
+          setUserInfo({ ...userInfo, firstName: firstName })
         }
         value={userInfo.firstName}
         style={styles.textInput}
@@ -48,17 +50,12 @@ const StartSignUp = () => {
         style={styles.textInput}
       />
       <View style={styles.buttonView}>
-        {/* <TouchableOpacity onPress={handleLogin}> */}
-        <TouchableOpacity onPress={() => navigation.navigate("BirthdaySignUp")}>
+        <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
             <Icon style={{ color: "white" }} name="chevron-right" size={35} />
           </View>
         </TouchableOpacity>
       </View>
-      {/* <Button
-        title="Sign Up"
-        onPress={() => navigation.navigate("BirthdaySignUp")}
-      ></Button> */}
     </View>
   );
 };
@@ -121,4 +118,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StartSignUp;
+function mapStateToProps(state) {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(NameSignUp);

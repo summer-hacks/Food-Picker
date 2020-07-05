@@ -8,15 +8,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import {connect} from 'react-redux';
 
-const LocationSignUp = () => {
-  const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
-    fullName: "",
-    phoneNum: "",
-    errorMessage: null,
-  });
+const LocationSignUp = ({currentUser}) => {
+  const [location, setLocation] = useState('');
+  const handleLogin = () => {
+    currentUser.location = location;
+    navigation.navigate("EmailSignUp");
+  };
   const navigation = useNavigation();
   return (
     <View>
@@ -25,10 +24,18 @@ const LocationSignUp = () => {
       {/* Map??? lol */}
       <Button
         title="Sign Up"
-        onPress={() => navigation.navigate("DoneSignUp")}
+        onPress={handleLogin}
       ></Button>
     </View>
   );
 };
 
-export default LocationSignUp;
+function mapStateToProps(state) {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
+
+export default connect(mapStateToProps)(LocationSignUp);
+

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 // import ".../global";
+import {connect} from 'react-redux';
 
 import {
   StyleSheet,
@@ -11,7 +12,8 @@ import {
   Button,
 } from "react-native";
 
-const StartSignUp = () => {
+const StartSignUp = ({clearCurrentUser}) => {
+  clearCurrentUser();
   const navigation = useNavigation();
   return (
     <View style={styles.bigContainer}>
@@ -82,4 +84,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StartSignUp;
+
+function mapStateToProps(state) {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+      clearCurrentUser: () => dispatch({ type: 'CLEAR_CURRENT_USER' })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StartSignUp);
+

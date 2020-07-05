@@ -8,15 +8,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import {connect} from 'react-redux';
 
-const DoneSignUp = () => {
-  const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
-    fullName: "",
-    phoneNum: "",
-    errorMessage: null,
-  });
+
+const DoneSignUp = ({currentUser}) => {
+  console.log('done', currentUser);
 
   const navigation = useNavigation();
   return (
@@ -31,4 +27,13 @@ const DoneSignUp = () => {
   );
 };
 
-export default DoneSignUp;
+function mapStateToProps(state) {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(DoneSignUp);
+
+
+// export default DoneSignUp;
