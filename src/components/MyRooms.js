@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, FlatList, Text, View, TouchableOpacity} from 'react-native';
-import firebase from '../firebase.js';
+import firebase from '../../firebase.js';
 
 function MyRooms({route, navigation}) {
     const {user} = route.params

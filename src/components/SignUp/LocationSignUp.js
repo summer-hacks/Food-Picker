@@ -9,36 +9,30 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {connect} from 'react-redux';
 
-const EmailSignUp = () => {
-  const [userInfo, setUserInfo] = useState({
-    email: '',
-    password: '',
-    fullName: '',
-    phoneNum: '',
-    errorMessage: null,
-  });
+const LocationSignUp = ({currentUser}) => {
+  onst [location, setLocation] = useState('');
+
+  const handleLogin = () => {
+    currentUser.location = location;
+    navigation.navigate("EmailSignUp");
+  };
+
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Text style={styles.step}>Step 3 of 4</Text>
-      <Text style={styles.stepSubscript}>(almost there. . .)</Text>
+      <Text style={styles.step}>Step 4 of 4</Text>
+      <Text style={styles.stepSubscript}>(last step!)</Text>
       <View>
         <View style={styles.icon}>
-          <Icon color='black' name='email-outline' size={25} />
+          <Icon color='black' name='map-marker-outline' size={25} />
         </View>
       </View>
-      <Text style={styles.normTxt}>What's your email?</Text>
-      <TextInput
-        placeholder='Email'
-        autoCapitalize='none'
-        style={styles.textInput}
-        onChangeText={(email) => setUserInfo({ ...userInfo, email: email })}
-        value={userInfo.email}
-      />
+      <Text style={styles.normTxt}>Where do you live?</Text>
+      {/* Map??? lol */}
       <View style={styles.buttonView}>
-        {/* <TouchableOpacity onPress={handleLogin}> */}
-        <TouchableOpacity onPress={() => navigation.navigate('LocationSignUp')}>
+        <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
             <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
           </View>
@@ -113,4 +107,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EmailSignUp;
+function mapStateToProps(state) {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
+
+export default connect(mapStateToProps)(LocationSignUp);

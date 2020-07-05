@@ -11,4 +11,9 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database().ref();
+export const roomsRef = db.child("rooms");
+export const usersRef = db.child("users")
+
 export default firebase;

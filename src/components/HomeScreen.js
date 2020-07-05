@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, View, Text } from "react-native";
-import firebase from "../firebase.js";
+import firebase from "../../firebase.js";
 
 // main menu assuming the user has already logged in
 function HomeScreen({ navigation }) {

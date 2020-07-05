@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Card from '../components/Card'
+import Card from './Card'
 
 const Stack = ({ cards, cb, nav }) => {
     return (

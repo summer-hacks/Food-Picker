@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import firebase from '../firebase.js';
+import firebase from '../../firebase.js';
 
 // create a room record in firebase containing the party info + restaurant results
 function createRoomRecord(roomId, restaurants, partySize, partyName, user) {

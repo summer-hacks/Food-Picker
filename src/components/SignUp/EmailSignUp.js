@@ -9,30 +9,70 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import firebase from "../../../firebase";
+import {connect} from 'react-redux';
 
-const LocationSignUp = () => {
-  const [userInfo, setUserInfo] = useState({
-    email: '',
-    password: '',
-    fullName: '',
-    phoneNum: '',
-    errorMessage: null,
-  });
+
+const EmailSignUp = ({currentUser}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const handleLogin = () => {
+    currentUser.email = email;
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        const userID = result.user.uid;
+        var item = {
+          name: currentUser.name,
+          email: email,
+          //phoneNum: currentUser.phoneNum,
+        };
+        firebase
+          .database()
+          .ref("users/" + userID)
+          .set(item);
+        return result.user.updateProfile({
+          displayName: currentUser.name,
+        });
+      })
+      .then((result) => {
+        navigation.navigate("DoneSignUp");
+      })
+      .catch((error) => this.setState({ errorMessage: error.message }));
+  };
+
   const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.step}>Step 4 of 4</Text>
-      <Text style={styles.stepSubscript}>(last step!)</Text>
+      <Text style={styles.step}>Step 3 of 4</Text>
+      <Text style={styles.stepSubscript}>(almost there. . .)</Text>
       <View>
         <View style={styles.icon}>
-          <Icon color='black' name='map-marker-outline' size={25} />
+          <Icon color='black' name='email-outline' size={25} />
         </View>
       </View>
-      <Text style={styles.normTxt}>Where do you live?</Text>
-      {/* Map??? lol */}
+      <Text style={styles.normTxt}>What's your email?</Text>
+      <TextInput
+        placeholder='Email'
+        autoCapitalize='none'
+        style={styles.textInput}
+        onChangeText={(email) => setEmail(email)}
+        value={userInfo.email}
+      />
+      <Text>Enter your password</Text>
+      <TextInput
+          secureTextEntry
+          placeholder="Password"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(password) => setPassword(password)}
+          value={password}
+        />
       <View style={styles.buttonView}>
-        {/* <TouchableOpacity onPress={() => navigation.navigate('')}> */}
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
             <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
           </View>
@@ -107,4 +147,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LocationSignUp;
+function mapStateToProps(state) {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(EmailSignUp);

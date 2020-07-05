@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-// import ".../global";
+import {connect} from 'react-redux';
 
 import {
   StyleSheet,
@@ -11,22 +11,16 @@ import {
   Button,
 } from "react-native";
 
-const StartSignUp = () => {
+const StartSignUp = ({clearCurrentUser}) => {
+  clearCurrentUser();
   const navigation = useNavigation();
   return (
     <View style={styles.bigContainer}>
-
-
       <View style={styles.container}>
         <Text style={styles.normTxt}>Looks like you're new!</Text>
         <Text style={styles.normTxt}>Make an account to start a party!</Text>
-
         <View style={{ height: '1%', width: '10%', padding: 10, backgroundColor: global.yellow }} />
-
-
         <Text style={styles.shadowTxt}>party!</Text>
-
-
       </View>
       <TouchableOpacity
         style={styles.btn}
@@ -84,4 +78,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StartSignUp;
+function mapStateToProps(state) {
+  return {
+      currentUser: state.currentUser
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+      clearCurrentUser: () => dispatch({ type: 'CLEAR_CURRENT_USER' })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StartSignUp);
+
