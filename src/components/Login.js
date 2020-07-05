@@ -7,7 +7,7 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import firebase from "../firebase";
+import firebase from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import "./../../global";

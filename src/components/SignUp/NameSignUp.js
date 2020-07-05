@@ -11,37 +11,53 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 
-const LocationSignUp = ({currentUser}) => {
-  onst [location, setLocation] = useState('');
-
+const NameSignUp = () => {
+  const [userInfo, setUserInfo] = useState({
+    firstName: '',
+    lastName: ''
+  });
   const handleLogin = () => {
-    currentUser.location = location;
-    navigation.navigate("EmailSignUp");
+    currentUser.name = userInfo.firstName + ' ' + userInfo.lastName;
+    navigation.navigate("BirthdaySignUp");
   };
-
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Text style={styles.step}>Step 4 of 4</Text>
-      <Text style={styles.stepSubscript}>(last step!)</Text>
+      <Text style={styles.step}>Step 1 of 4</Text>
       <View>
         <View style={styles.icon}>
-          <Icon color='black' name='map-marker-outline' size={25} />
+          <Icon color="black" name="account-outline" size={25} />
         </View>
       </View>
-      <Text style={styles.normTxt}>Where do you live?</Text>
-      {/* Map??? lol */}
+      <Text style={styles.normTxt}>What's your name?</Text>
+      <TextInput
+        placeholder="First Name"
+        autoCapitalize="none"
+        onChangeText={(firstName) =>
+          setUserInfo({ ...userInfo, firstName: firstName })
+        }
+        value={userInfo.firstName}
+        style={styles.textInput}
+      />
+      <TextInput
+        placeholder="Last Name"
+        autoCapitalize="none"
+        onChangeText={(lastName) =>
+          setUserInfo({ ...userInfo, lastName: lastName })
+        }
+        value={userInfo.lastName}
+        style={styles.textInput}
+      />
       <View style={styles.buttonView}>
         <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
-            <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
+            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
           </View>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -65,10 +81,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  normTxt: {
-    fontFamily: 'karla-bold',
-    fontSize: 40,
-    bottom: '15%',
+  icon: {
+    width: 44,
+    height: 44,
+    backgroundColor: 'white',
+    borderWidth: 3,
+    borderColor: global.orange,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: '50%',
   },
   textInput: {
     alignSelf: 'stretch',
@@ -79,31 +101,18 @@ const styles = StyleSheet.create({
     margin: 5,
     marginBottom: 20,
     borderBottomWidth: 3,
-    bottom: '20%',
+    bottom: '15%',
+  },
+  normTxt: {
+    fontFamily: 'karla-bold',
+    fontSize: 40,
+    marginBottom: '40%',
   },
   step: {
     alignSelf: 'center',
     fontSize: 24,
     fontFamily: 'karla-bold',
-    marginTop: '0%',
-  },
-  stepSubscript: {
-    alignSelf: 'center',
-    fontSize: 16,
-    fontFamily: 'karla-bold',
-    position: 'absolute',
-    marginTop: '10%',
-  },
-  icon: {
-    width: 44,
-    height: 44,
-    backgroundColor: 'white',
-    borderWidth: 3,
-    borderColor: global.orange,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: '-100%',
+    marginTop: '5%',
   },
 });
 
@@ -113,5 +122,4 @@ function mapStateToProps(state) {
   }
 }
 
-
-export default connect(mapStateToProps)(LocationSignUp);e
+export default connect(mapStateToProps)(NameSignUp);

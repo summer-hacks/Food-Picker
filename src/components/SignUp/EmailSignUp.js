@@ -9,14 +9,13 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import firebase from "../../firebase";
+import firebase from "../../../firebase";
 import {connect} from 'react-redux';
 
 
 const EmailSignUp = ({currentUser}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigation = useNavigation();
   
   const handleLogin = () => {
     currentUser.email = email;
@@ -60,7 +59,7 @@ const EmailSignUp = ({currentUser}) => {
         placeholder='Email'
         autoCapitalize='none'
         style={styles.textInput}
-        onChangeText={(email) => setUserInfo({ ...userInfo, email: email })}
+        onChangeText={(email) => setEmail(email)}
         value={userInfo.email}
       />
       <Text>Enter your password</Text>

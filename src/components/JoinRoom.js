@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import firebase from "../firebase.js";
+import firebase from "../../firebase.js";
 
 // checks if room exists & is not yet full -- increments number of users joined if both conditions satisfied
 function joinRoom(roomId, navigation, user) {

@@ -6,7 +6,7 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import firebase from "../firebase.js";
+import firebase from "../../firebase.js";
 
 function RoomPage({ route, navigation }) {
   const { roomId } = route.params;
