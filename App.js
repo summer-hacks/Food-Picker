@@ -157,10 +157,11 @@ const App = () => {
             headerTitle: null,
           }}
         />
+        <Stack.Screen name="DoneSignUp" component={DoneSignUp} />
         {/* <Stack.Screen name="BirthdaySignUp" component={BirthdaySignUp} />
         <Stack.Screen name="EmailSignUp" component={EmailSignUp} />
         <Stack.Screen name="LocationSignUp" component={LocationSignUp} />
-        <Stack.Screen name="DoneSignUp" component={DoneSignUp} />
+        
         <Stack.Screen name="Login" component={Login} /> */}
         <Stack.Screen
           name="Home"

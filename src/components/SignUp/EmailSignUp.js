@@ -16,6 +16,8 @@ import {connect} from 'react-redux';
 const EmailSignUp = ({currentUser}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+  const [errorMessage, setErrorMessage] = useState(null);
   
   const handleLogin = () => {
     currentUser.email = email;
@@ -40,15 +42,16 @@ const EmailSignUp = ({currentUser}) => {
       .then((result) => {
         navigation.navigate("DoneSignUp");
       })
-      .catch((error) => this.setState({ errorMessage: error.message }));
+      .catch((error) => setErrorMessage(error.message));
   };
-
-  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <Text style={styles.step}>Step 3 of 4</Text>
-      <Text style={styles.stepSubscript}>(almost there. . .)</Text>
+      <Text style={styles.stepSubscript}>(last step!)</Text>
+      {errorMessage && (
+          <Text style={{ color: "red" }}>{errorMessage}</Text>
+        )}
       <View>
         <View style={styles.icon}>
           <Icon color='black' name='email-outline' size={25} />
@@ -60,7 +63,7 @@ const EmailSignUp = ({currentUser}) => {
         autoCapitalize='none'
         style={styles.textInput}
         onChangeText={(email) => setEmail(email)}
-        value={userInfo.email}
+        value={email}
       />
       <Text>Enter your password</Text>
       <TextInput
