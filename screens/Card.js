@@ -5,6 +5,7 @@ import { Overlay } from "react-native-elements";
 import { Dimensions } from "react-native";
 const screenWidth = Math.round(Dimensions.get("window").width);
 const screenHeight = Math.round(Dimensions.get("window").height);
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
   const [visibility, setVisibility] = useState(false);
@@ -15,28 +16,39 @@ const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
         overlayBackgroundColor="red"
         fullScreen={true}
       >
-        <View>
-          <Text>{restaurant.name}</Text>
+        <View style={styles.bigContainer}>
           <Image
-            style={{ width: 350, height: 300 }}
+            style={{ width: screenWidth, height: 300 }}
             source={{
               uri: restaurant.image_url,
             }}
           />
-          <Button
-            style={styles.text}
-            title="close overlay"
-            onPress={() => {
-              setVisibility(false);
-              // navigation.navigate("CardDetail", {
-              //   roomId: roomId,
-              //   resId: restaurant.id,
-              // });
-            }}
-          />
-          <Text>Rating: {restaurant.rating}</Text>
-          <Text>Price: {restaurant.price}</Text>
-          <Text>Address: {restaurant.location.display_address}</Text>
+          <View style={{}}>
+            <TouchableOpacity
+              style={{
+                width: screenWidth,
+                backgroundColor: "salmon",
+                height: 30,
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                setVisibility(false);
+              }}
+            >
+              <Text style={{ textAlign: "center", color: "white" }}>Close</Text>
+            </TouchableOpacity>
+            <Text style={{ marginLeft: 20, fontSize: 30 }}>
+              {restaurant.name}
+            </Text>
+            <Text>
+              {restaurant.rating} stars with {restaurant.review_count} reviews
+            </Text>
+            <Text>Price: {restaurant.price}</Text>
+            <Text>Address: {restaurant.location.display_address}</Text>
+            <Text>
+              Categories: {restaurant.categories.map((cat) => cat.title)}
+            </Text>
+          </View>
         </View>
       </Overlay>
       <View style={styles.container}>
@@ -53,6 +65,7 @@ const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
           title={restaurant.name}
           onPress={() => {
             setVisibility(true);
+            console.log(restaurant);
             // navigation.navigate("CardDetail", {
             //   roomId: roomId,
             //   resId: restaurant.id,
@@ -85,9 +98,11 @@ const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
 const styles = StyleSheet.create({
   bigContainer: {
     justifyContent: "flex-start",
-    alignItems: "center",
+    alignItems: "flex-start",
     flex: 1,
     position: "absolute",
+    // width: screenWidth,
+    // height: screenHeight,
   },
   container: {
     justifyContent: "center",
@@ -97,6 +112,7 @@ const styles = StyleSheet.create({
     height: 400,
     position: "absolute",
     backgroundColor: "white",
+    borderRadius: 30,
   },
   btnText: {
     fontSize: 20,

@@ -52,7 +52,8 @@ const Search = ({ route, navigation }) => {
   };
 
   const onChangeRadius = (radius) => {
-    setRadius(radius);
+    console.log(Math.round(radius * 1609.34));
+    setRadius(Math.round(radius * 1609.34));
   };
 
   const onChangeMaxRes = (maxRes) => {
@@ -173,7 +174,7 @@ const Search = ({ route, navigation }) => {
         </View>
       </View>
       <TextInput
-        placeholder="Radius (meters)"
+        placeholder="Radius (miles)"
         keyboardType={"numeric"}
         style={styles.input}
         onChangeText={onChangeRadius}
