@@ -12,18 +12,19 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 
 const LocationSignUp = ({currentUser}) => {
-  onst [location, setLocation] = useState('');
+  const [location, setLocation] = useState('');
+  const navigation = useNavigation();
 
   const handleLogin = () => {
     currentUser.location = location;
     navigation.navigate("EmailSignUp");
   };
 
-  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.step}>Step 4 of 4</Text>
-      <Text style={styles.stepSubscript}>(last step!)</Text>
+      <Text style={styles.stepSubscript}>(almost there. . .)</Text>
       <View>
         <View style={styles.icon}>
           <Icon color='black' name='map-marker-outline' size={25} />
@@ -31,6 +32,13 @@ const LocationSignUp = ({currentUser}) => {
       </View>
       <Text style={styles.normTxt}>Where do you live?</Text>
       {/* Map??? lol */}
+      <TextInput
+        placeholder="Location"
+        autoCapitalize="none"
+        onChangeText={(loc) => setLocation(loc)}
+        value={location}
+        style={styles.textInput}
+      />
       <View style={styles.buttonView}>
         <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>

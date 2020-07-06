@@ -11,16 +11,17 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 
-const NameSignUp = () => {
+const NameSignUp = ({currentUser}) => {
   const [userInfo, setUserInfo] = useState({
     firstName: '',
     lastName: ''
   });
+  const navigation = useNavigation();
   const handleLogin = () => {
     currentUser.name = userInfo.firstName + ' ' + userInfo.lastName;
     navigation.navigate("BirthdaySignUp");
   };
-  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.step}>Step 1 of 4</Text>
