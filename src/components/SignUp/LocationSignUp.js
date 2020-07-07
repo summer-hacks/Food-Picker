@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,31 +6,81 @@ import {
   View,
   Button,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import MapView, { AnimatedRegion, PROVIDER_GOOGLE } from 'react-native-maps';
+import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location';
 
-const LocationSignUp = ({currentUser}) => {
-  onst [location, setLocation] = useState('');
+const initialState = {
+  latitude: 0,
+  longitude: 0,
+  latitudeDelta: 0.0922,
+  longitudeDelta: 0.0421,
+};
+
+const LocationSignUp = ({ currentUser }) => {
+  const [currentPosition, setCurrentPosition] = useState(initialState);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        alert(JSON.stringify(position));
+        const { latitude, longitude } = position.coords;
+        setCurrentPosition({
+          ...currentPosition,
+          latitude,
+          longitude,
+        });
+      },
+      (error) => alert(error.message),
+      { timeout: 20000, maximumAge: 1000 }
+    );
+  }, []);
 
   const handleLogin = () => {
     currentUser.location = location;
-    navigation.navigate("EmailSignUp");
+    navigation.navigate('EmailSignUp');
   };
 
+  // async function getCurrentLocation() {
+  //   const { status, permissions } = await Permissions.askAsync(
+  //     Permissions.LOCATION
+  //   );
+  //   if (status === 'granted') {
+  //     console.log('GRANTED');
+  //     const myLocation = await Location.getCurrentPositionAsync();
+  //     setLocation(myLocation);
+  //   } else {
+  //     throw new Error('Location permission not granted');
+  //   }
+  // }
+
   const navigation = useNavigation();
-  return (
+  return currentPosition.latitude ? (
     <View style={styles.container}>
       <Text style={styles.step}>Step 4 of 4</Text>
       <Text style={styles.stepSubscript}>(last step!)</Text>
+
       <View>
         <View style={styles.icon}>
           <Icon color='black' name='map-marker-outline' size={25} />
         </View>
       </View>
       <Text style={styles.normTxt}>Where do you live?</Text>
-      {/* Map??? lol */}
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        style={{
+          alignSelf: 'center',
+          width: global.deviceWidth,
+          height: global.deviceHeight * 0.4,
+        }}
+        initialRegion={currentPosition}
+        showsUserLocation
+      ></MapView>
       <View style={styles.buttonView}>
         <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
@@ -39,6 +89,8 @@ const LocationSignUp = ({currentUser}) => {
         </TouchableOpacity>
       </View>
     </View>
+  ) : (
+    <ActivityIndicator style={{ flex: 1 }} animating size='large' />
   );
 };
 
@@ -109,9 +161,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-      currentUser: state.currentUser
-  }
+    currentUser: state.currentUser,
+  };
 }
-
 
 export default connect(mapStateToProps)(LocationSignUp);
