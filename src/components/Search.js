@@ -52,7 +52,7 @@ const Search = ({ route, navigation }) => {
   };
 
   const onChangeRadius = (radius) => {
-    setRadius(radius);
+    setRadius(Math.round(radius * 1609.34));
   };
 
   const onChangeMaxRes = (maxRes) => {
@@ -141,7 +141,26 @@ const Search = ({ route, navigation }) => {
         },
       });
       const resJson = await res.json();
-      return resJson.businesses;
+
+      const updateRes = async (resJson) => {
+        return Promise.all(
+          resJson.businesses.map(async (business) => {
+            const res = await fetch(
+              `https://api.yelp.com/v3/businesses/${business.id}`,
+              {
+                method: "GET",
+                headers: {
+                  Authorization: "Bearer " + api_key,
+                },
+              }
+            );
+            const resJson = await res.json();
+            return { ...business, photos: resJson.photos };
+          })
+        );
+      };
+      const restaurants = await updateRes(resJson);
+      return restaurants;
     }
   };
   let defaultLocation = "";
@@ -173,7 +192,7 @@ const Search = ({ route, navigation }) => {
         </View>
       </View>
       <TextInput
-        placeholder="Radius (meters)"
+        placeholder="Radius (miles)"
         keyboardType={"numeric"}
         style={styles.input}
         onChangeText={onChangeRadius}

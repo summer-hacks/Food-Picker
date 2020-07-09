@@ -7,14 +7,15 @@ import {
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import Tinder from "./src/components/Tinder";
-import Search from "./src/components/Search";
-import HomeScreen from "./src/components/HomeScreen";
-import CreateRoom from "./src/components/CreateRoom";
-import JoinRoom from "./src/components/JoinRoom";
-import MyRooms from "./src/components/MyRooms";
-import RoomPage from "./src/components/RoomPage";
-import Login from "./src/components/Login";
+import Tinder from "./screens/Tinder";
+import Search from "./screens/Search";
+import HomeScreen from "./screens/HomeScreen";
+import CreateRoom from "./screens/CreateRoom";
+import JoinRoom from "./screens/JoinRoom";
+import MyRooms from "./screens/MyRooms";
+import RoomPage from "./screens/RoomPage";
+import CardDetail from "./screens/CardDetail";
+import Login from "./screens/Login";
 import { Ionicons } from "@expo/vector-icons";
 import PartyInfo from "./src/components/PartyInfo";
 import StartSignUp from "./src/components/SignUp/StartSignUp";
@@ -174,6 +175,7 @@ const App = () => {
         <Stack.Screen name="CreateRoom" component={CreateRoom} />
         <Stack.Screen name="PartyInfo" component={PartyInfo} />
         <Stack.Screen name="RoomPage" component={RoomPage} />
+        <Stack.Screen name="CardDetail" component={CardDetail} />
         <Stack.Screen name="MyRooms" component={MyRooms} />
       </Stack.Navigator>
     </NavigationContainer>
