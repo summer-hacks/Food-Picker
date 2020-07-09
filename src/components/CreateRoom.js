@@ -3,7 +3,24 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import firebase from "../../firebase.js";
 
 // create a room record in firebase containing the party info + restaurant results
-function createRoomRecord(roomId, restaurants, partySize, partyName, user) {
+async function pushRestaurants(roomId, restaurants) {
+  console.log("pushing restaurants");
+  console.log(restaurants.length);
+  for (res of restaurants) {
+    await firebase
+      .database()
+      .ref("rooms/" + roomId + "/restaurants/" + res.id)
+      .set({ ...res, yes: 0, no: 0 });
+  }
+}
+
+async function createRoomRecord(
+  roomId,
+  restaurants,
+  partySize,
+  partyName,
+  user
+) {
   firebase
     .database()
     .ref("rooms/" + roomId)
@@ -14,16 +31,12 @@ function createRoomRecord(roomId, restaurants, partySize, partyName, user) {
       partyName: partyName,
     });
 
-  restaurants.forEach((res) => {
-    firebase
-      .database()
-      .ref("rooms/" + roomId + "/restaurants/" + res.id)
-      .set({ ...res, yes: 0, no: 0 });
-  });
+  await pushRestaurants(roomId, restaurants);
 
   // add the room id to the user's data record
   // sometimes int, sometimes string?
   const userRef = firebase.database().ref("users/" + user.uid);
+
   userRef.once(
     "value",
     (snap) => {

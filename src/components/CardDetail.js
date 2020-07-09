@@ -5,7 +5,6 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 import { Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-
 import StarRating from "react-native-star-rating";
 
 const CardDetail = ({ restaurant, closeCard }) => {
