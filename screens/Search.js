@@ -52,7 +52,6 @@ const Search = ({ route, navigation }) => {
   };
 
   const onChangeRadius = (radius) => {
-    console.log(Math.round(radius * 1609.34));
     setRadius(Math.round(radius * 1609.34));
   };
 
@@ -142,7 +141,26 @@ const Search = ({ route, navigation }) => {
         },
       });
       const resJson = await res.json();
-      return resJson.businesses;
+
+      const updateRes = async (resJson) => {
+        return Promise.all(
+          resJson.businesses.map(async (business) => {
+            const res = await fetch(
+              `https://api.yelp.com/v3/businesses/${business.id}`,
+              {
+                method: "GET",
+                headers: {
+                  Authorization: "Bearer " + api_key,
+                },
+              }
+            );
+            const resJson = await res.json();
+            return { ...business, photos: resJson.photos };
+          })
+        );
+      };
+      const restaurants = await updateRes(resJson);
+      return restaurants;
     }
   };
   let defaultLocation = "";

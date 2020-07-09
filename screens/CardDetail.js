@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Linking } from "react-native";
 const screenWidth = Math.round(Dimensions.get("window").width);
 const screenHeight = Math.round(Dimensions.get("window").height);
 import { Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import MapView from "react-native-maps";
-import { Marker } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 import StarRating from "react-native-star-rating";
 import firebase from "../firebase.js";
 
 const CardDetail = ({ restaurant, closeCard }) => {
+  const [index, setIndex] = useState(0);
   return (
     <View style={styles.bigContainer}>
-      <Image
-        style={{ width: screenWidth, height: 300 }}
-        source={{
-          uri: restaurant.image_url,
+      <TouchableOpacity
+        onPress={() => {
+          setIndex((prev) => (prev + 1) % restaurant.photos.length);
         }}
-      />
+      >
+        <Image
+          style={{ width: screenWidth, height: 300 }}
+          source={{
+            uri: restaurant.photos[index],
+          }}
+        />
+      </TouchableOpacity>
+
       <View style={{}}>
         <TouchableOpacity
           style={{
@@ -63,6 +70,7 @@ const CardDetail = ({ restaurant, closeCard }) => {
               latitudeDelta: 0.05,
               longitudeDelta: 0.05,
             }}
+            provider={PROVIDER_GOOGLE}
           >
             <Marker
               coordinate={{
@@ -73,6 +81,16 @@ const CardDetail = ({ restaurant, closeCard }) => {
               // description={marker.description}
             />
           </MapView>
+          {/* <TouchableOpacity style={{width: screenWidth,
+            backgroundColor: "salmon",}}>
+
+          </TouchableOpacity> */}
+          <Text
+            style={{ color: "salmon", fontSize: 20, marginTop: 20 }}
+            onPress={() => Linking.openURL(restaurant.url)}
+          >
+            Open in Yelp
+          </Text>
         </View>
       </View>
     </View>
@@ -93,9 +111,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     marginTop: 40,
     marginLeft: 20,
+    marginRight: 20,
   },
   mapStyle: {
-    width: 0.33 * Dimensions.get("window").height,
+    width: 0.9 * Dimensions.get("window").width,
     height: 0.33 * Dimensions.get("window").height,
   },
 });

@@ -18,12 +18,18 @@ const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
         <CardDetail restaurant={restaurant} closeCard={setVisibility} />
       </Overlay>
       <View style={styles.container}>
-        <Image
-          style={{ width: 250, height: 250 }}
-          source={{
-            uri: restaurant.image_url,
+        <TouchableOpacity
+          onPress={() => {
+            setVisibility(true);
           }}
-        />
+        >
+          <Image
+            style={{ width: 250, height: 250 }}
+            source={{
+              uri: restaurant.image_url,
+            }}
+          />
+        </TouchableOpacity>
         <Text> </Text>
         <Text> </Text>
         <Button
@@ -31,11 +37,6 @@ const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
           title={restaurant.name}
           onPress={() => {
             setVisibility(true);
-            console.log(restaurant);
-            // navigation.navigate("CardDetail", {
-            //   roomId: roomId,
-            //   resId: restaurant.id,
-            // });
           }}
         />
       </View>
@@ -70,10 +71,7 @@ const styles = StyleSheet.create({
     // width: screenWidth,
     // height: screenHeight,
   },
-  mapStyle: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height - 100,
-  },
+
   container: {
     justifyContent: "center",
     alignItems: "center",
