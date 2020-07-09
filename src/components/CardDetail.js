@@ -7,7 +7,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 import StarRating from "react-native-star-rating";
-import firebase from "../firebase.js";
 
 const CardDetail = ({ restaurant, closeCard }) => {
   const [index, setIndex] = useState(0);
