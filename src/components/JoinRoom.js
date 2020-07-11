@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -22,28 +22,35 @@ function joinRoom(roomId, navigation, user) {
           userRef.once(
             "value",
             (snap) => {
+              console.log(snap.val());
               // check if user already in room
-              if (snap.val().rooms.includes(roomId)) {
-                alert("already in room");
-              } else {
-                // add room to user's collection
-                userRef.update({
-                  rooms: [...snap.val().rooms, roomId],
-                });
-
-                // update num joined for room
-                firebase
-                  .database()
-                  .ref("rooms/" + roomId)
-                  .update({
-                    numJoined: ++snap.val().numJoined,
+              if (snap.val().rooms) {
+                if (snap.val().rooms.includes(roomId)) {
+                  alert("already in room");
+                } else {
+                  // add room to user's collection
+                  userRef.update({
+                    rooms: [...snap.val().rooms, roomId],
                   });
-
-                navigation.navigate("Tinder", {
-                  roomId: roomId,
-                  user: user,
+                }
+              } else {
+                userRef.update({
+                  rooms: [roomId],
                 });
               }
+
+              // update num joined for room
+              const roomRef = firebase.database().ref("rooms/" + roomId);
+
+              roomRef.once("value", (snap) => {
+                roomRef.update({
+                  numJoined: ++snap.val().numJoined,
+                });
+              });
+
+              navigation.navigate("Tinder", {
+                roomId: roomId,
+              });
             },
             (error) => alert(error)
           );
@@ -58,7 +65,15 @@ function joinRoom(roomId, navigation, user) {
 
 const JoinRoom = ({ route, navigation }) => {
   const [roomId, setRoomId] = useState(0);
-  const { user } = route.params;
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const currentUser = firebase.auth().currentUser;
+
+    if (currentUser) {
+      setUser(currentUser);
+    }
+  }, []);
 
   const onChangeRoomId = (roomId) => {
     setRoomId(parseInt(roomId));

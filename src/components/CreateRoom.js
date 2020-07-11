@@ -33,7 +33,6 @@ async function createRoomRecord(
 
   // add the room id to the user's data record
   // sometimes int, sometimes string?
-  console.log(user.uid);
   const userRef = firebase.database().ref("users/" + user.uid);
 
   userRef.once(

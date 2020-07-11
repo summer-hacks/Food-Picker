@@ -59,7 +59,6 @@ const PartyInfo = ({ route, navigation }) => {
             );
           } else {
             navigation.navigate("Search", {
-              // user: user,
               partyName: partyName,
               partySize: partySize,
             });
