@@ -12,9 +12,6 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 
-// prob shouldn't be hardcoding api key in here but works for now
-const api_key =
-  "rfzFsGmwjhmXJqBMeXgjk8VTwpz8zevZE0xPzGz2YAzDiP15VI5alXOxkDD_GlFneIOTsee7mp5RYx5DVb10CJOlNw58NqlfmwItWr4D5NzfFWge7XEnp8kNrE7UXnYx";
 const url = "https://api.yelp.com/v3/businesses/search?";
 
 const Search = ({ route, navigation }) => {
@@ -136,7 +133,7 @@ const Search = ({ route, navigation }) => {
       const res = await fetch(full_url, {
         method: "GET",
         headers: {
-          Authorization: "Bearer " + api_key,
+          Authorization: "Bearer " + global.yelp_api_key,
         },
       });
       const resJson = await res.json();

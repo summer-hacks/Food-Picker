@@ -16,7 +16,7 @@ const CardDetail = ({ restaurant, closeCard }) => {
     const res = fetch(`https://api.yelp.com/v3/businesses/${restaurant.id}`, {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + api_key,
+        Authorization: "Bearer " + global.yelp_api_key,
       },
     })
       .then((res) => res.json())

@@ -16,14 +16,23 @@ function MyRooms({ route, navigation }) {
     const currentUser = firebase.auth().currentUser;
 
     if (currentUser) {
-      console.log(currentUser);
       setUser(currentUser);
       const userRef = firebase.database().ref("users/" + currentUser.uid);
-      userRef.once("value", (snap) => {
-        setRooms(snap.val().rooms);
+      userRef.once("value", async (snap) => {
+        const promises = await Promise.all(
+          snap.val().rooms.map(async (room) => {
+            const roomRef = firebase.database().ref("rooms/" + room);
+            let name = "";
+            await roomRef.once("value", (snap) => {
+              name = snap.val().partyName;
+            });
+            console.log({ roomId: room, name: name });
+            return { roomId: room, name: name };
+          })
+        );
+        setRooms(promises);
       });
     }
-    // get the user's rooms
   }, []);
 
   return (
@@ -37,7 +46,7 @@ function MyRooms({ route, navigation }) {
     >
       <FlatList
         data={rooms}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.roomId.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.btn}
@@ -45,7 +54,7 @@ function MyRooms({ route, navigation }) {
               navigation.navigate("RoomPage", { roomId: item });
             }}
           >
-            <Text style={styles.btnText}>{item}</Text>
+            <Text style={styles.btnText}>{item.name}</Text>
           </TouchableOpacity>
         )}
       />
