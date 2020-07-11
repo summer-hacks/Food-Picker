@@ -4,13 +4,11 @@ import firebase from "../../firebase.js";
 
 // create a room record in firebase containing the party info + restaurant results
 async function pushRestaurants(roomId, restaurants) {
-  console.log("pushing restaurants");
-  console.log(restaurants.length);
-  for (res of restaurants) {
+  for (var i = 0, len = restaurants.length; i < len; i++) {
     await firebase
       .database()
-      .ref("rooms/" + roomId + "/restaurants/" + res.id)
-      .set({ ...res, yes: 0, no: 0 });
+      .ref("rooms/" + roomId + "/restaurants/" + restaurants[i].id)
+      .set({ ...restaurants[i], yes: 0, no: 0 });
   }
 }
 
@@ -35,6 +33,7 @@ async function createRoomRecord(
 
   // add the room id to the user's data record
   // sometimes int, sometimes string?
+  console.log(user.uid);
   const userRef = firebase.database().ref("users/" + user.uid);
 
   userRef.once(
@@ -59,10 +58,11 @@ const CreateRoom = ({ route, navigation }) => {
   const { restaurants } = route.params;
   const { partySize } = route.params;
   const { partyName } = route.params;
-  const { user } = route.params;
+  // const { user } = route.params;
   const [roomId, setRoomId] = useState(0);
 
   useEffect(() => {
+    const user = firebase.auth().currentUser;
     // generate a random room id -- replace with uuid eventually
     const newRoomId = Math.floor(Math.random() * 10 ** 6);
 
@@ -84,7 +84,7 @@ const CreateRoom = ({ route, navigation }) => {
         onPress={async () => {
           navigation.navigate("Tinder", {
             roomId: roomId,
-            user: user,
+            // user: user,
           });
         }}
       >

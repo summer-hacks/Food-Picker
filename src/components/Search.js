@@ -18,7 +18,7 @@ const api_key =
 const url = "https://api.yelp.com/v3/businesses/search?";
 
 const Search = ({ route, navigation }) => {
-  const { user } = route.params;
+  // const { user } = route.params;
   const { partySize } = route.params;
   const { partyName } = route.params;
 
@@ -34,7 +34,6 @@ const Search = ({ route, navigation }) => {
   const [$$$$clicked, set$$$$] = useState(false);
 
   const getCurrLocation = async () => {
-    console.log("clicked");
     let { status } = await Location.requestPermissionsAsync();
     if (status !== "granted") {
       console.log("Permission to access location was denied");
@@ -141,26 +140,7 @@ const Search = ({ route, navigation }) => {
         },
       });
       const resJson = await res.json();
-
-      const updateRes = async (resJson) => {
-        return Promise.all(
-          resJson.businesses.map(async (business) => {
-            const res = await fetch(
-              `https://api.yelp.com/v3/businesses/${business.id}`,
-              {
-                method: "GET",
-                headers: {
-                  Authorization: "Bearer " + api_key,
-                },
-              }
-            );
-            const resJson = await res.json();
-            return { ...business, photos: resJson.photos };
-          })
-        );
-      };
-      const restaurants = await updateRes(resJson);
-      return restaurants;
+      return resJson.businesses;
     }
   };
   let defaultLocation = "";
@@ -302,7 +282,6 @@ const Search = ({ route, navigation }) => {
             restaurants: data,
             partySize: partySize,
             partyName: partyName,
-            user: user,
           });
         }}
       >

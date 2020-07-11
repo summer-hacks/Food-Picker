@@ -6,20 +6,33 @@ import { Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import StarRating from "react-native-star-rating";
+const api_key =
+  "rfzFsGmwjhmXJqBMeXgjk8VTwpz8zevZE0xPzGz2YAzDiP15VI5alXOxkDD_GlFneIOTsee7mp5RYx5DVb10CJOlNw58NqlfmwItWr4D5NzfFWge7XEnp8kNrE7UXnYx";
 
 const CardDetail = ({ restaurant, closeCard }) => {
   const [index, setIndex] = useState(0);
+  const [photos, setPhotos] = useState([restaurant.image_url]);
+  useEffect(() => {
+    const res = fetch(`https://api.yelp.com/v3/businesses/${restaurant.id}`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + api_key,
+      },
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => setPhotos(jsonRes.photos));
+  }, []);
   return (
     <View style={styles.bigContainer}>
       <TouchableOpacity
         onPress={() => {
-          setIndex((prev) => (prev + 1) % restaurant.photos.length);
+          setIndex((prev) => (prev + 1) % photos.length);
         }}
       >
         <Image
           style={{ width: screenWidth, height: 300 }}
           source={{
-            uri: restaurant.photos[index],
+            uri: photos[index],
           }}
         />
       </TouchableOpacity>
