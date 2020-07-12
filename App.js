@@ -1,4 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
+
+import {createAppContainer} from "react-navigation"
+import {createDrawerNavigator}  from "react-navigation-drawer"
+import {Dimensions} from "react-native"
+
+//import {Feather} from "@expo-vector-icons"
+
+import { 
+    ProfileScreen, 
+    MessageScreen, 
+    ActivityScreen, 
+    ListScreen, 
+    ReportScreen, 
+    StatisticScreen, 
+    SignOutScreen
+} from './screens'
+
+import SideBar from './Components/SideBar' 
+import DrawerNavigator from './DrawerNavigator'
+
+import { useState } from "react";
 import {
   NavigationContainer,
   View,
@@ -12,11 +33,11 @@ import HomeScreen from "./screens/HomeScreen";
 import CreateRoom from "./screens/CreateRoom";
 import JoinRoom from "./screens/JoinRoom.js";
 import MyRooms from "./screens/MyRooms";
-import RoomPage from "./components/RoomPage.js";
+import RoomPage from "./screens/RoomPage.js";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import { Ionicons } from "@expo/vector-icons";
-import PartyInfo from "./components/PartyInfo.js";
+import PartyInfo from "./screens/PartyInfo.js";
 import StartSignUp from "./screens/SignUp/StartSignUp";
 import NameSignUp from "./screens/SignUp/NameSignUp";
 import EmailSignUp from "./screens/SignUp/EmailSignUp";
@@ -26,6 +47,8 @@ import BirthdaySignUp from "./screens/SignUp/BirthdaySignUp";
 import "./global.js";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+
+import Header from "./header"
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -38,6 +61,7 @@ const fetchFonts = () => {
 
 // set up navigation
 const Stack = createStackNavigator();
+
 
 function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -52,70 +76,74 @@ function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="PhoneNumberLogin"
-          component={Login}
-          options={{ title: "Login", headerShown: false }}
-        />
-        <Stack.Screen
-          name="StartSignUp"
-          component={StartSignUp}
-          options={{
-            headerTintColor: global.orange,
-            headerLeftContainerStyle: { marginHorizontal: 15 },
-            headerStyle: {
-              backgroundColor: "white",
-              borderWidth: 0,
-              shadowRadius: 0,
-              shadowOffset: {
-                height: 0,
+      <NavigationContainer>
+        <DrawerNavigator>
+        <Stack.Navigator>
+        
+          <Stack.Screen
+            name="PhoneNumberLogin"
+            component={Login}
+            options={{ title: "Login", headerShown: false }}
+          />
+          <Stack.Screen
+            name="StartSignUp"
+            component={StartSignUp}
+            options={{
+              headerTintColor: global.orange,
+              headerLeftContainerStyle: { marginHorizontal: 15 },
+              headerStyle: {
+                backgroundColor: "white",
+                borderWidth: 0,
+                shadowRadius: 0,
+                shadowOffset: {
+                  height: 0,
+                },
               },
-            },
-            headerBackTitleVisible: false,
-            headerTitle: null,
-          }}
-        />
-        <Stack.Screen
-          name="NameSignUp"
-          component={NameSignUp}
-          options={{
-            headerTintColor: global.orange,
-            headerLeftContainerStyle: { marginHorizontal: 15 },
-            headerStyle: {
-              backgroundColor: "white",
-              borderWidth: 0,
-              shadowRadius: 0,
-              shadowOffset: {
-                height: 0,
+              headerBackTitleVisible: false,
+              headerTitle: null,
+            }}
+          />
+          <Stack.Screen
+            name="NameSignUp"
+            component={NameSignUp}
+            options={{
+              headerTintColor: global.orange,
+              headerLeftContainerStyle: { marginHorizontal: 15 },
+              headerStyle: {
+                backgroundColor: "white",
+                borderWidth: 0,
+                shadowRadius: 0,
+                shadowOffset: {
+                  height: 0,
+                },
               },
-            },
-            headerBackTitleVisible: false,
-            headerTitle: null,
-          }}
-        />
-        <Stack.Screen name="BirthdaySignUp" component={BirthdaySignUp} />
-        <Stack.Screen name="EmailSignUp" component={EmailSignUp} />
-        <Stack.Screen name="LocationSignUp" component={LocationSignUp} />
-        <Stack.Screen name="DoneSignUp" component={DoneSignUp} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: "Main Menu" }}
-        />
-        <Stack.Screen name="PartyInfo" component={PartyInfo} />
-        <Stack.Screen name="Search" component={Search} />
-        <Stack.Screen name="Tinder" component={Tinder} />
-        <Stack.Screen name="JoinRoom" component={JoinRoom} />
-        <Stack.Screen name="CreateRoom" component={CreateRoom} />
-        <Stack.Screen name="MyRooms" component={MyRooms} />
-        <Stack.Screen name="RoomPage" component={RoomPage} />
+              headerBackTitleVisible: false,
+              headerTitle: null,
+            }}
+          />
+          <Stack.Screen name="BirthdaySignUp" component={BirthdaySignUp} />
+          <Stack.Screen name="EmailSignUp" component={EmailSignUp} />
+          <Stack.Screen name="LocationSignUp" component={LocationSignUp} />
+          <Stack.Screen name="DoneSignUp" component={DoneSignUp} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} /> 
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ title: "Main Menu" }}/>
+
+            <Stack.Screen name="PartyInfo" component={PartyInfo} />
+            <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen name="Tinder" component={Tinder} />
+            <Stack.Screen name="JoinRoom" component={JoinRoom} />
+            <Stack.Screen name="CreateRoom" component={CreateRoom} />
+            <Stack.Screen name="MyRooms" component={MyRooms} />
+            <Stack.Screen name="RoomPage" component={RoomPage} />
       </Stack.Navigator>
+    </DrawerNavigator>
     </NavigationContainer>
   );
 }
+
 
 export default App;

@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Button, View, Text } from "react-native";
 import firebase from "../firebase.js";
 
+import DrawerNavigator from '../DrawerNavigator'
+import "../global.js";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+ 
 // main menu assuming the user has already logged in
 function HomeScreen({ navigation }) {
   const [user, setUser] = useState("");
@@ -23,22 +28,26 @@ function HomeScreen({ navigation }) {
   }, []);
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Welcome {user.displayName}!</Text>
-      <Button
-        title="Create Room"
-        onPress={() => navigation.navigate("PartyInfo", { user: user })}
-      />
-      <Button
-        title="Join Room"
-        onPress={() => navigation.navigate("JoinRoom", { user: user })}
-      />
-      <Button
-        title="My Rooms"
-        onPress={() => navigation.navigate("MyRooms", { user: user })}
-      />
-    </View>
+    // <DrawerNavigator>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text>Welcome {user.displayName}!</Text>
+        <Button
+          title="Create Room"
+          onPress={() => navigation.navigate("PartyInfo", { user: user })}
+        />
+        <Button
+          title="Join Room"
+          onPress={() => navigation.navigate("JoinRoom", { user: user })}
+        />
+        <Button
+          title="My Rooms"
+          
+          onPress={() => navigation.navigate("MyRooms", { user: user })}
+        />
+      </View>
+    // </DrawerNavigator>
   );
 }
 
-export default HomeScreen;
+ export default HomeScreen;
+// export const HomeScreen = ({navigation}) => <Screen navigation={navigation} name="Home"/>
