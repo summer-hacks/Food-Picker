@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import MapView, { AnimatedRegion, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
+import { COLOR_PRIMARY, DEVICE_WIDTH, DEVICE_HEIGHT } from '../../common';
 
 const initialState = {
   latitude: 0,
@@ -75,8 +76,8 @@ const LocationSignUp = ({ currentUser }) => {
         provider={PROVIDER_GOOGLE}
         style={{
           alignSelf: 'center',
-          width: global.deviceWidth,
-          height: global.deviceHeight * 0.4,
+          width: DEVICE_WIDTH,
+          height: DEVICE_HEIGHT * 0.4,
         }}
         initialRegion={currentPosition}
         showsUserLocation
@@ -90,8 +91,8 @@ const LocationSignUp = ({ currentUser }) => {
       </View>
     </View>
   ) : (
-    <ActivityIndicator style={{ flex: 1 }} animating size='large' />
-  );
+      <ActivityIndicator style={{ flex: 1 }} animating size='large' />
+    );
 };
 
 const styles = StyleSheet.create({
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
   button: {
     width: 54,
     height: 54,
-    backgroundColor: global.orange,
+    backgroundColor: COLOR_PRIMARY,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
     height: 44,
     backgroundColor: 'white',
     borderWidth: 3,
-    borderColor: global.orange,
+    borderColor: COLOR_PRIMARY,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',

@@ -30,6 +30,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 // import reduxThunk from "redux-thunk";
 import reducer from './src/reducers/reducer';
+import { COLOR_PRIMARY } from './src/common'
 
 const store = createStore(reducer);
 
@@ -142,7 +143,7 @@ const App = () => {
             name='EmailSignUp'
             component={EmailSignUp}
             options={{
-              headerTintColor: global.orange,
+              headerTintColor: COLOR_PRIMARY,
               headerLeftContainerStyle: { marginHorizontal: 15 },
               headerStyle: {
                 backgroundColor: 'white',
