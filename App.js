@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   NavigationContainer,
   View,
@@ -31,6 +31,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 // import reduxThunk from "redux-thunk";
 import reducer from "./src/reducers/reducer";
+import { COLOR_PRIMARY } from './src/common'
 
 const store = createStore(reducer);
 
@@ -39,10 +40,10 @@ const App = () => {
 
   const fetchFonts = () => {
     return Font.loadAsync({
-      "karla-bold": require("./assets/fonts/Karla-Bold.ttf"),
-      "karla-italic": require("./assets/fonts/Karla-Italic.ttf"),
-      "karla-bolditalic": require("./assets/fonts/Karla-BoldItalic.ttf"),
-      "karla-regular": require("./assets/fonts/Karla-Regular.ttf"),
+      'karla-bold': require('./assets/fonts/Karla-Bold.ttf'),
+      'karla-italic': require('./assets/fonts/Karla-Italic.ttf'),
+      'karla-bolditalic': require('./assets/fonts/Karla-BoldItalic.ttf'),
+      'karla-regular': require('./assets/fonts/Karla-Regular.ttf'),
     });
   };
 
@@ -62,19 +63,19 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
+          {/* <Stack.Screen
+          name="PhoneNumberLogin"
+          component={Login}
+          options={{ title: 'Login', headerShown: false }}
+        />
           <Stack.Screen
-            name="PhoneNumberLogin"
-            component={Login}
-            options={{ title: "Login", headerShown: false }}
-          />
-          <Stack.Screen
-            name="StartSignUp"
+            name='StartSignUp'
             component={StartSignUp}
             options={{
               headerTintColor: global.orange,
               headerLeftContainerStyle: { marginHorizontal: 15 },
               headerStyle: {
-                backgroundColor: "white",
+                backgroundColor: 'white',
                 borderWidth: 0,
                 shadowRadius: 0,
                 shadowOffset: {
@@ -86,13 +87,13 @@ const App = () => {
             }}
           />
           <Stack.Screen
-            name="NameSignUp"
+            name='NameSignUp'
             component={NameSignUp}
             options={{
               headerTintColor: global.orange,
               headerLeftContainerStyle: { marginHorizontal: 15 },
               headerStyle: {
-                backgroundColor: "white",
+                backgroundColor: 'white',
                 borderWidth: 0,
                 shadowRadius: 0,
                 shadowOffset: {
@@ -104,13 +105,13 @@ const App = () => {
             }}
           />
           <Stack.Screen
-            name="BirthdaySignUp"
+            name='BirthdaySignUp'
             component={BirthdaySignUp}
             options={{
               headerTintColor: global.orange,
               headerLeftContainerStyle: { marginHorizontal: 15 },
               headerStyle: {
-                backgroundColor: "white",
+                backgroundColor: 'white',
                 borderWidth: 0,
                 shadowRadius: 0,
                 shadowOffset: {
@@ -120,15 +121,15 @@ const App = () => {
               headerBackTitleVisible: false,
               headerTitle: null,
             }}
-          />
+          /> */}
           <Stack.Screen
-            name="LocationSignUp"
+            name='LocationSignUp'
             component={LocationSignUp}
             options={{
               headerTintColor: global.orange,
               headerLeftContainerStyle: { marginHorizontal: 15 },
               headerStyle: {
-                backgroundColor: "white",
+                backgroundColor: 'white',
                 borderWidth: 0,
                 shadowRadius: 0,
                 shadowOffset: {
@@ -140,13 +141,13 @@ const App = () => {
             }}
           />
           <Stack.Screen
-            name="EmailSignUp"
+            name='EmailSignUp'
             component={EmailSignUp}
             options={{
-              headerTintColor: global.orange,
+              headerTintColor: COLOR_PRIMARY,
               headerLeftContainerStyle: { marginHorizontal: 15 },
               headerStyle: {
-                backgroundColor: "white",
+                backgroundColor: 'white',
                 borderWidth: 0,
                 shadowRadius: 0,
                 shadowOffset: {
@@ -158,24 +159,22 @@ const App = () => {
             }}
           />
           <Stack.Screen name="DoneSignUp" component={DoneSignUp} />
-          {/* <Stack.Screen name="BirthdaySignUp" component={BirthdaySignUp} />
-        <Stack.Screen name="EmailSignUp" component={EmailSignUp} />
-        <Stack.Screen name="LocationSignUp" component={LocationSignUp} />
-        
-        <Stack.Screen name="Login" component={Login} /> */}
+          <Stack.Screen name="BirthdaySignUp" component={BirthdaySignUp} />
+          <Stack.Screen name="EmailSignUp" component={EmailSignUp} />
+          <Stack.Screen name="LocationSignUp" component={LocationSignUp} />
+          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen
-            name="Home"
+            name='Home'
             component={HomeScreen}
-            options={{ title: "Main Menu" }}
+            options={{ title: 'Main Menu' }}
           />
-          <Stack.Screen name="Search" component={Search} />
-          <Stack.Screen name="Tinder" component={Tinder} />
-          <Stack.Screen name="JoinRoom" component={JoinRoom} />
-          <Stack.Screen name="CreateRoom" component={CreateRoom} />
-          <Stack.Screen name="PartyInfo" component={PartyInfo} />
-          <Stack.Screen name="RoomPage" component={RoomPage} />
-          <Stack.Screen name="CardDetail" component={CardDetail} />
-          <Stack.Screen name="MyRooms" component={MyRooms} />
+          <Stack.Screen name='Search' component={Search} />
+          <Stack.Screen name='Tinder' component={Tinder} />
+          <Stack.Screen name='JoinRoom' component={JoinRoom} />
+          <Stack.Screen name='CreateRoom' component={CreateRoom} />
+          <Stack.Screen name='PartyInfo' component={PartyInfo} />
+          <Stack.Screen name='RoomPage' component={RoomPage} />
+          <Stack.Screen name='MyRooms' component={MyRooms} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
