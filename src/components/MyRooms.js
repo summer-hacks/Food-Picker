@@ -26,7 +26,6 @@ function MyRooms({ route, navigation }) {
             await roomRef.once("value", (snap) => {
               name = snap.val().partyName;
             });
-            console.log({ roomId: room, name: name });
             return { roomId: room, name: name };
           })
         );
@@ -51,7 +50,7 @@ function MyRooms({ route, navigation }) {
           <TouchableOpacity
             style={styles.btn}
             onPress={() => {
-              navigation.navigate("RoomPage", { roomId: item });
+              navigation.navigate("RoomPage", { room: item });
             }}
           >
             <Text style={styles.btnText}>{item.name}</Text>

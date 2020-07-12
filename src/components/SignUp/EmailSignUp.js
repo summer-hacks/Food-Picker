@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,19 +6,18 @@ import {
   View,
   Button,
   TouchableOpacity,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import firebase from "../../../firebase";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
-
-const EmailSignUp = ({currentUser}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const EmailSignUp = ({ currentUser }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigation = useNavigation();
   const [errorMessage, setErrorMessage] = useState(null);
-  
+
   const handleLogin = () => {
     currentUser.email = email;
     firebase
@@ -40,7 +39,7 @@ const EmailSignUp = ({currentUser}) => {
         });
       })
       .then((result) => {
-        navigation.navigate("DoneSignUp");
+        navigation.navigate("LocationSignUp");
       })
       .catch((error) => setErrorMessage(error.message));
   };
@@ -49,35 +48,33 @@ const EmailSignUp = ({currentUser}) => {
     <View style={styles.container}>
       <Text style={styles.step}>Step 3 of 4</Text>
       <Text style={styles.stepSubscript}>(last step!)</Text>
-      {errorMessage && (
-          <Text style={{ color: "red" }}>{errorMessage}</Text>
-        )}
+      {errorMessage && <Text style={{ color: "red" }}>{errorMessage}</Text>}
       <View>
         <View style={styles.icon}>
-          <Icon color='black' name='email-outline' size={25} />
+          <Icon color="black" name="email-outline" size={25} />
         </View>
       </View>
       <Text style={styles.normTxt}>What's your email?</Text>
       <TextInput
-        placeholder='Email'
-        autoCapitalize='none'
+        placeholder="Email"
+        autoCapitalize="none"
         style={styles.textInput}
         onChangeText={(email) => setEmail(email)}
         value={email}
       />
       <Text>Enter your password</Text>
       <TextInput
-          secureTextEntry
-          placeholder="Password"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={(password) => setPassword(password)}
-          value={password}
-        />
+        secureTextEntry
+        placeholder="Password"
+        autoCapitalize="none"
+        style={styles.textInput}
+        onChangeText={(password) => setPassword(password)}
+        value={password}
+      />
       <View style={styles.buttonView}>
         <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
-            <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
+            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
           </View>
         </TouchableOpacity>
       </View>
@@ -88,72 +85,72 @@ const EmailSignUp = ({currentUser}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    backgroundColor: 'white',
-    paddingLeft: '15%',
-    paddingRight: '15%',
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "flex-start",
+    backgroundColor: "white",
+    paddingLeft: "15%",
+    paddingRight: "15%",
   },
   buttonView: {
-    alignSelf: 'flex-end',
-    marginRight: '-10%',
-    marginBottom: '10%',
+    alignSelf: "flex-end",
+    marginRight: "-10%",
+    marginBottom: "10%",
   },
   button: {
     width: 54,
     height: 54,
     backgroundColor: global.orange,
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   normTxt: {
-    fontFamily: 'karla-bold',
+    fontFamily: "karla-bold",
     fontSize: 40,
-    bottom: '15%',
+    bottom: "15%",
   },
   textInput: {
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     padding: 5,
-    fontFamily: 'karla-regular',
+    fontFamily: "karla-regular",
     fontSize: 35,
-    borderBottomColor: '#000',
+    borderBottomColor: "#000",
     margin: 5,
     marginBottom: 20,
     borderBottomWidth: 3,
-    bottom: '20%',
+    bottom: "20%",
   },
   step: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 24,
-    fontFamily: 'karla-bold',
-    marginTop: '0%',
+    fontFamily: "karla-bold",
+    marginTop: "0%",
   },
   stepSubscript: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 16,
-    fontFamily: 'karla-bold',
-    position: 'absolute',
-    marginTop: '10%',
+    fontFamily: "karla-bold",
+    position: "absolute",
+    marginTop: "10%",
   },
   icon: {
     width: 44,
     height: 44,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderWidth: 3,
     borderColor: global.orange,
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: '-100%',
+    alignItems: "center",
+    justifyContent: "center",
+    top: "-100%",
   },
 });
 
 function mapStateToProps(state) {
   return {
-      currentUser: state.currentUser
-  }
+    currentUser: state.currentUser,
+  };
 }
 
 export default connect(mapStateToProps)(EmailSignUp);

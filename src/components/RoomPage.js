@@ -9,13 +9,14 @@ import {
 import firebase from "../../firebase.js";
 
 function RoomPage({ route, navigation }) {
-  const { roomId } = route.params;
+  const { room } = route.params;
   const [matches, setMatches] = useState([]);
   const [completed, setCompleted] = useState(false);
 
   // get matches if everyone has finished swiping
   useEffect(() => {
-    const roomRef = firebase.database().ref("rooms/" + roomId);
+    console.log(room);
+    const roomRef = firebase.database().ref("rooms/" + room.roomId);
     roomRef.once("value", (snap) => {
       const room = snap.val();
       if (room.numCompleted === room.partySize) {
@@ -41,7 +42,7 @@ function RoomPage({ route, navigation }) {
           marginTop: 50,
         }}
       >
-        <Text>{roomId}</Text>
+        <Text>{room.name}</Text>
         <FlatList
           data={matches}
           keyExtractor={(item) => item.id}
@@ -60,7 +61,7 @@ function RoomPage({ route, navigation }) {
           marginTop: 50,
         }}
       >
-        <Text>{roomId}</Text>
+        <Text>{room.name}</Text>
         <Text>Still waiting on people...</Text>
       </View>
     );

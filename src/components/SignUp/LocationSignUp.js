@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,14 +7,14 @@ import {
   Button,
   TouchableOpacity,
   ActivityIndicator,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { connect } from 'react-redux';
-import MapView, { AnimatedRegion, PROVIDER_GOOGLE } from 'react-native-maps';
-import * as Permissions from 'expo-permissions';
-import * as Location from 'expo-location';
-import { COLOR_PRIMARY, DEVICE_WIDTH, DEVICE_HEIGHT } from '../../common';
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { connect } from "react-redux";
+import MapView, { AnimatedRegion, PROVIDER_GOOGLE } from "react-native-maps";
+import * as Permissions from "expo-permissions";
+import * as Location from "expo-location";
+import { COLOR_PRIMARY, DEVICE_WIDTH, DEVICE_HEIGHT } from "../../common";
 
 const initialState = {
   latitude: 0,
@@ -29,7 +29,7 @@ const LocationSignUp = ({ currentUser }) => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        alert(JSON.stringify(position));
+        // alert(JSON.stringify(position));
         const { latitude, longitude } = position.coords;
         setCurrentPosition({
           ...currentPosition,
@@ -43,8 +43,8 @@ const LocationSignUp = ({ currentUser }) => {
   }, []);
 
   const handleLogin = () => {
-    currentUser.location = location;
-    navigation.navigate('EmailSignUp');
+    currentUser.location = currentPosition;
+    navigation.navigate("DoneSignUp");
   };
 
   // async function getCurrentLocation() {
@@ -67,14 +67,14 @@ const LocationSignUp = ({ currentUser }) => {
       <Text style={styles.stepSubscript}>(last step!)</Text>
       <View>
         <View style={styles.icon}>
-          <Icon color='black' name='map-marker-outline' size={25} />
+          <Icon color="black" name="map-marker-outline" size={25} />
         </View>
       </View>
       <Text style={styles.normTxt}>Where do you live?</Text>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={{
-          alignSelf: 'center',
+          alignSelf: "center",
           width: DEVICE_WIDTH,
           height: DEVICE_HEIGHT * 0.4,
         }}
@@ -84,78 +84,78 @@ const LocationSignUp = ({ currentUser }) => {
       <View style={styles.buttonView}>
         <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
-            <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
+            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
           </View>
         </TouchableOpacity>
       </View>
     </View>
   ) : (
-      <ActivityIndicator style={{ flex: 1 }} animating size='large' />
-    );
+    <ActivityIndicator style={{ flex: 1 }} animating size="large" />
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    backgroundColor: 'white',
-    paddingLeft: '15%',
-    paddingRight: '15%',
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "flex-start",
+    backgroundColor: "white",
+    paddingLeft: "15%",
+    paddingRight: "15%",
   },
   buttonView: {
-    alignSelf: 'flex-end',
-    marginRight: '-10%',
-    marginBottom: '10%',
+    alignSelf: "flex-end",
+    marginRight: "-10%",
+    marginBottom: "10%",
   },
   button: {
     width: 54,
     height: 54,
     backgroundColor: COLOR_PRIMARY,
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   normTxt: {
-    fontFamily: 'karla-bold',
+    fontFamily: "karla-bold",
     fontSize: 40,
-    bottom: '15%',
+    bottom: "15%",
   },
   textInput: {
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     padding: 5,
-    fontFamily: 'karla-regular',
+    fontFamily: "karla-regular",
     fontSize: 35,
-    borderBottomColor: '#000',
+    borderBottomColor: "#000",
     margin: 5,
     marginBottom: 20,
     borderBottomWidth: 3,
-    bottom: '20%',
+    bottom: "20%",
   },
   step: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 24,
-    fontFamily: 'karla-bold',
-    marginTop: '0%',
+    fontFamily: "karla-bold",
+    marginTop: "0%",
   },
   stepSubscript: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 16,
-    fontFamily: 'karla-bold',
-    position: 'absolute',
-    marginTop: '10%',
+    fontFamily: "karla-bold",
+    position: "absolute",
+    marginTop: "10%",
   },
   icon: {
     width: 44,
     height: 44,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderWidth: 3,
     borderColor: COLOR_PRIMARY,
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: '-100%',
+    alignItems: "center",
+    justifyContent: "center",
+    top: "-100%",
   },
 });
 

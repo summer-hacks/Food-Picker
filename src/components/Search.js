@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import { Dimensions } from "react-native";
+import { Slider } from "react-native";
+
 import {
   View,
   Text,
@@ -11,6 +15,7 @@ import {
   Keyboard,
 } from "react-native";
 import * as Location from "expo-location";
+import { COLOR_PRIMARY } from "../common";
 
 const url = "https://api.yelp.com/v3/businesses/search?";
 
@@ -48,7 +53,8 @@ const Search = ({ route, navigation }) => {
   };
 
   const onChangeRadius = (radius) => {
-    setRadius(Math.round(radius * 1609.34));
+    setRadius(radius);
+    // setRadius(Math.round(radius * 1609.34));
   };
 
   const onChangeMaxRes = (maxRes) => {
@@ -123,11 +129,15 @@ const Search = ({ route, navigation }) => {
       if (location == "Current Location") {
         full_url =
           url +
-          `latitude=${latitude}&longitude=${longitude}&radius=${radius}&categories=restaurants&limit=${maxRes}&price=${prices}`;
+          `latitude=${latitude}&longitude=${longitude}&radius=${Math.round(
+            radius * 1609.34
+          )}&categories=restaurants&limit=${maxRes}&price=${prices}`;
       } else {
         full_url =
           url +
-          `location=${location}&radius=${radius}&categories=restaurants&limit=${maxRes}&price=${prices}`;
+          `location=${location}&radius=${Math.round(
+            radius * 1609.34
+          )}&categories=restaurants&limit=${maxRes}&price=${prices}`;
       }
 
       const res = await fetch(full_url, {
@@ -148,6 +158,25 @@ const Search = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
+      <MapView
+        style={styles.mapStyle}
+        region={{
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+        }}
+        provider={PROVIDER_GOOGLE}
+      >
+        <Marker
+          coordinate={{
+            latitude: latitude,
+            longitude: longitude,
+          }}
+          title="Current Location"
+          // description={marker.description}
+        />
+      </MapView>
       <View
         style={{
           flexDirection: "row",
@@ -168,12 +197,36 @@ const Search = ({ route, navigation }) => {
           <Button title="CL" onPress={getCurrLocation} />
         </View>
       </View>
-      <TextInput
+
+      {/* <TextInput
         placeholder="Radius (miles)"
         keyboardType={"numeric"}
         style={styles.input}
         onChangeText={onChangeRadius}
+      /> */}
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginRight: 10,
+          marginLeft: 10,
+        }}
+      >
+        <Text>Max Distance</Text>
+        <Text>{radius}</Text>
+      </View>
+      <Slider
+        style={{ marginTop: -100, width: 300, height: 30 }}
+        minimumValue={0}
+        maximumValue={5}
+        minimumTrackTintColor={COLOR_PRIMARY}
+        maximumTrackTintColor={COLOR_PRIMARY}
+        onValueChange={onChangeRadius}
+        step={0.5}
+        thumbTintColor={COLOR_PRIMARY}
       />
+
       <TextInput
         placeholder="Max Number of Restaurants"
         keyboardType={"numeric"}
@@ -189,10 +242,7 @@ const Search = ({ route, navigation }) => {
       >
         <TouchableOpacity
           style={{
-            height: 50,
-            width: 50,
-            justifyContent: "center",
-            borderRadius: 10,
+            ...styles.dollar,
             backgroundColor: $clicked ? "salmon" : "white",
           }}
           onPress={handle$}
@@ -208,10 +258,7 @@ const Search = ({ route, navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            height: 50,
-            width: 50,
-            justifyContent: "center",
-            borderRadius: 10,
+            ...styles.dollar,
             backgroundColor: $$clicked ? "salmon" : "white",
           }}
           onPress={handle$$}
@@ -227,10 +274,7 @@ const Search = ({ route, navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            height: 50,
-            width: 50,
-            justifyContent: "center",
-            borderRadius: 10,
+            ...styles.dollar,
             backgroundColor: $$$clicked ? "salmon" : "white",
           }}
           onPress={handle$$$}
@@ -246,10 +290,7 @@ const Search = ({ route, navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            height: 50,
-            width: 50,
-            justifyContent: "center",
-            borderRadius: 10,
+            ...styles.dollar,
             backgroundColor: $$$$clicked ? "salmon" : "white",
           }}
           onPress={handle$$$$}
@@ -301,7 +342,7 @@ const styles = StyleSheet.create({
   btn: {
     backgroundColor: "#c2bad8",
     padding: 9,
-    marginBottom: 200,
+    marginBottom: 100,
   },
   btnText: {
     color: "darkslateblue",
@@ -313,6 +354,13 @@ const styles = StyleSheet.create({
     width: 50,
     justifyContent: "center",
     borderRadius: 10,
+    borderColor: COLOR_PRIMARY,
+    borderStyle: "solid",
+    borderWidth: 2,
+  },
+  mapStyle: {
+    width: 0.9 * Dimensions.get("window").width,
+    height: 0.33 * Dimensions.get("window").height,
   },
 });
 
