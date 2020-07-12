@@ -9,13 +9,7 @@ function HomeScreen({ navigation }) {
   useEffect(() => {
     // returns a user object from firebase authentication
     // access user data in real-time database with a reference to users/currentUser.uid
-    // const currentUser = firebase.auth().currentUser;
-
-    // for testing purposes
-    const currentUser = {
-      displayName: "Janet",
-      uid: "jhuang",
-    };
+    const currentUser = firebase.auth().currentUser;
 
     if (currentUser) {
       setUser(currentUser);
@@ -27,16 +21,13 @@ function HomeScreen({ navigation }) {
       <Text>Welcome {user.displayName}!</Text>
       <Button
         title="Create Room"
-        onPress={() => navigation.navigate("PartyInfo", { user: user })}
+        onPress={() => navigation.navigate("PartyInfo")}
       />
       <Button
         title="Join Room"
-        onPress={() => navigation.navigate("JoinRoom", { user: user })}
+        onPress={() => navigation.navigate("JoinRoom")}
       />
-      <Button
-        title="My Rooms"
-        onPress={() => navigation.navigate("MyRooms", { user: user })}
-      />
+      <Button title="My Rooms" onPress={() => navigation.navigate("MyRooms")} />
     </View>
   );
 }

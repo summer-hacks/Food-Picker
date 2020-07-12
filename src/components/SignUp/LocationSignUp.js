@@ -65,7 +65,6 @@ const LocationSignUp = ({ currentUser }) => {
     <View style={styles.container}>
       <Text style={styles.step}>Step 4 of 4</Text>
       <Text style={styles.stepSubscript}>(last step!)</Text>
-
       <View>
         <View style={styles.icon}>
           <Icon color='black' name='map-marker-outline' size={25} />

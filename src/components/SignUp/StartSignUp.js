@@ -14,6 +14,7 @@ import {
 const StartSignUp = ({clearCurrentUser}) => {
   clearCurrentUser();
   const navigation = useNavigation();
+  
   return (
     <View style={styles.bigContainer}>
       <View style={styles.container}>
