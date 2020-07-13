@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import {
   StyleSheet,
@@ -10,18 +10,18 @@ import {
   View,
   Button,
 } from "react-native";
+import { COLOR_SECONDARY } from '../../common';
 
-const StartSignUp = ({clearCurrentUser}) => {
+const StartSignUp = ({ clearCurrentUser }) => {
   clearCurrentUser();
   const navigation = useNavigation();
-  
+
   return (
     <View style={styles.bigContainer}>
       <View style={styles.container}>
         <Text style={styles.normTxt}>Looks like you're new!</Text>
-        <Text style={styles.normTxt}>Make an account to start a party!</Text>
-        <View style={{ height: '1%', width: '10%', padding: 10, backgroundColor: global.yellow }} />
-        <Text style={styles.shadowTxt}>party!</Text>
+        <Text style={styles.normTxt}>Make an account to start a <Text style={styles.shadowTxt}>party!</Text></Text>
+
       </View>
       <TouchableOpacity
         style={styles.btn}
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   shadowTxt: {
     fontFamily: "karla-bold",
     fontSize: 40,
-    // position: 'absolute'
+    backgroundColor: COLOR_SECONDARY,
 
   },
   normTxt: {
@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-      currentUser: state.currentUser
+    currentUser: state.currentUser
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-      clearCurrentUser: () => dispatch({ type: 'CLEAR_CURRENT_USER' })
+    clearCurrentUser: () => dispatch({ type: 'CLEAR_CURRENT_USER' })
   }
 }
 
