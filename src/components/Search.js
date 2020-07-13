@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { Dimensions } from "react-native";
 import { Slider } from "react-native";
+// import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 import {
   View,
@@ -15,7 +17,12 @@ import {
   Keyboard,
 } from "react-native";
 import * as Location from "expo-location";
-import { COLOR_PRIMARY } from "../common";
+import {
+  COLOR_PRIMARY,
+  FONT_NORMAL,
+  ICON_BORDER_WIDTH,
+  ICON_BORDER_RADIUS,
+} from "../common";
 
 const url = "https://api.yelp.com/v3/businesses/search?";
 
@@ -184,40 +191,42 @@ const Search = ({ route, navigation }) => {
           justifyContent: "center",
         }}
       >
-        <View style={{ flex: 4 }}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <TextInput
             placeholder="Location"
-            style={styles.input}
+            style={{ ...styles.label }}
             onChangeText={onChangeLocation}
             defaultValue={defaultLocation}
             value={location}
           />
-        </View>
-        <View style={{ flex: 1 }}>
-          <Button title="CL" onPress={getCurrLocation} />
+          <View style={styles.icon}>
+            <Icon
+              color="blue"
+              name="my-location"
+              size={25}
+              onPress={getCurrLocation}
+            />
+          </View>
         </View>
       </View>
-
-      {/* <TextInput
-        placeholder="Radius (miles)"
-        keyboardType={"numeric"}
-        style={styles.input}
-        onChangeText={onChangeRadius}
-      /> */}
       <View
         style={{
           flex: 1,
           flexDirection: "row",
           justifyContent: "space-between",
-          marginRight: 10,
-          marginLeft: 10,
         }}
       >
-        <Text>Max Distance</Text>
-        <Text>{radius}</Text>
+        <Text style={styles.label}>Max Distance</Text>
+        <Text style={styles.label}>{radius}</Text>
       </View>
       <Slider
-        style={{ marginTop: -100, width: 300, height: 30 }}
+        style={{ marginTop: -100, width: 300, height: 30, alignSelf: "center" }}
         minimumValue={0}
         maximumValue={5}
         minimumTrackTintColor={COLOR_PRIMARY}
@@ -230,7 +239,7 @@ const Search = ({ route, navigation }) => {
       <TextInput
         placeholder="Max Number of Restaurants"
         keyboardType={"numeric"}
-        style={styles.input}
+        style={styles.label}
         onChangeText={onChangeMaxRes}
       />
       <View
@@ -334,10 +343,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  input: {
+  label: {
+    fontSize: 20,
+    fontFamily: FONT_NORMAL,
     height: 60,
     padding: 8,
-    fontSize: 16,
+    marginRight: 10,
+    marginLeft: 10,
   },
   btn: {
     backgroundColor: "#c2bad8",
@@ -361,6 +373,14 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: 0.9 * Dimensions.get("window").width,
     height: 0.33 * Dimensions.get("window").height,
+    marginBottom: 10,
+  },
+  icon: {
+    width: 44,
+    height: 44,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 3,
   },
 });
 
