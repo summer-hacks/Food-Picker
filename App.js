@@ -63,11 +63,11 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen
-          name="PhoneNumberLogin"
-          component={Login}
-          options={{ title: 'Login', headerShown: false }}
-        />
+          <Stack.Screen
+            name="PhoneNumberLogin"
+            component={Login}
+            options={{ title: 'Login', headerShown: false }}
+          />
           <Stack.Screen
             name='StartSignUp'
             component={StartSignUp}
@@ -121,7 +121,7 @@ const App = () => {
               headerBackTitleVisible: false,
               headerTitle: null,
             }}
-          /> */}
+          />
           <Stack.Screen
             name='LocationSignUp'
             component={LocationSignUp}
@@ -159,9 +159,6 @@ const App = () => {
             }}
           />
           <Stack.Screen name="DoneSignUp" component={DoneSignUp} />
-          <Stack.Screen name="BirthdaySignUp" component={BirthdaySignUp} />
-          <Stack.Screen name="EmailSignUp" component={EmailSignUp} />
-          <Stack.Screen name="LocationSignUp" component={LocationSignUp} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen
             name='Home'

@@ -14,7 +14,8 @@ import { connect } from 'react-redux';
 import MapView, { AnimatedRegion, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
-import { COLOR_PRIMARY, DEVICE_WIDTH, DEVICE_HEIGHT } from '../../common';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { COLOR_PRIMARY, DEVICE_WIDTH, DEVICE_HEIGHT, STEP_HEIGHT, ICON_BORDER_WIDTH, ICON_BORDER_RADIUS, STEP_SUBSCRIPT_FONT_SIZE, STEP_FONT_SIZE, HEADING_FONT_SIZE, HEADING_PADDING_TOP, NEXT_BUTTON_LEFT, NEXT_BUTTON_BOTTOM, CONTAINER_PADDING_LEFT, CONTAINER_PADDING_RIGHT, HEADING_BOTTOM, SECTION_HEIGHT, BODY_BOTTOM } from '../../common';
 
 const initialState = {
   latitude: 0,
@@ -29,7 +30,7 @@ const LocationSignUp = ({ currentUser }) => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        alert(JSON.stringify(position));
+        // alert(JSON.stringify(position));
         const { latitude, longitude } = position.coords;
         setCurrentPosition({
           ...currentPosition,
@@ -62,25 +63,35 @@ const LocationSignUp = ({ currentUser }) => {
 
   const navigation = useNavigation();
   return currentPosition.latitude ? (
+
     <View style={styles.container}>
-      <Text style={styles.step}>Step 4 of 4</Text>
-      <Text style={styles.stepSubscript}>(last step!)</Text>
-      <View>
+
+      <View style={{ height: STEP_HEIGHT }}>
+        <Text style={styles.step}>Step 4 of 4</Text>
+        <Text style={styles.stepSubscript}>(last step!)</Text>
+      </View>
+
+      <View style={{ bottom: HEADING_BOTTOM, height: SECTION_HEIGHT }}>
         <View style={styles.icon}>
           <Icon color='black' name='map-marker-outline' size={25} />
         </View>
+        <Text style={styles.normTxt}>Where do you live?</Text>
       </View>
-      <Text style={styles.normTxt}>Where do you live?</Text>
-      <MapView
-        provider={PROVIDER_GOOGLE}
-        style={{
-          alignSelf: 'center',
-          width: DEVICE_WIDTH,
-          height: DEVICE_HEIGHT * 0.4,
-        }}
-        initialRegion={currentPosition}
-        showsUserLocation
-      ></MapView>
+
+      <View style={{ bottom: BODY_BOTTOM + 35, height: SECTION_HEIGHT }}>
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={{
+            alignSelf: 'center',
+            width: wp('80%'),
+            height: hp('30%'),
+            borderRadius: 5,
+          }}
+          initialRegion={currentPosition}
+          showsUserLocation
+        ></MapView>
+      </View>
+
       <View style={styles.buttonView}>
         <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
@@ -99,15 +110,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-around',
-    alignItems: 'flex-start',
     backgroundColor: 'white',
-    paddingLeft: '15%',
-    paddingRight: '15%',
+    paddingLeft: CONTAINER_PADDING_LEFT,
+    paddingRight: CONTAINER_PADDING_RIGHT,
   },
   buttonView: {
     alignSelf: 'flex-end',
-    marginRight: '-10%',
-    marginBottom: '10%',
+    left: NEXT_BUTTON_LEFT,
+    bottom: NEXT_BUTTON_BOTTOM,
+
   },
   button: {
     width: 54,
@@ -119,43 +130,28 @@ const styles = StyleSheet.create({
   },
   normTxt: {
     fontFamily: 'karla-bold',
-    fontSize: 40,
-    bottom: '15%',
-  },
-  textInput: {
-    alignSelf: 'stretch',
-    padding: 5,
-    fontFamily: 'karla-regular',
-    fontSize: 35,
-    borderBottomColor: '#000',
-    margin: 5,
-    marginBottom: 20,
-    borderBottomWidth: 3,
-    bottom: '20%',
+    fontSize: HEADING_FONT_SIZE,
+    paddingTop: HEADING_PADDING_TOP
   },
   step: {
     alignSelf: 'center',
-    fontSize: 24,
+    fontSize: STEP_FONT_SIZE,
     fontFamily: 'karla-bold',
-    marginTop: '0%',
   },
   stepSubscript: {
     alignSelf: 'center',
-    fontSize: 16,
+    fontSize: STEP_SUBSCRIPT_FONT_SIZE,
     fontFamily: 'karla-bold',
-    position: 'absolute',
-    marginTop: '10%',
   },
   icon: {
     width: 44,
     height: 44,
     backgroundColor: 'white',
-    borderWidth: 3,
+    borderWidth: ICON_BORDER_WIDTH,
     borderColor: COLOR_PRIMARY,
-    borderRadius: 50,
+    borderRadius: ICON_BORDER_RADIUS,
     alignItems: 'center',
     justifyContent: 'center',
-    top: '-100%',
   },
 });
 
