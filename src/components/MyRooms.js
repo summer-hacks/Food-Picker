@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import firebase from "../../firebase.js";
+import { COLOR_PRIMARY, BORDER_RADIUS, DEVICE_WIDTH } from "../common";
 
 function MyRooms({ route, navigation }) {
   const [user, setUser] = useState({});
@@ -23,10 +24,20 @@ function MyRooms({ route, navigation }) {
           snap.val().rooms.map(async (room) => {
             const roomRef = firebase.database().ref("rooms/" + room);
             let name = "";
+            let size = 0;
+            let completed = 0;
             await roomRef.once("value", (snap) => {
-              name = snap.val().partyName;
+              const res = snap.val();
+              name = res.partyName;
+              size = res.partySize;
+              completed = res.numCompleted;
             });
-            return { roomId: room, name: name };
+            return {
+              roomId: room,
+              name: name,
+              size: size,
+              completed: completed,
+            };
           })
         );
         setRooms(promises);
@@ -54,6 +65,9 @@ function MyRooms({ route, navigation }) {
             }}
           >
             <Text style={styles.btnText}>{item.name}</Text>
+            <Text style={styles.btnText}>
+              {item.completed}/{item.size}
+            </Text>
           </TouchableOpacity>
         )}
       />
@@ -63,14 +77,23 @@ function MyRooms({ route, navigation }) {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: "#c2bad8",
+    backgroundColor: COLOR_PRIMARY,
     padding: 9,
     margin: 5,
+    borderRadius: BORDER_RADIUS,
+    width: 0.75 * DEVICE_WIDTH,
+    height: 75,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   btnText: {
-    color: "darkslateblue",
+    color: "white",
     fontSize: 20,
     textAlign: "center",
+    marginRight: 10,
+    marginLeft: 10,
+    alignSelf: "center",
   },
 });
 export default MyRooms;
