@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -44,8 +44,8 @@ const LocationSignUp = ({ currentUser }) => {
   }, []);
 
   const handleLogin = () => {
-    currentUser.location = location;
-    navigation.navigate('EmailSignUp');
+    currentUser.location = currentPosition;
+    navigation.navigate("DoneSignUp");
   };
 
   // async function getCurrentLocation() {
@@ -73,7 +73,7 @@ const LocationSignUp = ({ currentUser }) => {
 
       <View style={{ bottom: HEADING_BOTTOM, height: SECTION_HEIGHT }}>
         <View style={styles.icon}>
-          <Icon color='black' name='map-marker-outline' size={25} />
+          <Icon color="black" name="map-marker-outline" size={25} />
         </View>
         <Text style={styles.normTxt}>Where do you live?</Text>
       </View>
@@ -91,17 +91,16 @@ const LocationSignUp = ({ currentUser }) => {
           showsUserLocation
         ></MapView>
       </View>
-
       <View style={styles.buttonView}>
         <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
-            <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
+            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
           </View>
         </TouchableOpacity>
       </View>
     </View>
   ) : (
-      <ActivityIndicator style={{ flex: 1 }} animating size='large' />
+      <ActivityIndicator style={{ flex: 1 }} animating size="large" />
     );
 };
 
@@ -125,8 +124,8 @@ const styles = StyleSheet.create({
     height: 54,
     backgroundColor: COLOR_PRIMARY,
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   normTxt: {
     fontFamily: 'karla-bold',

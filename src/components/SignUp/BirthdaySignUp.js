@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -18,7 +18,7 @@ import { COLOR_PRIMARY, STEP_HEIGHT, HEADING_BOTTOM, SECTION_HEIGHT, BODY_BOTTOM
 const BirthdaySignUp = ({ currentUser }) => {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
-  const [color, setColor] = useState('#d3d3d3');
+  const [color, setColor] = useState("#d3d3d3");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const handleLogin = () => {
@@ -38,7 +38,7 @@ const BirthdaySignUp = ({ currentUser }) => {
     // console.warn('A date has been picked: ', date);
     hideDatePicker();
     setDate(date);
-    setColor('black');
+    setColor("black");
   };
 
   return (
@@ -51,7 +51,7 @@ const BirthdaySignUp = ({ currentUser }) => {
 
       <View style={{ bottom: HEADING_BOTTOM, height: SECTION_HEIGHT }}>
         <View style={styles.icon}>
-          <Icon color='black' name='cake-variant' size={25} />
+          <Icon color="black" name="cake-variant" size={25} />
         </View>
         <Text style={styles.normTxt}>What's your birthday?</Text>
       </View>
@@ -79,10 +79,10 @@ const BirthdaySignUp = ({ currentUser }) => {
 
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
-        mode='date'
+        mode="date"
         date={date}
         pickerContainerStyleIOS={{
-          fontFamily: 'karla-bold',
+          fontFamily: "karla-bold",
         }}
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
@@ -93,13 +93,13 @@ const BirthdaySignUp = ({ currentUser }) => {
               style={{
                 padding: 16,
                 backgroundColor: global.yellow,
-                alignItems: 'center',
-                justifyContent: 'center',
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <Text
                 style={{
-                  color: 'black',
+                  color: "black",
                   fontSize: 22,
                 }}
               >
@@ -113,7 +113,7 @@ const BirthdaySignUp = ({ currentUser }) => {
             <TouchableOpacity
               onPress={() => {
                 setDatePickerVisibility(false);
-                setColor('black');
+                setColor("black");
               }}
               style={{
                 padding: 20,
@@ -121,7 +121,7 @@ const BirthdaySignUp = ({ currentUser }) => {
                 alignItems: 'center',
               }}
             >
-              <Text style={{ fontSize: 20, color: 'black' }}>Confirm</Text>
+              <Text style={{ fontSize: 20, color: "black" }}>Confirm</Text>
             </TouchableOpacity>
           );
         }}
@@ -132,7 +132,7 @@ const BirthdaySignUp = ({ currentUser }) => {
       <View style={styles.buttonView}>
         <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
-            <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
+            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
           </View>
         </TouchableOpacity>
       </View>
@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
     height: 54,
     backgroundColor: COLOR_PRIMARY,
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   normTxt: {
     fontFamily: 'karla-bold',

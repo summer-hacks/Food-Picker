@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Keyboard,
   StyleSheet,
@@ -119,8 +119,8 @@ const styles = StyleSheet.create({
     height: 54,
     backgroundColor: COLOR_PRIMARY,
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   normTxt: {
     fontFamily: 'karla-bold',
