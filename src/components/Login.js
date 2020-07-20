@@ -103,7 +103,7 @@ const Login = ({ currentUser, actions }) => {
         </View>
       </View>
       <Text style={{ fontFamily: 'karla-bold', fontSize: 40 }}>
-        What's your {'\n'}phone number?
+        What's the {'\n'}secret password?
       </Text>
       {userInfo.errorMessage && (
         <Text style={{ color: 'red' }}>{userInfo.errorMessage}</Text>
