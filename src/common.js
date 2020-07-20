@@ -9,6 +9,7 @@ export const COLOR_PRIMARY = '#FF8364'; // orange
 export const COLOR_PRIMARY_LIGHT = '#ffb7a4';
 export const COLOR_SECONDARY = '#FFEBC2'; // yellow
 export const COLOR_TERTIARY = '#EDEDED'; // grey
+export const COLOR_TERTIARY_DARK = '#5F5F5F';
 
 // Typography
 export const FONT_NORMAL = 'karla-regular';

@@ -56,26 +56,13 @@ function HomeScreen({ navigation }) {
       <Text style={{ color: COLOR_PRIMARY, fontSize: 28, bottom: 25 }}>
         What's for {meal}?
       </Text>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: hp('12%'),
-        }}
-      >
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}
-        >
+      <View style={styles.menuContainer}>
+        <View style={styles.menuRow}>
           <TouchableOpacity
             style={[styles.btn, { backgroundColor: COLOR_PRIMARY_LIGHT }]}
             onPress={() => navigation.navigate('PartyInfo')}
           >
-            <View style={{ display: 'flex', flexDirection: 'column' }}>
+            <View style={styles.menuBoxContent}>
               <Icon
                 color='white'
                 name='account-group-outline'
@@ -92,7 +79,7 @@ function HomeScreen({ navigation }) {
             style={[styles.btn, { backgroundColor: COLOR_SECONDARY }]}
             onPress={() => navigation.navigate('PartyInfo')}
           >
-            <View style={{ display: 'flex', flexDirection: 'column' }}>
+            <View style={styles.menuBoxContent}>
               <Icon
                 color='black'
                 name='silverware'
@@ -104,17 +91,12 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}
-        >
+        <View style={styles.menuRow}>
           <TouchableOpacity
             style={[styles.btn, { backgroundColor: COLOR_SECONDARY }]}
             onPress={() => navigation.navigate('JoinRoom')}
           >
-            <View style={{ display: 'flex', flexDirection: 'column' }}>
+            <View style={styles.menuBoxContent}>
               <Icon color='black' name='plus' size={24} style={styles.icon} />
               <Text style={[styles.btnTxt, { color: 'black' }]}>
                 Join a {'\n'}Party
@@ -123,9 +105,9 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.btn, { backgroundColor: COLOR_PRIMARY_LIGHT }]}
-            onPress={() => navigation.navigate('JoinRoom')}
+            onPress={() => navigation.navigate('MyRooms')}
           >
-            <View style={{ display: 'flex', flexDirection: 'column' }}>
+            <View style={styles.menuBoxContent}>
               <Icon
                 color='white'
                 name='eye-outline'
@@ -182,6 +164,21 @@ const styles = StyleSheet.create({
   icon: {
     marginLeft: 100,
     marginBottom: 35,
+  },
+  menuContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: hp('12%'),
+  },
+  menuRow: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  menuBoxContent: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 
