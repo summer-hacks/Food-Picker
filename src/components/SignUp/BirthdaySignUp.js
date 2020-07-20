@@ -2,15 +2,11 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
-  TextInput,
-  View,
   TouchableOpacity,
-  TouchableHighlight,
-  Button,
+  View,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import { COLOR_PRIMARY, STEP_HEIGHT, HEADING_BOTTOM, SECTION_HEIGHT, BODY_BOTTOM, TEXTINPUT_BOTTOM_BORDER_WIDTH, BODY_FONT_SIZE, COLOR_SECONDARY, NEXT_BUTTON_LEFT, NEXT_BUTTON_BOTTOM, ICON_BORDER_WIDTH, HEADING_FONT_SIZE, HEADING_PADDING_TOP, STEP_FONT_SIZE, STEP_SUBSCRIPT_FONT_SIZE, ICON_BORDER_RADIUS, CONTAINER_PADDING_LEFT, CONTAINER_PADDING_RIGHT } from '../../common';

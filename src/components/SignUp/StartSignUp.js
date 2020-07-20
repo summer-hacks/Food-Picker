@@ -5,12 +5,10 @@ import { connect } from 'react-redux';
 import {
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
-  Button,
 } from "react-native";
-import { COLOR_SECONDARY } from '../../common';
+import { COLOR_SECONDARY, COLOR_PRIMARY, BODY_BOTTOM, FONT_NORMAL } from '../../common';
 
 const StartSignUp = ({ clearCurrentUser }) => {
   clearCurrentUser();
@@ -19,8 +17,8 @@ const StartSignUp = ({ clearCurrentUser }) => {
   return (
     <View style={styles.bigContainer}>
       <View style={styles.container}>
-        <Text style={styles.normTxt}>Looks like you're new!</Text>
-        <Text style={styles.normTxt}>Make an account to start a <Text style={styles.shadowTxt}>party!</Text></Text>
+        <Text style={[styles.normTxt, { bottom: BODY_BOTTOM }]}>Looks like you're <Text style={[{ fontFamily: FONT_NORMAL, color: COLOR_PRIMARY }]}>new.</Text></Text>
+        <Text style={styles.normTxt}>Make an account to start a <Text style={styles.normTxt}>party!</Text></Text>
 
       </View>
       <TouchableOpacity
@@ -53,7 +51,7 @@ const styles = StyleSheet.create({
     marginBottom: "30%",
   },
   btn: {
-    backgroundColor: global.orange,
+    backgroundColor: COLOR_PRIMARY,
     width: "100%",
     height: "12%",
     position: "absolute",
@@ -68,10 +66,9 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   shadowTxt: {
-    fontFamily: "karla-bold",
+    fontFamily: FONT_NORMAL,
     fontSize: 40,
     backgroundColor: COLOR_SECONDARY,
-
   },
   normTxt: {
     fontFamily: "karla-bold",
