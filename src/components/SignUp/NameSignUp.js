@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  Alert
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,8 +23,23 @@ const NameSignUp = ({ currentUser }) => {
   });
   const navigation = useNavigation();
   const handleLogin = () => {
-    currentUser.name = userInfo.firstName + ' ' + userInfo.lastName;
-    navigation.navigate("BirthdaySignUp");
+    if (!userInfo.firstName || !userInfo.lastName) {
+      Alert.alert(
+        "Empty field",
+        "Please enter all info",
+        [
+          {
+            text: "Ok",
+            style: "cancel",
+          },
+        ],
+        { cancelable: true }
+      );
+    }
+    else {
+      currentUser.name = userInfo.firstName + ' ' + userInfo.lastName;
+      navigation.navigate("BirthdaySignUp");
+    }
   };
 
 

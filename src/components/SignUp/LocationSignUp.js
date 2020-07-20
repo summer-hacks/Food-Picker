@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
   ActivityIndicator,
+  Alert
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -44,8 +45,23 @@ const LocationSignUp = ({ currentUser }) => {
   }, []);
 
   const handleLogin = () => {
-    currentUser.location = currentPosition;
-    navigation.navigate("DoneSignUp");
+    if (!currentPosition) {
+      Alert.alert(
+        "Empty field",
+        "Please enter all info",
+        [
+          {
+            text: "Ok",
+            style: "cancel",
+          },
+        ],
+        { cancelable: true }
+      );
+    }
+    else {
+      currentUser.location = currentPosition;
+      navigation.navigate("DoneSignUp");
+    }
   };
 
   // async function getCurrentLocation() {

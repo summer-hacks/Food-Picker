@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,12 +15,29 @@ import { COLOR_PRIMARY, STEP_HEIGHT, HEADING_BOTTOM, SECTION_HEIGHT, BODY_BOTTOM
 const BirthdaySignUp = ({ currentUser }) => {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
+  const [confirmed, setConfirmed] = useState(false);
   const [color, setColor] = useState("#d3d3d3");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const handleLogin = () => {
-    currentUser.birthday = date;
-    navigation.navigate("EmailSignUp");
+    if (!confirmed) {
+      console.log(confirmed);
+      Alert.alert(
+        "Empty field",
+        "Please enter all info",
+        [
+          {
+            text: "Ok",
+            style: "cancel",
+          },
+        ],
+        { cancelable: true }
+      );
+    }
+    else {
+      currentUser.birthday = date;
+      navigation.navigate("EmailSignUp");
+    }
   };
 
   const showDatePicker = () => {
@@ -34,6 +52,8 @@ const BirthdaySignUp = ({ currentUser }) => {
     // console.warn('A date has been picked: ', date);
     hideDatePicker();
     setDate(date);
+    setConfirmed(true);
+    console.log('handle confirm', confirmed);
     setColor("black");
   };
 

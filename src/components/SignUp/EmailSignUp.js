@@ -6,7 +6,8 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Alert
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -23,29 +24,44 @@ const EmailSignUp = ({ currentUser }) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const handleLogin = () => {
-    currentUser.email = email;
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        const userID = result.user.uid;
-        var item = {
-          name: currentUser.name,
-          email: email,
-          //phoneNum: currentUser.phoneNum,
-        };
-        firebase
-          .database()
-          .ref("users/" + userID)
-          .set(item);
-        return result.user.updateProfile({
-          displayName: currentUser.name,
-        });
-      })
-      .then((result) => {
-        navigation.navigate("LocationSignUp");
-      })
-      .catch((error) => setErrorMessage(error.message));
+    if (!email || !password) {
+      Alert.alert(
+        "Empty field",
+        "Please enter all info",
+        [
+          {
+            text: "Ok",
+            style: "cancel",
+          },
+        ],
+        { cancelable: true }
+      );
+    }
+    else {
+      currentUser.email = email;
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((result) => {
+          const userID = result.user.uid;
+          var item = {
+            name: currentUser.name,
+            email: email,
+            //phoneNum: currentUser.phoneNum,
+          };
+          firebase
+            .database()
+            .ref("users/" + userID)
+            .set(item);
+          return result.user.updateProfile({
+            displayName: currentUser.name,
+          });
+        })
+        .then((result) => {
+          navigation.navigate("LocationSignUp");
+        })
+        .catch((error) => setErrorMessage(error.message));
+    }
   };
 
   return (
