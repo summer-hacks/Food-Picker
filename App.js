@@ -116,6 +116,24 @@ const App = () => {
             }}
           />
           <Stack.Screen
+            name="EmailSignUp"
+            component={EmailSignUp}
+            options={{
+              headerTintColor: COLOR_PRIMARY,
+              headerLeftContainerStyle: { marginHorizontal: 15 },
+              headerStyle: {
+                backgroundColor: "white",
+                borderWidth: 0,
+                shadowRadius: 0,
+                shadowOffset: {
+                  height: 0,
+                },
+              },
+              headerBackTitleVisible: false,
+              headerTitle: null,
+            }}
+          />
+          <Stack.Screen
             name="LocationSignUp"
             component={LocationSignUp}
             options={{
@@ -134,8 +152,8 @@ const App = () => {
             }}
           />
           <Stack.Screen
-            name="EmailSignUp"
-            component={EmailSignUp}
+            name="DoneSignUp"
+            component={DoneSignUp}
             options={{
               headerTintColor: COLOR_PRIMARY,
               headerLeftContainerStyle: { marginHorizontal: 15 },
@@ -151,12 +169,24 @@ const App = () => {
               headerTitle: null,
             }}
           />
-          <Stack.Screen name="DoneSignUp" component={DoneSignUp} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{ title: "Main Menu" }}
+            options={{
+              headerTintColor: COLOR_PRIMARY,
+              headerLeftContainerStyle: { marginHorizontal: 15 },
+              headerStyle: {
+                backgroundColor: "white",
+                borderWidth: 0,
+                shadowRadius: 0,
+                shadowOffset: {
+                  height: 0,
+                },
+              },
+              headerBackTitleVisible: false,
+              headerTitle: null,
+            }}
           />
           <Stack.Screen name="Search" component={Search} />
           <Stack.Screen name="Tinder" component={Tinder} />

@@ -10,9 +10,13 @@ import {
 import firebase from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import "../../global";
+import "./../../global";
 import { connect } from "react-redux";
-import NextButton from "../components/NextButton";
+import { COLOR_PRIMARY, COLOR_TERTIARY, COLOR_TERTIARY_DARK } from "../common";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const Login = ({ currentUser, actions }) => {
   const navigation = useNavigation();
@@ -99,7 +103,7 @@ const Login = ({ currentUser, actions }) => {
         </View>
       </View>
       <Text style={{ fontFamily: "karla-bold", fontSize: 40 }}>
-        Welcome to {"\n"}Chikin Tinder!
+        What's the {"\n"}secret password?
       </Text>
       {userInfo.errorMessage && (
         <Text style={{ color: "red" }}>{userInfo.errorMessage}</Text>
@@ -123,11 +127,29 @@ const Login = ({ currentUser, actions }) => {
           value={userInfo.password}
         />
       </View>
+      <TouchableOpacity
+        style={{ bottom: hp("10%") }}
+        onPress={() => navigation.navigate("StartSignUp")}
+      >
+        <Text style={styles.signUpText}>Don't have an account? Sign Up</Text>
+      </TouchableOpacity>
+      {/* 
       <Button
         title="Don't have an account? Sign Up"
         onPress={() => navigation.navigate("StartSignUp")}
+<<<<<<< HEAD:src/screens/Login.js
       />
       <NextButton onPress={handleLogin} />
+=======
+      /> */}
+      <View style={styles.buttonView}>
+        <TouchableOpacity onPress={handleLogin}>
+          <View style={styles.button}>
+            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
+          </View>
+        </TouchableOpacity>
+      </View>
+      >>>>>>> master:src/components/Login.js
     </View>
   );
 };
@@ -176,6 +198,12 @@ const styles = StyleSheet.create({
     width: deviceWidth * 0.75,
     borderBottomWidth: 3,
     bottom: "15%",
+  },
+  signUpText: {
+    marginLeft: 7,
+    color: COLOR_TERTIARY_DARK,
+    fontSize: 18,
+    fontWeight: "500",
   },
 });
 

@@ -2,16 +2,13 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Button,
-} from "react-native";
-import { COLOR_SECONDARY, COLOR_PRIMARY } from "../../common";
-import BottomButton from "../../components/BottomButton";
+  COLOR_SECONDARY,
+  COLOR_PRIMARY,
+  BODY_BOTTOM,
+  FONT_NORMAL,
+} from "../../common";
 
 const StartSignUp = ({ clearCurrentUser }) => {
   clearCurrentUser();
@@ -20,10 +17,14 @@ const StartSignUp = ({ clearCurrentUser }) => {
   return (
     <View style={styles.bigContainer}>
       <View style={styles.container}>
-        <Text style={styles.normTxt}>Looks like you're new!</Text>
+        <Text style={[styles.normTxt, { bottom: BODY_BOTTOM }]}>
+          Looks like you're{" "}
+          <Text style={[{ fontFamily: FONT_NORMAL, color: COLOR_PRIMARY }]}>
+            new.
+          </Text>
+        </Text>
         <Text style={styles.normTxt}>
-          Make an account to start a{" "}
-          <Text style={styles.shadowTxt}>party!</Text>
+          Make an account to start a <Text style={styles.normTxt}>party!</Text>
         </Text>
       </View>
       <BottomButton
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   shadowTxt: {
-    fontFamily: "karla-bold",
+    fontFamily: FONT_NORMAL,
     fontSize: 40,
     backgroundColor: COLOR_SECONDARY,
   },
