@@ -79,11 +79,10 @@ const CreateRoom = ({ route, navigation }) => {
     setRoomId(newRoomId);
   }, []);
 
-  const onShare = async () => {
+  const onShare = async (roomId) => {
     try {
       const result = await Share.share({
-        message:
-          "React Native | A framework for building native apps using React",
+        message: `Join my room in Chikin Tinder using this id: ${roomId}`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -113,7 +112,13 @@ const CreateRoom = ({ route, navigation }) => {
         }}
         text={"Start Swiping"}
       />
-      <Button onPress={onShare} title="Share" />
+      <TouchableOpacity
+        onPress={() => {
+          onShare(roomId);
+        }}
+      >
+        <Text>Share</Text>
+      </TouchableOpacity>
     </View>
   );
 };

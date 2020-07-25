@@ -10,6 +10,8 @@ import {
   FONT_NORMAL,
 } from "../../common";
 
+import BottomButton from "../../components/BottomButton";
+
 const StartSignUp = ({ clearCurrentUser }) => {
   clearCurrentUser();
   const navigation = useNavigation();
