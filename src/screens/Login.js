@@ -149,7 +149,6 @@ const Login = ({ currentUser, actions }) => {
           </View>
         </TouchableOpacity>
       </View>
-      >>>>>>> master:src/components/Login.js
     </View>
   );
 };
