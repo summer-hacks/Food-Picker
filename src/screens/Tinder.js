@@ -1,7 +1,14 @@
+<<<<<<< HEAD:src/screens/Tinder.js
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import firebase from "../../firebase.js";
+import Stack from "../components/Stack";
+=======
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import firebase from '../../firebase.js';
 import Stack from './Stack';
+>>>>>>> master:src/components/Tinder.js
 
 const Tinder = ({ route, navigation }) => {
   const [restaurants, setRestaurants] = useState([]);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import firebase from "../../firebase.js";
-
+import BottomButton from "../components/BottomButton";
 // create a room record in firebase containing the party info + restaurant results
 async function pushRestaurants(roomId, restaurants) {
   for (var i = 0, len = restaurants.length; i < len; i++) {
@@ -78,17 +78,14 @@ const CreateRoom = ({ route, navigation }) => {
       <Text>Room ID: {roomId}</Text>
       <Text>restaurants length: {restaurants.length}</Text>
       <Text>party size: {partySize}</Text>
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={async () => {
+      <BottomButton
+        onPress={() => {
           navigation.navigate("Tinder", {
             roomId: roomId,
-            // user: user,
           });
         }}
-      >
-        <Text style={styles.btnText}>Start Swiping</Text>
-      </TouchableOpacity>
+        text={"Start Swiping"}
+      />
     </View>
   );
 };

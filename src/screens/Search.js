@@ -4,6 +4,7 @@ import { Dimensions } from "react-native";
 import { Slider } from "react-native";
 // import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import NextButton from "../components/NextButton";
 
 import {
   View,
@@ -163,6 +164,28 @@ const Search = ({ route, navigation }) => {
     defaultLocation = "Current Location";
   }
 
+  const handleNext = async () => {
+    const data = await getData(
+      location,
+      longitude,
+      latitude,
+      radius,
+      maxRes,
+      dollars
+    );
+    if (data.length === 0) {
+      alert(
+        "no restaurants found. please try searching again with different criteria."
+      );
+    } else {
+      navigation.navigate("CreateRoom", {
+        restaurants: data,
+        partySize: partySize,
+        partyName: partyName,
+      });
+    }
+  };
+
   return (
     <View style={styles.container}>
       <MapView
@@ -223,7 +246,7 @@ const Search = ({ route, navigation }) => {
         }}
       >
         <Text style={styles.label}>Max Distance</Text>
-        <Text style={styles.label}>{radius}</Text>
+        <Text style={styles.label}>{radius} mi</Text>
       </View>
       <Slider
         style={{ marginTop: -100, width: 300, height: 30, alignSelf: "center" }}
@@ -314,26 +337,7 @@ const Search = ({ route, navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={async () => {
-          const data = await getData(
-            location,
-            longitude,
-            latitude,
-            radius,
-            maxRes,
-            dollars
-          );
-          navigation.navigate("CreateRoom", {
-            restaurants: data,
-            partySize: partySize,
-            partyName: partyName,
-          });
-        }}
-      >
-        <Text style={styles.btnText}>Create Room</Text>
-      </TouchableOpacity>
+      <NextButton onPress={handleNext} />
     </View>
   );
 };

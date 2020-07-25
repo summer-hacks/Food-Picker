@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { COLOR_SECONDARY, COLOR_PRIMARY, BODY_BOTTOM, FONT_NORMAL } from '../../common';
+  COLOR_SECONDARY,
+  COLOR_PRIMARY,
+  BODY_BOTTOM,
+  FONT_NORMAL,
+} from "../../common";
 
 const StartSignUp = ({ clearCurrentUser }) => {
   clearCurrentUser();
@@ -17,17 +17,29 @@ const StartSignUp = ({ clearCurrentUser }) => {
   return (
     <View style={styles.bigContainer}>
       <View style={styles.container}>
-        <Text style={[styles.normTxt, { bottom: BODY_BOTTOM }]}>Looks like you're <Text style={[{ fontFamily: FONT_NORMAL, color: COLOR_PRIMARY }]}>new.</Text></Text>
-        <Text style={styles.normTxt}>Make an account to start a <Text style={styles.normTxt}>party!</Text></Text>
-
+        <Text style={[styles.normTxt, { bottom: BODY_BOTTOM }]}>
+          Looks like you're{" "}
+          <Text style={[{ fontFamily: FONT_NORMAL, color: COLOR_PRIMARY }]}>
+            new.
+          </Text>
+        </Text>
+        <Text style={styles.normTxt}>
+          Make an account to start a <Text style={styles.normTxt}>party!</Text>
+        </Text>
       </View>
-      <TouchableOpacity
+      <BottomButton
+        text={"Sign Up"}
+        onPress={() => {
+          navigation.navigate("NameSignUp");
+        }}
+      />
+      {/* <TouchableOpacity
         style={styles.btn}
-        onPress={() => navigation.navigate("NameSignUp")}
+        onPress={() => }
       >
         <Text style={styles.btnTxt}>Sign Up</Text>
-      </TouchableOpacity>
-    </View >
+      </TouchableOpacity> */}
+    </View>
   );
 };
 
@@ -78,15 +90,14 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser
-  }
+    currentUser: state.currentUser,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    clearCurrentUser: () => dispatch({ type: 'CLEAR_CURRENT_USER' })
-  }
+    clearCurrentUser: () => dispatch({ type: "CLEAR_CURRENT_USER" }),
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartSignUp);
-
