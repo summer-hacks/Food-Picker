@@ -6,6 +6,15 @@ import { Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import StarRating from "react-native-star-rating";
+import {
+  COLOR_PRIMARY,
+  FONT_NORMAL,
+  TEXTINPUT_BOTTOM_BORDER_WIDTH,
+} from "../common";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const api_key =
   "rfzFsGmwjhmXJqBMeXgjk8VTwpz8zevZE0xPzGz2YAzDiP15VI5alXOxkDD_GlFneIOTsee7mp5RYx5DVb10CJOlNw58NqlfmwItWr4D5NzfFWge7XEnp8kNrE7UXnYx";
 
@@ -42,28 +51,42 @@ const CardDetail = ({ restaurant, closeCard }) => {
           style={{
             width: screenWidth,
             backgroundColor: "salmon",
-            height: 30,
+            height: hp("5%"),
             justifyContent: "center",
           }}
           onPress={() => {
             closeCard(false);
           }}
         >
-          <Text style={{ textAlign: "center", color: "white" }}>Close</Text>
+          <Text
+            style={{
+              fontFamily: FONT_NORMAL,
+              textAlign: "center",
+              color: "white",
+            }}
+          >
+            Close
+          </Text>
         </TouchableOpacity>
         <View style={styles.container}>
-          <Text style={{ fontSize: 25, marginTop: 10, marginBottom: 5 }}>
+          <Text
+            style={{
+              fontFamily: FONT_NORMAL,
+              fontSize: 25,
+              marginTop: 10,
+              marginBottom: 5,
+              fontWeight: "bold",
+            }}
+          >
             {restaurant.name} ({restaurant.price})
           </Text>
           <StarRating
             disabled={true}
             maxStars={5}
             rating={restaurant.rating}
-            fullStarColor="salmon"
-            emptyStarColor="salmon"
+            fullStarColor={COLOR_PRIMARY}
+            emptyStarColor={COLOR_PRIMARY}
             starSize={25}
-            // containerStyle={{ marginBottom: 20 }}
-            // selectedStar={(rating) => this.onStarRatingPress(rating)}
           />
           <Text style={{ marginBottom: 20 }}>
             with {restaurant.review_count} reviews

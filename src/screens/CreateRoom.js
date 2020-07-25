@@ -149,8 +149,6 @@ const styles = StyleSheet.create({
   bigTxt: {
     fontFamily: "karla-bold",
     fontSize: HEADING_FONT_SIZE,
-    // paddingTop: HEADING_PADDING_TOP,
-    // paddingBottom: HEADING_BOTTOM,
   },
   normTxt: {
     fontFamily: "karla-bold",
@@ -165,11 +163,6 @@ const styles = StyleSheet.create({
     borderColor: COLOR_PRIMARY,
     borderWidth: ICON_BORDER_WIDTH,
     borderRadius: ICON_BORDER_RADIUS,
-  },
-  inline: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
 });
 
