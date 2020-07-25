@@ -16,26 +16,17 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import {
-  COLOR_PRIMARY,
-  STEP_HEIGHT,
-  HEADING_BOTTOM,
   SECTION_HEIGHT,
   BODY_BOTTOM,
   TEXTINPUT_BOTTOM_BORDER_WIDTH,
   BODY_FONT_SIZE,
   COLOR_SECONDARY,
-  NEXT_BUTTON_LEFT,
-  NEXT_BUTTON_BOTTOM,
-  ICON_BORDER_WIDTH,
-  HEADING_FONT_SIZE,
-  HEADING_PADDING_TOP,
-  STEP_FONT_SIZE,
-  STEP_SUBSCRIPT_FONT_SIZE,
-  ICON_BORDER_RADIUS,
   CONTAINER_PADDING_LEFT,
   CONTAINER_PADDING_RIGHT,
 } from "../../common";
 import NextButton from "../../components/NextButton";
+import StepHeader from "../../components/StepHeader";
+import StepTitleWithIcon from "../../components/StepTitleWithIcon";
 
 const BirthdaySignUp = ({ currentUser }) => {
   const navigation = useNavigation();
@@ -65,18 +56,11 @@ const BirthdaySignUp = ({ currentUser }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ height: STEP_HEIGHT }}>
-        <Text style={styles.step}>Step 2 of 4</Text>
-        <Text style={styles.stepSubscript}>(halfway there!)</Text>
-      </View>
-
-      <View style={{ bottom: HEADING_BOTTOM, height: SECTION_HEIGHT }}>
-        <View style={styles.icon}>
-          <Icon color="black" name="cake-variant" size={25} />
-        </View>
-        <Text style={styles.normTxt}>What's your birthday?</Text>
-      </View>
-
+      <StepHeader step="Step 2 of 4" subscript="(halfway there!)" />
+      <StepTitleWithIcon
+        title="What's your birthday?"
+        iconName="cake-variant"
+      />
       <View style={{ bottom: BODY_BOTTOM, height: SECTION_HEIGHT }}>
         <TouchableOpacity
           style={{
@@ -161,31 +145,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingLeft: CONTAINER_PADDING_LEFT,
     paddingRight: CONTAINER_PADDING_RIGHT,
-  },
-  normTxt: {
-    fontFamily: "karla-bold",
-    fontSize: HEADING_FONT_SIZE,
-    paddingTop: HEADING_PADDING_TOP,
-  },
-  step: {
-    alignSelf: "center",
-    fontSize: STEP_FONT_SIZE,
-    fontFamily: "karla-bold",
-  },
-  stepSubscript: {
-    alignSelf: "center",
-    fontSize: STEP_SUBSCRIPT_FONT_SIZE,
-    fontFamily: "karla-bold",
-  },
-  icon: {
-    width: 44,
-    height: 44,
-    backgroundColor: "white",
-    borderWidth: ICON_BORDER_WIDTH,
-    borderColor: COLOR_PRIMARY,
-    borderRadius: ICON_BORDER_RADIUS,
-    alignItems: "center",
-    justifyContent: "center",
   },
   textInput: {
     alignSelf: "stretch",

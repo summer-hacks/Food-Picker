@@ -20,24 +20,14 @@ import {
 } from "react-native-responsive-screen";
 import {
   COLOR_PRIMARY,
-  DEVICE_WIDTH,
-  DEVICE_HEIGHT,
-  STEP_HEIGHT,
-  ICON_BORDER_WIDTH,
-  ICON_BORDER_RADIUS,
-  STEP_SUBSCRIPT_FONT_SIZE,
-  STEP_FONT_SIZE,
-  HEADING_FONT_SIZE,
-  HEADING_PADDING_TOP,
-  NEXT_BUTTON_LEFT,
-  NEXT_BUTTON_BOTTOM,
   CONTAINER_PADDING_LEFT,
   CONTAINER_PADDING_RIGHT,
-  HEADING_BOTTOM,
   SECTION_HEIGHT,
   BODY_BOTTOM,
 } from "../../common";
 import NextButton from "../../components/NextButton";
+import StepHeader from "../../components/StepHeader";
+import StepTitleWithIcon from "../../components/StepTitleWithIcon";
 
 const initialState = {
   latitude: 0,
@@ -86,18 +76,11 @@ const LocationSignUp = ({ currentUser }) => {
   const navigation = useNavigation();
   return currentPosition.latitude ? (
     <View style={styles.container}>
-      <View style={{ height: STEP_HEIGHT }}>
-        <Text style={styles.step}>Step 4 of 4</Text>
-        <Text style={styles.stepSubscript}>(last step!)</Text>
-      </View>
-
-      <View style={{ bottom: HEADING_BOTTOM, height: SECTION_HEIGHT }}>
-        <View style={styles.icon}>
-          <Icon color="black" name="map-marker-outline" size={25} />
-        </View>
-        <Text style={styles.normTxt}>Where do you live?</Text>
-      </View>
-
+      <StepHeader step="Step 4 of 4" subscript="(last step!)" />
+      <StepTitleWithIcon
+        title="Where do you live?"
+        iconName="map-marker-outline"
+      />
       <View style={{ bottom: BODY_BOTTOM + 35, height: SECTION_HEIGHT }}>
         <MapView
           provider={PROVIDER_GOOGLE}
@@ -126,44 +109,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingLeft: CONTAINER_PADDING_LEFT,
     paddingRight: CONTAINER_PADDING_RIGHT,
-  },
-  buttonView: {
-    alignSelf: "flex-end",
-    left: NEXT_BUTTON_LEFT,
-    bottom: NEXT_BUTTON_BOTTOM,
-  },
-  button: {
-    width: 54,
-    height: 54,
-    backgroundColor: COLOR_PRIMARY,
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  normTxt: {
-    fontFamily: "karla-bold",
-    fontSize: HEADING_FONT_SIZE,
-    paddingTop: HEADING_PADDING_TOP,
-  },
-  step: {
-    alignSelf: "center",
-    fontSize: STEP_FONT_SIZE,
-    fontFamily: "karla-bold",
-  },
-  stepSubscript: {
-    alignSelf: "center",
-    fontSize: STEP_SUBSCRIPT_FONT_SIZE,
-    fontFamily: "karla-bold",
-  },
-  icon: {
-    width: 44,
-    height: 44,
-    backgroundColor: "white",
-    borderWidth: ICON_BORDER_WIDTH,
-    borderColor: COLOR_PRIMARY,
-    borderRadius: ICON_BORDER_RADIUS,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 

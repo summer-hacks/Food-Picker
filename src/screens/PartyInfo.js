@@ -1,18 +1,39 @@
 import React, { useState } from "react";
 import {
-  View,
-  Text,
+  Keyboard,
   StyleSheet,
+  Text,
   TextInput,
-  TouchableOpacity,
-  Alert,
+  View,
+  TouchableWithoutFeedback,
 } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { connect } from "react-redux";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import {
+  BODY_BOTTOM,
+  COLOR_PRIMARY,
+  CONTAINER_PADDING_LEFT,
+  CONTAINER_PADDING_RIGHT,
+  SECTION_HEIGHT,
+  HEADING_BOTTOM,
+  HEADING_FONT_SIZE,
+  HEADING_PADDING_TOP,
+  STEP_HEIGHT,
+  STEP_SUBSCRIPT_FONT_SIZE,
+  NEXT_BUTTON_BOTTOM,
+  NEXT_BUTTON_LEFT,
+  BODY_FONT_SIZE,
+  STEP_FONT_SIZE,
+  TEXTINPUT_BOTTOM_BORDER_WIDTH,
+  ICON_BORDER_RADIUS,
+  ICON_BORDER_WIDTH,
+} from "../common";
 import NextButton from "../components/NextButton";
-
-// prob shouldn't be hardcoding api key in here but works for now
-const api_key =
-  "rfzFsGmwjhmXJqBMeXgjk8VTwpz8zevZE0xPzGz2YAzDiP15VI5alXOxkDD_GlFneIOTsee7mp5RYx5DVb10CJOlNw58NqlfmwItWr4D5NzfFWge7XEnp8kNrE7UXnYx";
-const url = "https://api.yelp.com/v3/businesses/search?";
+import StepHeader from "../components/StepHeader";
 
 const PartyInfo = ({ route, navigation }) => {
   const [partyName, setPartyName] = useState("");
@@ -51,33 +72,87 @@ const PartyInfo = ({ route, navigation }) => {
     }
   };
   return (
-    <View style={styles.container}>
-      <TextInput
-        placeholder="Party Name"
-        style={styles.input}
-        onChangeText={onChangePartyName}
-      />
-      <TextInput
-        placeholder="Party Size"
-        keyboardType={"numeric"}
-        style={styles.input}
-        onChangeText={onChangePartySize}
-      />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <StepHeader step="Step 1 of 4" />
+        <View style={{ bottom: BODY_BOTTOM, height: SECTION_HEIGHT }}>
+          <View style={styles.icon}>
+            <Icon color="black" name="cake" size={25} />
+          </View>
+          <Text style={styles.normTxt}>Let's start your party!</Text>
+        </View>
 
-      <NextButton onPress={handleNext} />
-    </View>
+        <View style={{ bottom: BODY_BOTTOM, height: SECTION_HEIGHT }}>
+          <TextInput
+            placeholder="Party Name"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={onChangePartyName}
+            value={partyName}
+          />
+          <TextInput
+            placeholder="Party Size"
+            keyboardType={"numeric"}
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={onChangePartySize}
+            value={partySize}
+          />
+        </View>
+        <NextButton onPress={handleNext} />
+      </View>
+    </TouchableWithoutFeedback>
+
+    // <View style={styles.container}>
+    //   <TextInput
+    //     placeholder="Party Name"
+    //     style={styles.input}
+    //     onChangeText={onChangePartyName}
+    //   />
+    //   <TextInput
+    //     placeholder="Party Size"
+    //     keyboardType={"numeric"}
+    //     style={styles.input}
+    //     onChangeText={onChangePartySize}
+    //   />
+
+    //   <NextButton onPress={handleNext} />
+    // </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    flexDirection: "column",
+    justifyContent: "space-around",
+    backgroundColor: "white",
+    paddingLeft: CONTAINER_PADDING_LEFT,
+    paddingRight: CONTAINER_PADDING_RIGHT,
   },
-  input: {
-    height: 60,
-    padding: 8,
-    fontSize: 16,
+  normTxt: {
+    fontFamily: "karla-bold",
+    fontSize: HEADING_FONT_SIZE,
+    paddingTop: HEADING_PADDING_TOP,
+  },
+  textInput: {
+    alignSelf: "stretch",
+    fontFamily: "karla-regular",
+    fontSize: BODY_FONT_SIZE,
+    borderBottomColor: "#000",
+    margin: 5,
+    marginBottom: 25,
+    borderBottomWidth: TEXTINPUT_BOTTOM_BORDER_WIDTH,
+  },
+  icon: {
+    width: 44,
+    height: 44,
+    backgroundColor: "white",
+    borderWidth: ICON_BORDER_WIDTH,
+    borderColor: COLOR_PRIMARY,
+    borderRadius: ICON_BORDER_RADIUS,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

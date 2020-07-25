@@ -35,12 +35,6 @@ const StartSignUp = ({ clearCurrentUser }) => {
           navigation.navigate("NameSignUp");
         }}
       />
-      {/* <TouchableOpacity
-        style={styles.btn}
-        onPress={() => }
-      >
-        <Text style={styles.btnTxt}>Sign Up</Text>
-      </TouchableOpacity> */}
     </View>
   );
 };
