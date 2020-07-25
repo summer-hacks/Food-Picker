@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  Keyboard,
-  View,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import { CONTAINER_PADDING_LEFT, CONTAINER_PADDING_RIGHT } from "../common";
 import BottomButton from "./BottomButton";
 import {
@@ -25,7 +20,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-between",
-    alignItems: "flex-start",
+    alignItems: "center",
     backgroundColor: "white",
   },
   container: {
@@ -37,7 +32,7 @@ const styles = StyleSheet.create({
     paddingLeft: CONTAINER_PADDING_LEFT,
     paddingRight: CONTAINER_PADDING_RIGHT,
     marginTop: hp("10%"),
-    marginBottom: hp("20%"),
+    marginBottom: hp("30%"),
   },
 });
 

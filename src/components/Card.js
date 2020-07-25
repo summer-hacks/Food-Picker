@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Overlay } from "react-native-elements";
-import { Dimensions } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import CardDetail from "./CardDetail";
@@ -10,11 +9,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import {
-  COLOR_PRIMARY,
-  FONT_NORMAL,
-  TEXTINPUT_BOTTOM_BORDER_WIDTH,
-} from "../common";
+import { COLOR_PRIMARY } from "../common";
 const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
   const [visibility, setVisibility] = useState(false);
   return (

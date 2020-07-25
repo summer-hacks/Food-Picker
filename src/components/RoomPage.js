@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  FlatList,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, FlatList, Text, View } from "react-native";
 import firebase from "../../firebase.js";
 
 function RoomPage({ route, navigation }) {

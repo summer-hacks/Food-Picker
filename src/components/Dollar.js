@@ -1,11 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import {
-  COLOR_PRIMARY,
-  FONT_NORMAL,
-  ICON_BORDER_WIDTH,
-  ICON_BORDER_RADIUS,
-} from "../common";
+import { COLOR_PRIMARY } from "../common";
 const Dollar = ({ dollars, clicked, handleClick }) => {
   return (
     <TouchableOpacity

@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { COLOR_SECONDARY, COLOR_PRIMARY } from "../common";
+import { COLOR_PRIMARY } from "../common";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,

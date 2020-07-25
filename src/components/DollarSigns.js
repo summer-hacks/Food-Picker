@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  Keyboard,
-  View,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { View } from "react-native";
 import Dollar from "./Dollar";
 const DollarSigns = ({
   $clicked,

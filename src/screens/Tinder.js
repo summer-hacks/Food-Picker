@@ -4,6 +4,8 @@ import firebase from "../../firebase.js";
 import Stack from "../components/Stack";
 import Container from "../components/Container";
 import StepHeader from "../components/StepHeader";
+import BigHeader from "../components/BigHeader";
+
 import {
   HEADING_FONT_SIZE,
   HEADING_PADDING_TOP,
@@ -75,7 +77,7 @@ const Tinder = ({ route, navigation }) => {
 
   return (
     <Container>
-      <Text style={styles.bigTxt}>Swipe Away!</Text>
+      <BigHeader title="Swipe Away!" />
       <StepHeader step={restaurants.length + " cards left"} />
       <Stack
         cards={restaurants}
@@ -86,20 +88,5 @@ const Tinder = ({ route, navigation }) => {
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  bigTxt: {
-    fontFamily: "karla-bold",
-    fontSize: HEADING_FONT_SIZE,
-    paddingBottom: HEADING_BOTTOM,
-    paddingTop: HEADING_PADDING_TOP,
-    textAlign: "center",
-  },
-  btnContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-  },
-});
 
 export default Tinder;

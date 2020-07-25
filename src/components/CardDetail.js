@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, Linking } from "react-native";
 const screenWidth = Math.round(Dimensions.get("window").width);
-const screenHeight = Math.round(Dimensions.get("window").height);
 import { Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -15,8 +14,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-const api_key =
-  "rfzFsGmwjhmXJqBMeXgjk8VTwpz8zevZE0xPzGz2YAzDiP15VI5alXOxkDD_GlFneIOTsee7mp5RYx5DVb10CJOlNw58NqlfmwItWr4D5NzfFWge7XEnp8kNrE7UXnYx";
 
 const CardDetail = ({ restaurant, closeCard }) => {
   const [index, setIndex] = useState(0);

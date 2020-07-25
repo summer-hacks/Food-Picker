@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button,
-  TouchableOpacity,
-} from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { COLOR_SECONDARY, COLOR_PRIMARY } from "../common";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { COLOR_PRIMARY } from "../common";
 
 const BottomButton = ({ text, onPress }) => {
   return (
