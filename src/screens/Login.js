@@ -10,11 +10,11 @@ import {
 import firebase from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import "./../../global";
-import {connect} from 'react-redux';
+import "../../global";
+import { connect } from "react-redux";
+import NextButton from "../components/NextButton";
 
-const Login = ({currentUser, actions}) =>  {
-
+const Login = ({ currentUser, actions }) => {
   const navigation = useNavigation();
 
   const [userInfo, setUserInfo] = useState({
@@ -67,7 +67,7 @@ const Login = ({currentUser, actions}) =>  {
   //       onSignInSubmit();
   //     }
   //   });
-    
+
   //   var phoneNumber = '+15629913412';
   //   var appVerifier = window.recaptchaVerifier;
   //   firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
@@ -91,15 +91,15 @@ const Login = ({currentUser, actions}) =>  {
   //       });
   // };
 
-    return (
-      <View style={styles.container}>
+  return (
+    <View style={styles.container}>
       <View>
         <View style={styles.icon}>
           <Icon color="black" name="phone-outline" size={25} />
         </View>
       </View>
       <Text style={{ fontFamily: "karla-bold", fontSize: 40 }}>
-        What's your {"\n"}phone number?
+        Welcome to {"\n"}Chikin Tinder!
       </Text>
       {userInfo.errorMessage && (
         <Text style={{ color: "red" }}>{userInfo.errorMessage}</Text>
@@ -127,17 +127,10 @@ const Login = ({currentUser, actions}) =>  {
         title="Don't have an account? Sign Up"
         onPress={() => navigation.navigate("StartSignUp")}
       />
-      <View style={styles.buttonView}>
-        <TouchableOpacity onPress={handleLogin}>
-          <View style={styles.button}>
-            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
-          </View>
-        </TouchableOpacity>
-      </View>
+      <NextButton onPress={handleLogin} />
     </View>
-    );
-  }
-
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -186,11 +179,10 @@ const styles = StyleSheet.create({
   },
 });
 
-
 function mapStateToProps(state) {
   return {
-      currentUser: state.currentUser
-  }
+    currentUser: state.currentUser,
+  };
 }
 
 export default connect(mapStateToProps)(Login);

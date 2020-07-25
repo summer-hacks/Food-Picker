@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+import NextButton from "../components/NextButton";
 
 // prob shouldn't be hardcoding api key in here but works for now
 const api_key =
@@ -29,6 +30,26 @@ const PartyInfo = ({ route, navigation }) => {
     setPartyName(partyName);
   };
 
+  const handleNext = () => {
+    if (!partyName || !partySize) {
+      Alert.alert(
+        "Empty field",
+        "Please enter all info",
+        [
+          {
+            text: "Ok",
+            style: "cancel",
+          },
+        ],
+        { cancelable: true }
+      );
+    } else {
+      navigation.navigate("Search", {
+        partyName: partyName,
+        partySize: partySize,
+      });
+    }
+  };
   return (
     <View style={styles.container}>
       <TextInput
@@ -42,31 +63,8 @@ const PartyInfo = ({ route, navigation }) => {
         style={styles.input}
         onChangeText={onChangePartySize}
       />
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => {
-          if (!partyName || !partySize) {
-            Alert.alert(
-              "Empty field",
-              "Please enter all info",
-              [
-                {
-                  text: "Ok",
-                  style: "cancel",
-                },
-              ],
-              { cancelable: true }
-            );
-          } else {
-            navigation.navigate("Search", {
-              partyName: partyName,
-              partySize: partySize,
-            });
-          }
-        }}
-      >
-        <Text style={styles.btnText}>Next</Text>
-      </TouchableOpacity>
+
+      <NextButton onPress={handleNext} />
     </View>
   );
 };
@@ -80,16 +78,6 @@ const styles = StyleSheet.create({
     height: 60,
     padding: 8,
     fontSize: 16,
-  },
-  btn: {
-    backgroundColor: "#c2bad8",
-    padding: 9,
-    margin: 5,
-  },
-  btnText: {
-    color: "darkslateblue",
-    fontSize: 20,
-    textAlign: "center",
   },
 });
 
