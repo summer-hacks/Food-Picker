@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Button,
+  View,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
