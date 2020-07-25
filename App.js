@@ -52,6 +52,20 @@ const App = () => {
     );
   }
 
+  const backButton = {
+    headerTintColor: COLOR_PRIMARY,
+    headerLeftContainerStyle: { marginHorizontal: 15 },
+    headerStyle: {
+      backgroundColor: "white",
+      borderWidth: 0,
+      shadowRadius: 0,
+      shadowOffset: {
+        height: 0,
+      },
+    },
+    headerBackTitleVisible: false,
+    headerTitle: null,
+  };
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -64,137 +78,61 @@ const App = () => {
           <Stack.Screen
             name="StartSignUp"
             component={StartSignUp}
-            options={{
-              headerTintColor: COLOR_PRIMARY,
-              headerLeftContainerStyle: { marginHorizontal: 15 },
-              headerStyle: {
-                backgroundColor: "white",
-                borderWidth: 0,
-                shadowRadius: 0,
-                shadowOffset: {
-                  height: 0,
-                },
-              },
-              headerBackTitleVisible: false,
-              headerTitle: null,
-            }}
+            options={backButton}
           />
           <Stack.Screen
             name="NameSignUp"
             component={NameSignUp}
-            options={{
-              headerTintColor: COLOR_PRIMARY,
-              headerLeftContainerStyle: { marginHorizontal: 15 },
-              headerStyle: {
-                backgroundColor: "white",
-                borderWidth: 0,
-                shadowRadius: 0,
-                shadowOffset: {
-                  height: 0,
-                },
-              },
-              headerBackTitleVisible: false,
-              headerTitle: null,
-            }}
+            options={backButton}
           />
           <Stack.Screen
             name="BirthdaySignUp"
             component={BirthdaySignUp}
-            options={{
-              headerTintColor: COLOR_PRIMARY,
-              headerLeftContainerStyle: { marginHorizontal: 15 },
-              headerStyle: {
-                backgroundColor: "white",
-                borderWidth: 0,
-                shadowRadius: 0,
-                shadowOffset: {
-                  height: 0,
-                },
-              },
-              headerBackTitleVisible: false,
-              headerTitle: null,
-            }}
+            options={backButton}
           />
           <Stack.Screen
             name="EmailSignUp"
             component={EmailSignUp}
-            options={{
-              headerTintColor: COLOR_PRIMARY,
-              headerLeftContainerStyle: { marginHorizontal: 15 },
-              headerStyle: {
-                backgroundColor: "white",
-                borderWidth: 0,
-                shadowRadius: 0,
-                shadowOffset: {
-                  height: 0,
-                },
-              },
-              headerBackTitleVisible: false,
-              headerTitle: null,
-            }}
+            options={backButton}
           />
           <Stack.Screen
             name="LocationSignUp"
             component={LocationSignUp}
-            options={{
-              headerTintColor: COLOR_PRIMARY,
-              headerLeftContainerStyle: { marginHorizontal: 15 },
-              headerStyle: {
-                backgroundColor: "white",
-                borderWidth: 0,
-                shadowRadius: 0,
-                shadowOffset: {
-                  height: 0,
-                },
-              },
-              headerBackTitleVisible: false,
-              headerTitle: null,
-            }}
+            options={backButton}
           />
           <Stack.Screen
             name="DoneSignUp"
             component={DoneSignUp}
-            options={{
-              headerTintColor: COLOR_PRIMARY,
-              headerLeftContainerStyle: { marginHorizontal: 15 },
-              headerStyle: {
-                backgroundColor: "white",
-                borderWidth: 0,
-                shadowRadius: 0,
-                shadowOffset: {
-                  height: 0,
-                },
-              },
-              headerBackTitleVisible: false,
-              headerTitle: null,
-            }}
+            options={backButton}
           />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{
-              headerTintColor: COLOR_PRIMARY,
-              headerLeftContainerStyle: { marginHorizontal: 15 },
-              headerStyle: {
-                backgroundColor: "white",
-                borderWidth: 0,
-                shadowRadius: 0,
-                shadowOffset: {
-                  height: 0,
-                },
-              },
-              headerBackTitleVisible: false,
-              headerTitle: null,
-            }}
+            options={backButton}
           />
-          <Stack.Screen name="Search" component={Search} />
-          <Stack.Screen name="Tinder" component={Tinder} />
-          <Stack.Screen name="JoinRoom" component={JoinRoom} />
-          <Stack.Screen name="CreateRoom" component={CreateRoom} />
-          <Stack.Screen name="PartyInfo" component={PartyInfo} />
-          <Stack.Screen name="RoomPage" component={RoomPage} />
-          <Stack.Screen name="MyRooms" component={MyRooms} />
+          <Stack.Screen name="Search" component={Search} options={backButton} />
+          <Stack.Screen name="Tinder" component={Tinder} options={backButton} />
+          <Stack.Screen
+            name="JoinRoom"
+            component={JoinRoom}
+            options={backButton}
+          />
+          <Stack.Screen
+            name="CreateRoom"
+            component={CreateRoom}
+            options={backButton}
+          />
+          <Stack.Screen
+            name="PartyInfo"
+            component={PartyInfo}
+            options={backButton}
+          />
+          <Stack.Screen
+            name="MyRooms"
+            component={MyRooms}
+            options={backButton}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

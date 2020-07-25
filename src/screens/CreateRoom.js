@@ -8,7 +8,27 @@ import {
   TouchableOpacity,
 } from "react-native";
 import firebase from "../../firebase.js";
-import BottomButton from "../components/BottomButton";
+import {
+  COLOR_SECONDARY,
+  COLOR_PRIMARY,
+  BODY_BOTTOM,
+  BODY_FONT_SIZE,
+  FONT_NORMAL,
+  HEADING_FONT_SIZE,
+  HEADING_PADDING_TOP,
+  HEADING_BOTTOM,
+  ICON_BORDER_WIDTH,
+  ICON_BORDER_RADIUS,
+} from "../common";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import Icon from "react-native-vector-icons/Feather";
+import ContainerWithBottomButton from "../components/ContainerWithBottomButton";
+import StepSection from "../components/StepSection";
+import PartyInfo from "./PartyInfo.js";
+
 // create a room record in firebase containing the party info + restaurant results
 async function pushRestaurants(roomId, restaurants) {
   for (var i = 0, len = restaurants.length; i < len; i++) {
@@ -99,54 +119,57 @@ const CreateRoom = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>New Room</Text>
-      <Text>Room ID: {roomId}</Text>
-      <Text>restaurants length: {restaurants.length}</Text>
-      <Text>party size: {partySize}</Text>
-      <BottomButton
-        onPress={() => {
-          navigation.navigate("Tinder", {
-            roomId: roomId,
-          });
-        }}
-        text={"Start Swiping"}
-      />
-      <TouchableOpacity
-        onPress={() => {
-          onShare(roomId);
-        }}
-      >
-        <Text>Share</Text>
-      </TouchableOpacity>
-    </View>
+    <ContainerWithBottomButton
+      bottomText="Start Swiping"
+      bottomOnPress={() => {
+        navigation.navigate("Tinder", {
+          roomId: roomId,
+        });
+      }}
+    >
+      <Text style={styles.bigTxt}>Room ID: {roomId}</Text>
+      <Text style={styles.normTxt}>
+        Share this code with the other {partySize - 1} people in your party!
+      </Text>
+      <View style={styles.icon}>
+        <Icon
+          color={COLOR_PRIMARY}
+          name="share"
+          size={wp("10%")}
+          onPress={() => {
+            onShare(roomId);
+          }}
+        />
+      </View>
+    </ContainerWithBottomButton>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  bigTxt: {
+    fontFamily: "karla-bold",
+    fontSize: HEADING_FONT_SIZE,
+    // paddingTop: HEADING_PADDING_TOP,
+    // paddingBottom: HEADING_BOTTOM,
+  },
+  normTxt: {
+    fontFamily: "karla-bold",
+    fontSize: BODY_FONT_SIZE,
+  },
+  icon: {
+    width: wp("15%"),
+    height: wp("15%"),
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: COLOR_PRIMARY,
+    borderWidth: ICON_BORDER_WIDTH,
+    borderRadius: ICON_BORDER_RADIUS,
+  },
+  inline: {
     flex: 1,
-    padding: 20,
-  },
-  item: {
-    backgroundColor: "#161a7e",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 5,
-  },
-  title: {
-    fontSize: 20,
-    color: "white",
-  },
-  btn: {
-    backgroundColor: "#c2bad8",
-    padding: 9,
-    margin: 5,
-  },
-  btnText: {
-    color: "darkslateblue",
-    fontSize: 20,
-    textAlign: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 

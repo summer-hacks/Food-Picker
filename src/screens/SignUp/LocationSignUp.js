@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
 import MapView, { AnimatedRegion, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Permissions from "expo-permissions";
@@ -18,16 +9,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import {
-  COLOR_PRIMARY,
-  CONTAINER_PADDING_LEFT,
-  CONTAINER_PADDING_RIGHT,
-  SECTION_HEIGHT,
-  BODY_BOTTOM,
-} from "../../common";
+import { CONTAINER_PADDING_LEFT, CONTAINER_PADDING_RIGHT } from "../../common";
 import NextButton from "../../components/NextButton";
 import StepHeader from "../../components/StepHeader";
 import StepTitleWithIcon from "../../components/StepTitleWithIcon";
+import Container from "../../components/Container";
+import StepSection from "../../components/StepSection";
 
 const initialState = {
   latitude: 0,
@@ -75,13 +62,13 @@ const LocationSignUp = ({ currentUser }) => {
 
   const navigation = useNavigation();
   return currentPosition.latitude ? (
-    <View style={styles.container}>
+    <Container>
       <StepHeader step="Step 4 of 4" subscript="(last step!)" />
       <StepTitleWithIcon
         title="Where do you live?"
         iconName="map-marker-outline"
       />
-      <View style={{ bottom: BODY_BOTTOM + 35, height: SECTION_HEIGHT }}>
+      <StepSection>
         <MapView
           provider={PROVIDER_GOOGLE}
           style={{
@@ -93,9 +80,9 @@ const LocationSignUp = ({ currentUser }) => {
           initialRegion={currentPosition}
           showsUserLocation
         ></MapView>
-      </View>
+      </StepSection>
       <NextButton onPress={handleLogin} />
-    </View>
+    </Container>
   ) : (
     <ActivityIndicator style={{ flex: 1 }} animating size="large" />
   );

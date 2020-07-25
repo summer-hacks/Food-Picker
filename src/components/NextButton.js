@@ -9,6 +9,10 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLOR_SECONDARY, COLOR_PRIMARY } from "../common";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const NextButton = ({ onPress }) => {
   return (
@@ -24,8 +28,8 @@ const NextButton = ({ onPress }) => {
 const styles = StyleSheet.create({
   buttonView: {
     alignSelf: "flex-end",
-    marginRight: 10,
-    marginBottom: 10,
+    marginRight: 0,
+    marginBottom: hp("1%"),
   },
   button: {
     width: 54,

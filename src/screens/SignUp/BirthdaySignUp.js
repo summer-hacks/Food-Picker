@@ -1,32 +1,18 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TouchableHighlight,
-  Button,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import {
-  SECTION_HEIGHT,
-  BODY_BOTTOM,
   TEXTINPUT_BOTTOM_BORDER_WIDTH,
   BODY_FONT_SIZE,
   COLOR_SECONDARY,
-  CONTAINER_PADDING_LEFT,
-  CONTAINER_PADDING_RIGHT,
 } from "../../common";
 import NextButton from "../../components/NextButton";
 import StepHeader from "../../components/StepHeader";
 import StepTitleWithIcon from "../../components/StepTitleWithIcon";
+import Container from "../../components/Container";
+import StepSection from "../../components/StepSection";
 
 const BirthdaySignUp = ({ currentUser }) => {
   const navigation = useNavigation();
@@ -55,13 +41,13 @@ const BirthdaySignUp = ({ currentUser }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <Container>
       <StepHeader step="Step 2 of 4" subscript="(halfway there!)" />
       <StepTitleWithIcon
         title="What's your birthday?"
         iconName="cake-variant"
       />
-      <View style={{ bottom: BODY_BOTTOM, height: SECTION_HEIGHT }}>
+      <StepSection>
         <TouchableOpacity
           style={{
             position: "relative",
@@ -79,7 +65,7 @@ const BirthdaySignUp = ({ currentUser }) => {
             {date.toDateString().substring(4)}
           </Text>
         </TouchableOpacity>
-      </View>
+      </StepSection>
 
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -134,18 +120,10 @@ const BirthdaySignUp = ({ currentUser }) => {
         }}
       />
       <NextButton onPress={handleLogin} />
-    </View>
+    </Container>
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    backgroundColor: "white",
-    paddingLeft: CONTAINER_PADDING_LEFT,
-    paddingRight: CONTAINER_PADDING_RIGHT,
-  },
   textInput: {
     alignSelf: "stretch",
     fontFamily: "karla-regular",
