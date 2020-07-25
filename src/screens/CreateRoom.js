@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  Share,
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import firebase from "../../firebase.js";
 import BottomButton from "../components/BottomButton";
 // create a room record in firebase containing the party info + restaurant results
@@ -72,6 +79,26 @@ const CreateRoom = ({ route, navigation }) => {
     setRoomId(newRoomId);
   }, []);
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          "React Native | A framework for building native apps using React",
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text>New Room</Text>
@@ -86,6 +113,7 @@ const CreateRoom = ({ route, navigation }) => {
         }}
         text={"Start Swiping"}
       />
+      <Button onPress={onShare} title="Share" />
     </View>
   );
 };
