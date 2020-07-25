@@ -2,6 +2,13 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import firebase from "../../firebase.js";
 import Stack from "../components/Stack";
+import Container from "../components/Container";
+import StepHeader from "../components/StepHeader";
+import {
+  HEADING_FONT_SIZE,
+  HEADING_PADDING_TOP,
+  HEADING_BOTTOM,
+} from "../common";
 
 const Tinder = ({ route, navigation }) => {
   const [restaurants, setRestaurants] = useState([]);
@@ -67,34 +74,26 @@ const Tinder = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Tinder Screen</Text>
-      <Text>roomId: {roomId}</Text>
-      <Text>{restaurants.length} remaining</Text>
+    <Container>
+      <Text style={styles.bigTxt}>Swipe Away!</Text>
+      <StepHeader step={restaurants.length + " cards left"} />
       <Stack
         cards={restaurants}
         roomId={roomId}
         cb={handleChoice}
         nav={navigation}
       />
-    </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  item: {
-    backgroundColor: "#161a7e",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 5,
-  },
-  text: {
-    fontSize: 20,
-    color: "black",
+  bigTxt: {
+    fontFamily: "karla-bold",
+    fontSize: HEADING_FONT_SIZE,
+    paddingBottom: HEADING_BOTTOM,
+    paddingTop: HEADING_PADDING_TOP,
+    textAlign: "center",
   },
   btnContainer: {
     flex: 1,

@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import {
-  View,
-  Text,
+  Keyboard,
   StyleSheet,
+  Text,
   TextInput,
-  TouchableOpacity,
+  View,
+  TouchableWithoutFeedback,
   Alert,
 } from "react-native";
+import {
+  HEADING_FONT_SIZE,
+  HEADING_PADDING_TOP,
+  BODY_FONT_SIZE,
+  TEXTINPUT_BOTTOM_BORDER_WIDTH,
+} from "../common";
 import NextButton from "../components/NextButton";
-
-// prob shouldn't be hardcoding api key in here but works for now
-const api_key =
-  "rfzFsGmwjhmXJqBMeXgjk8VTwpz8zevZE0xPzGz2YAzDiP15VI5alXOxkDD_GlFneIOTsee7mp5RYx5DVb10CJOlNw58NqlfmwItWr4D5NzfFWge7XEnp8kNrE7UXnYx";
-const url = "https://api.yelp.com/v3/businesses/search?";
+import StepHeader from "../components/StepHeader";
+import Container from "../components/Container";
+import StepSection from "../components/StepSection";
+import StepTitleWithIcon from "../components/StepTitleWithIcon";
 
 const PartyInfo = ({ route, navigation }) => {
   const [partyName, setPartyName] = useState("");
@@ -51,33 +57,45 @@ const PartyInfo = ({ route, navigation }) => {
     }
   };
   return (
-    <View style={styles.container}>
-      <TextInput
-        placeholder="Party Name"
-        style={styles.input}
-        onChangeText={onChangePartyName}
-      />
-      <TextInput
-        placeholder="Party Size"
-        keyboardType={"numeric"}
-        style={styles.input}
-        onChangeText={onChangePartySize}
-      />
-
+    <Container>
+      <StepHeader step="" />
+      <StepTitleWithIcon title="Get the party started!" iconName="balloon" />
+      <StepSection>
+        <TextInput
+          placeholder="Party Name"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={onChangePartyName}
+          value={partyName}
+        />
+        <TextInput
+          placeholder="Party Size"
+          keyboardType={"numeric"}
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={onChangePartySize}
+          value={partySize}
+        />
+      </StepSection>
       <NextButton onPress={handleNext} />
-    </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
+  normTxt: {
+    fontFamily: "karla-bold",
+    fontSize: HEADING_FONT_SIZE,
+    paddingTop: HEADING_PADDING_TOP,
   },
-  input: {
-    height: 60,
-    padding: 8,
-    fontSize: 16,
+  textInput: {
+    alignSelf: "stretch",
+    fontFamily: "karla-regular",
+    fontSize: BODY_FONT_SIZE,
+    borderBottomColor: "#000",
+    margin: 5,
+    marginBottom: 25,
+    borderBottomWidth: TEXTINPUT_BOTTOM_BORDER_WIDTH,
   },
 });
 

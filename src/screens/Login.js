@@ -7,16 +7,25 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import firebase from "../../firebase";
-import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import "./../../global";
-import { connect } from "react-redux";
-import { COLOR_PRIMARY, COLOR_TERTIARY, COLOR_TERTIARY_DARK } from "../common";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import firebase from "../../firebase";
+import {
+  BODY_FONT_SIZE,
+  TEXTINPUT_BOTTOM_BORDER_WIDTH,
+  COLOR_TERTIARY_DARK,
+  COLOR_PRIMARY,
+} from "../common";
+import { useNavigation } from "@react-navigation/native";
+import "./../../global";
+import { connect } from "react-redux";
+import Container from "../components/Container";
+import NextButton from "../components/NextButton";
+import StepTitleWithIcon from "../components/StepTitleWithIcon";
+import StepHeader from "../components/StepHeader";
+import StepSection from "../components/StepSection";
 
 const Login = ({ currentUser, actions }) => {
   const navigation = useNavigation();
@@ -37,78 +46,15 @@ const Login = ({ currentUser, actions }) => {
       .catch((error) => setUserInfo({ ...userInfo, errorMessage: error }));
   };
 
-  // phone number confirmation code but i don't think it works for our app
-
-  // async function signIn() {
-  //   const confirmation = await firebase.auth().signInWithPhoneNumber(userPhoneNum);
-  //   setConfirm(confirmation);
-  // }
-
-  // async function confirmCode() {
-  //   try {
-  //     await confirm.confirm(code);
-  //   } catch (error) {
-  //     console.log('Invalid code.');
-  //   }
-  // }
-
-  // const setUpRecaptcha = () => {
-  //   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-  //     'size': 'invisible',
-  //     'callback': function(response) {
-  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
-  //       onSignInSubmit();
-  //     }
-  //   });
-  // };
-
-  // const onSignInSubmit = () => {
-  //   // var phoneNumber = getPhoneNumberFromUserInput();
-  //   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-  //     'size': 'invisible',
-  //     'callback': function(response) {
-  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
-  //       onSignInSubmit();
-  //     }
-  //   });
-
-  //   var phoneNumber = '+15629913412';
-  //   var appVerifier = window.recaptchaVerifier;
-  //   firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-  //       .then(function (confirmationResult) {
-  //         var code = getCodeFromUserInput();
-  //         confirmationResult.confirm(code).then(function (result) {
-  //           // User signed in successfully
-  //           var user = result.user;
-  //           // ...
-  //           console.log("User is signed in")
-  //         }).catch(function (error) {
-  //           // User couldn't sign in (bad verification code?)
-  //           // ...
-  //         });
-  //         // SMS sent. Prompt user to type the code from the message, then sign the
-  //         // user in with confirmationResult.confirm(code).
-  //         window.confirmationResult = confirmationResult;
-  //       }).catch(function (error) {
-  //         // Error; SMS not sent
-  //         // ...
-  //       });
-  // };
-
   return (
-    <View style={styles.container}>
-      <View>
-        <View style={styles.icon}>
-          <Icon color="black" name="phone-outline" size={25} />
-        </View>
-      </View>
-      <Text style={{ fontFamily: "karla-bold", fontSize: 40 }}>
-        What's the {"\n"}secret password?
-      </Text>
+    <Container>
+      <StepHeader mb={hp("10%")} />
+      <StepTitleWithIcon title="It's Chikin Tinder Time!" iconName="food" />
+      <Text style={{ fontFamily: "karla-bold", fontSize: 40 }}></Text>
       {userInfo.errorMessage && (
         <Text style={{ color: "red" }}>{userInfo.errorMessage}</Text>
       )}
-      <View>
+      <StepSection>
         <TextInput
           style={styles.textInput}
           autoCapitalize="none"
@@ -126,83 +72,40 @@ const Login = ({ currentUser, actions }) => {
           }
           value={userInfo.password}
         />
-      </View>
-      <TouchableOpacity
-        style={{ bottom: hp("10%") }}
-        onPress={() => navigation.navigate("StartSignUp")}
-      >
-        <Text style={styles.signUpText}>Don't have an account? Sign Up</Text>
-      </TouchableOpacity>
-      {/* 
-      <Button
-        title="Don't have an account? Sign Up"
-        onPress={() => navigation.navigate("StartSignUp")}
-<<<<<<< HEAD:src/screens/Login.js
-      />
-      <NextButton onPress={handleLogin} />
-=======
-      /> */}
-      <View style={styles.buttonView}>
-        <TouchableOpacity onPress={handleLogin}>
-          <View style={styles.button}>
-            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
-          </View>
+      </StepSection>
+      <View style={{ bottom: hp("10%"), flexDirection: "row" }}>
+        <Text style={styles.signUpText}>Don't have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("StartSignUp")}>
+          <Text style={styles.signUp}>Sign up</Text>
         </TouchableOpacity>
       </View>
-    </View>
+      <NextButton onPress={handleLogin} />
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "flex-start",
-    backgroundColor: "white",
-    paddingLeft: 30,
-  },
-  buttonView: {
-    alignSelf: "flex-end",
-    marginRight: 20,
-    marginBottom: 10,
-  },
-  button: {
-    width: 54,
-    height: 54,
-    backgroundColor: global.orange,
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  icon: {
-    width: 44,
-    height: 44,
-    backgroundColor: "white",
-    borderWidth: 3,
-    borderColor: global.orange,
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    top: "100%",
-  },
   textInput: {
     alignSelf: "stretch",
-    padding: 5,
-    fontFamily: "karla-bold",
-    fontSize: 35,
+    fontFamily: "karla-regular",
+    fontSize: BODY_FONT_SIZE,
     borderBottomColor: "#000",
     margin: 5,
-    marginBottom: 20,
-    width: deviceWidth * 0.75,
-    borderBottomWidth: 3,
-    bottom: "15%",
+    marginBottom: 25,
+    borderBottomWidth: TEXTINPUT_BOTTOM_BORDER_WIDTH,
   },
   signUpText: {
     marginLeft: 7,
     color: COLOR_TERTIARY_DARK,
     fontSize: 18,
     fontWeight: "500",
+  },
+  signUp: {
+    marginLeft: 7,
+    color: COLOR_PRIMARY,
+    fontSize: 18,
+    fontWeight: "500",
+    // textDecorationLine: "underline",
   },
 });
 
