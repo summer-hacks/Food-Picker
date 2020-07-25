@@ -9,14 +9,9 @@ import {
 } from "react-native";
 import firebase from "../../firebase.js";
 import {
-  COLOR_SECONDARY,
   COLOR_PRIMARY,
-  BODY_BOTTOM,
   BODY_FONT_SIZE,
-  FONT_NORMAL,
   HEADING_FONT_SIZE,
-  HEADING_PADDING_TOP,
-  HEADING_BOTTOM,
   ICON_BORDER_WIDTH,
   ICON_BORDER_RADIUS,
 } from "../common";

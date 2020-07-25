@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
 import firebase from "../../firebase.js";
 import Stack from "../components/Stack";
 import Container from "../components/Container";
 import StepHeader from "../components/StepHeader";
 import BigHeader from "../components/BigHeader";
-
-import {
-  HEADING_FONT_SIZE,
-  HEADING_PADDING_TOP,
-  HEADING_BOTTOM,
-} from "../common";
 
 const Tinder = ({ route, navigation }) => {
   const [restaurants, setRestaurants] = useState([]);

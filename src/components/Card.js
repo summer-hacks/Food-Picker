@@ -10,6 +10,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { COLOR_PRIMARY } from "../common";
+
 const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
   const [visibility, setVisibility] = useState(false);
   return (
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 6,
     },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.05,
     shadowRadius: 8.3,
     elevation: 10,
   },
