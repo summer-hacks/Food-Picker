@@ -66,7 +66,6 @@ const PartyInfo = ({ route, navigation }) => {
           autoCapitalize="none"
           style={styles.textInput}
           onChangeText={onChangePartyName}
-          value={partyName}
         />
         <TextInput
           placeholder="Party Size"
@@ -74,7 +73,6 @@ const PartyInfo = ({ route, navigation }) => {
           autoCapitalize="none"
           style={styles.textInput}
           onChangeText={onChangePartySize}
-          value={partySize}
         />
       </StepSection>
       <NextButton onPress={handleNext} />

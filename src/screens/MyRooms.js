@@ -8,7 +8,10 @@ import {
 } from "react-native";
 import firebase from "../../firebase.js";
 import { COLOR_PRIMARY, BORDER_RADIUS, DEVICE_WIDTH } from "../common";
+import Container from "../components/Container";
+import BigHeader from "../components/BigHeader";
 
+import { heightPercentageToDP } from "react-native-responsive-screen";
 function MyRooms({ route, navigation }) {
   const [user, setUser] = useState({});
   const [rooms, setRooms] = useState([]);
@@ -46,14 +49,8 @@ function MyRooms({ route, navigation }) {
   }, []);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 50,
-      }}
-    >
+    <Container>
+      <BigHeader title="My Rooms" />
       <FlatList
         data={rooms}
         keyExtractor={(item) => item.roomId.toString()}
@@ -71,7 +68,7 @@ function MyRooms({ route, navigation }) {
           </TouchableOpacity>
         )}
       />
-    </View>
+    </Container>
   );
 }
 
@@ -81,8 +78,8 @@ const styles = StyleSheet.create({
     padding: 9,
     margin: 5,
     borderRadius: 10,
-    width: 0.75 * DEVICE_WIDTH,
-    height: 75,
+    width: "95%",
+    height: heightPercentageToDP("8"),
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",

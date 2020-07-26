@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Button, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/Feather";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import Tinder from "./src/screens/Tinder";
 import Search from "./src/screens/Search";
 import HomeScreen from "./src/screens/HomeScreen";
@@ -52,9 +58,9 @@ const App = () => {
     );
   }
 
-  const backButton = {
-    headerTintColor: COLOR_PRIMARY,
-    headerLeftContainerStyle: { marginHorizontal: 15 },
+  const backButton = ({ navigation }) => ({
+    headerBackTitleVisible: false,
+    headerTitle: null,
     headerStyle: {
       backgroundColor: "white",
       borderWidth: 0,
@@ -63,9 +69,17 @@ const App = () => {
         height: 0,
       },
     },
-    headerBackTitleVisible: false,
-    headerTitle: null,
-  };
+    headerLeft: () => (
+      <Icon
+        name="chevron-left"
+        size={wp("9%")}
+        color={COLOR_PRIMARY}
+        style={{ marginLeft: wp("3%") }}
+        onPress={() => navigation.goBack()}
+      />
+    ),
+  });
+
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -131,7 +145,27 @@ const App = () => {
           <Stack.Screen
             name="MyRooms"
             component={MyRooms}
-            options={backButton}
+            options={({ navigation }) => ({
+              headerBackTitleVisible: false,
+              headerTitle: null,
+              headerStyle: {
+                backgroundColor: "white",
+                borderWidth: 0,
+                shadowRadius: 0,
+                shadowOffset: {
+                  height: 0,
+                },
+              },
+              headerLeft: () => (
+                <Icon
+                  name="chevron-left"
+                  size={wp("9%")}
+                  color={COLOR_PRIMARY}
+                  style={{ marginLeft: wp("3%") }}
+                  onPress={() => navigation.navigate("Home")}
+                />
+              ),
+            })}
           />
         </Stack.Navigator>
       </NavigationContainer>
