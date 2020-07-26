@@ -124,7 +124,11 @@ const CreateRoom = ({ route, navigation }) => {
     >
       <Text style={styles.bigTxt}>Room ID: {roomId}</Text>
       <Text style={styles.normTxt}>
-        Share this code with the other {partySize - 1} people in your party!
+        {partySize - 1 !== 1
+          ? `Share this code with the other ${
+              partySize - 1
+            } people in your party!`
+          : `Share this code with the other person in your party!`}
       </Text>
       <View style={styles.icon}>
         <Icon

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import firebase from "../../firebase.js";
-import { COLOR_PRIMARY, BORDER_RADIUS, DEVICE_WIDTH } from "../common";
+import { COLOR_PRIMARY_LIGHT, COLOR_SECONDARY, FONT_NORMAL } from "../common";
 import Container from "../components/Container";
 import BigHeader from "../components/BigHeader";
 
@@ -56,13 +56,31 @@ function MyRooms({ route, navigation }) {
         keyExtractor={(item) => item.roomId.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={styles.btn}
+            style={
+              item.completed === item.size
+                ? { ...styles.btn, backgroundColor: COLOR_PRIMARY_LIGHT }
+                : { ...styles.btn, backgroundColor: COLOR_SECONDARY }
+            }
             onPress={() => {
               navigation.navigate("RoomPage", { room: item });
             }}
           >
-            <Text style={styles.btnText}>{item.name}</Text>
-            <Text style={styles.btnText}>
+            <Text
+              style={
+                item.completed === item.size
+                  ? { ...styles.btnText, color: "white" }
+                  : { ...styles.btnText, color: "black" }
+              }
+            >
+              {item.name}
+            </Text>
+            <Text
+              style={
+                item.completed === item.size
+                  ? { ...styles.btnText, color: "white" }
+                  : { ...styles.btnText, color: "black" }
+              }
+            >
               {item.completed}/{item.size}
             </Text>
           </TouchableOpacity>
@@ -74,7 +92,6 @@ function MyRooms({ route, navigation }) {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: COLOR_PRIMARY,
     padding: 9,
     margin: 5,
     borderRadius: 10,
@@ -85,12 +102,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   btnText: {
-    color: "white",
-    fontSize: 20,
+    fontSize: heightPercentageToDP("2.5"),
     textAlign: "center",
     marginRight: 10,
     marginLeft: 10,
     alignSelf: "center",
+    fontFamily: FONT_NORMAL,
   },
 });
 export default MyRooms;

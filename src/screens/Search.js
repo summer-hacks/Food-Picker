@@ -222,7 +222,7 @@ const Search = ({ route, navigation }) => {
         >
           <View style={styles.inline}>
             <TextInput
-              placeholder="Location"
+              placeholder="Search Origin"
               style={{ ...styles.textInput, width: "90%" }}
               onChangeText={onChangeLocation}
               defaultValue={defaultLocation}

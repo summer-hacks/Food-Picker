@@ -1,5 +1,10 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import { CONTAINER_PADDING_LEFT, CONTAINER_PADDING_RIGHT } from "../common";
 import BottomButton from "./BottomButton";
 import {
@@ -9,10 +14,12 @@ import {
 
 const ContainerWithBottomButton = ({ children, bottomText, bottomOnPress }) => {
   return (
-    <View style={styles.bigContainer}>
-      <View style={styles.container}>{children}</View>
-      <BottomButton text={bottomText} onPress={bottomOnPress} />
-    </View>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.bigContainer}>
+        <View style={styles.container}>{children}</View>
+        <BottomButton text={bottomText} onPress={bottomOnPress} />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 const styles = StyleSheet.create({
