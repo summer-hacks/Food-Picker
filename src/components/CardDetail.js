@@ -116,16 +116,10 @@ const CardDetail = ({ restaurant, closeCard }) => {
               description={restaurant.location.display_address.join("\n")}
             />
           </MapView>
-          {/* <TouchableOpacity style={{width: screenWidth,
-            backgroundColor: "salmon",}}>
-
-          </TouchableOpacity> */}
           <Text
             style={{
-              fontFamily: FONT_NORMAL,
+              ...styles.txt,
               color: "salmon",
-              fontSize: 20,
-              marginTop: 20,
             }}
             onPress={() => Linking.openURL(restaurant.url)}
           >
@@ -156,6 +150,7 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: "100%",
     height: hp(33),
+    marginBottom: hp(2),
   },
   txt: {
     marginBottom: 20,
