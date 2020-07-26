@@ -143,6 +143,11 @@ const App = () => {
             options={backButton}
           />
           <Stack.Screen
+            name="RoomPage"
+            component={RoomPage}
+            options={backButton}
+          />
+          <Stack.Screen
             name="MyRooms"
             component={MyRooms}
             options={({ navigation }) => ({
