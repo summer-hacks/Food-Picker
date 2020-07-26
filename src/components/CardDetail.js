@@ -9,6 +9,8 @@ import {
   COLOR_PRIMARY,
   FONT_NORMAL,
   TEXTINPUT_BOTTOM_BORDER_WIDTH,
+  CONTAINER_PADDING_LEFT,
+  CONTAINER_PADDING_RIGHT,
 } from "../common";
 import {
   widthPercentageToDP as wp,
@@ -43,7 +45,7 @@ const CardDetail = ({ restaurant, closeCard }) => {
         />
       </TouchableOpacity>
 
-      <View style={{}}>
+      <View>
         <TouchableOpacity
           style={{
             width: screenWidth,
@@ -59,6 +61,7 @@ const CardDetail = ({ restaurant, closeCard }) => {
             style={{
               fontFamily: FONT_NORMAL,
               textAlign: "center",
+              fontSize: hp(2),
               color: "white",
             }}
           >
@@ -69,30 +72,31 @@ const CardDetail = ({ restaurant, closeCard }) => {
           <Text
             style={{
               fontFamily: FONT_NORMAL,
-              fontSize: 25,
-              marginTop: 10,
-              marginBottom: 5,
-              fontWeight: "bold",
+              fontSize: hp(2.5),
+              marginTop: hp(2.5),
+              marginBottom: hp(1),
             }}
           >
             {restaurant.name} ({restaurant.price})
           </Text>
-          <StarRating
-            disabled={true}
-            maxStars={5}
-            rating={restaurant.rating}
-            fullStarColor={COLOR_PRIMARY}
-            emptyStarColor={COLOR_PRIMARY}
-            starSize={25}
-          />
-          <Text style={{ marginBottom: 20 }}>
-            with {restaurant.review_count} reviews
-          </Text>
-          <Text>
+          <View style={styles.inline}>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={restaurant.rating}
+              fullStarColor={COLOR_PRIMARY}
+              emptyStarColor={COLOR_PRIMARY}
+              starSize={wp(4)}
+            />
+            <Text style={{ ...styles.txt, marginLeft: wp(3) }}>
+              with {restaurant.review_count} reviews
+            </Text>
+          </View>
+
+          <Text style={styles.txt}>
             Categories:{" "}
             {restaurant.categories.map((cat) => cat.title).join(", ")}
           </Text>
-          <Text>Address: {restaurant.location.display_address.join("\n")}</Text>
           <MapView
             style={styles.mapStyle}
             region={{
@@ -109,7 +113,7 @@ const CardDetail = ({ restaurant, closeCard }) => {
                 longitude: restaurant.coordinates.longitude,
               }}
               title={restaurant.name}
-              // description={marker.description}
+              description={restaurant.location.display_address.join("\n")}
             />
           </MapView>
           {/* <TouchableOpacity style={{width: screenWidth,
@@ -117,7 +121,12 @@ const CardDetail = ({ restaurant, closeCard }) => {
 
           </TouchableOpacity> */}
           <Text
-            style={{ color: "salmon", fontSize: 20, marginTop: 20 }}
+            style={{
+              fontFamily: FONT_NORMAL,
+              color: "salmon",
+              fontSize: 20,
+              marginTop: 20,
+            }}
             onPress={() => Linking.openURL(restaurant.url)}
           >
             Open in Yelp
@@ -140,13 +149,25 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flex: 1,
     position: "absolute",
-    marginTop: 40,
-    marginLeft: 20,
-    marginRight: 20,
+    marginTop: hp(5),
+    marginLeft: CONTAINER_PADDING_LEFT,
+    marginRight: CONTAINER_PADDING_RIGHT,
   },
   mapStyle: {
-    width: 0.9 * Dimensions.get("window").width,
-    height: 0.33 * Dimensions.get("window").height,
+    width: "100%",
+    height: hp(33),
+  },
+  txt: {
+    marginBottom: 20,
+    fontFamily: FONT_NORMAL,
+    fontSize: hp(1.75),
+  },
+  inline: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    alignSelf: "flex-start",
+    justifyContent: "space-between",
   },
 });
 

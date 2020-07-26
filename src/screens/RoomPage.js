@@ -4,7 +4,7 @@ import firebase from "../../firebase.js";
 import Container from "../components/Container";
 import BigHeader from "../components/BigHeader";
 import StepHeader from "../components/StepHeader";
-import { FONT_NORMAL, BODY_FONT_SIZE, COLOR_PRIMARY } from "../common.js";
+import { FONT_NORMAL, COLOR_PRIMARY } from "../common.js";
 import {
   heightPercentageToDP,
   widthPercentageToDP,
