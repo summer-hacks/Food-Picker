@@ -13,7 +13,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import CreateRoom from "./src/screens/CreateRoom";
 import JoinRoom from "./src/screens/JoinRoom";
 import MyRooms from "./src/screens/MyRooms";
-import RoomPage from "./src/components/RoomPage";
+import RoomPage from "./src/screens/RoomPage";
 import Login from "./src/screens/Login";
 import { Ionicons } from "@expo/vector-icons";
 import PartyInfo from "./src/screens/PartyInfo";

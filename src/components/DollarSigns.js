@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import Dollar from "./Dollar";
+
 const DollarSigns = ({
   $clicked,
   $$clicked,
