@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import firebase from '../../firebase.js';
 import Stack from './Stack';
+import Swiper from 'react-native-deck-swiper';
+import Card from "./Card";
 
 const Tinder = ({ route, navigation }) => {
   const [restaurants, setRestaurants] = useState([]);
+  const [cardIndex, setCardIndex] = useState(0);
   const { roomId } = route.params;
 
   // get restaurant data from firebase for given room id (passed in from CreateRoom component)
   useEffect(() => {
     const resRef = firebase.database().ref('rooms/' + roomId + '/restaurants');
+    console.log(resRef)
     const handleData = (snap) => {
       const restaurants = [];
       snap.forEach((res) => {
@@ -19,6 +23,7 @@ const Tinder = ({ route, navigation }) => {
       if (restaurants) {
         setRestaurants(restaurants);
       }
+      setRestaurants(restaurants)
     };
 
     // not sure what the purpose of the return is -- saw in tutorial
@@ -27,6 +32,7 @@ const Tinder = ({ route, navigation }) => {
       resRef.off('value', handleData);
     };
   }, []);
+
 
   // function that handles the yes/no user choice for each restaurant
   const handleChoice = (choice, id, navigation) => {
@@ -71,11 +77,33 @@ const Tinder = ({ route, navigation }) => {
       <Text>Tinder Screen</Text>
       <Text>roomId: {roomId}</Text>
       <Text>{restaurants.length} remaining</Text>
-      <Stack
+      {/* <Stack
         cards={restaurants}
         roomId={roomId}
         cb={handleChoice}
         nav={navigation}
+      /> */}
+      <Swiper
+        cards={restaurants}
+        cardIndex={cardIndex}
+        renderCard={card => {
+          if (card) {
+            console.log(card)
+            return (
+              <View style={styles.card}>
+                <Text>{card.name}</Text>
+              </View>)
+          }
+          // else {
+          //   console.log(card);
+          //   return (
+          //     <View style={styles.fakeCard}>
+          //       <Text>hey, card is undefined</Text>
+          //     </View>)
+          // }
+        }}
+
+
       />
     </View>
   );
@@ -100,6 +128,28 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+  },
+  card: {
+    flex: 0.45,
+    borderRadius: 8,
+    shadowRadius: 25,
+    shadowColor: 'black',
+    shadowOpacity: 0.08,
+    shadowOffset: { width: 0, height: 0 },
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white'
+  },
+  fakeCard: {
+    flex: 0.45,
+    borderRadius: 8,
+    shadowRadius: 25,
+    shadowColor: 'black',
+    shadowOpacity: 0.08,
+    shadowOffset: { width: 0, height: 0 },
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'yellow'
   },
 });
 

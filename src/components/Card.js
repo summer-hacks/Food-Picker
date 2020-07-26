@@ -32,13 +32,13 @@ const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
         </TouchableOpacity>
         <Text> </Text>
         <Text> </Text>
-        <Button
+        {/* <Button
           style={styles.text}
           title={restaurant.name}
           onPress={() => {
             setVisibility(true);
           }}
-        />
+        /> */}
       </View>
       <View style={styles.btnContainer}>
         <TouchableOpacity
