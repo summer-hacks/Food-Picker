@@ -5,6 +5,7 @@ import { Overlay } from "react-native-elements";
 import { Dimensions } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import CardDetail from "./CardDetail";
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
   const [visibility, setVisibility] = useState(false);
@@ -18,29 +19,29 @@ const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
         <CardDetail restaurant={restaurant} closeCard={setVisibility} />
       </Overlay>
       <View style={styles.container}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => {
             setVisibility(true);
           }}
-        >
-          <Image
-            style={{ width: 250, height: 250 }}
-            source={{
-              uri: restaurant.image_url,
-            }}
-          />
-        </TouchableOpacity>
+        > */}
+        <Image
+          style={{ width: 300, height: 250, borderRadius: 20 }}
+          source={{
+            uri: restaurant.image_url,
+          }}
+        />
+        {/* </TouchableOpacity> */}
         <Text> </Text>
         <Text> </Text>
-        {/* <Button
+        <Button
           style={styles.text}
           title={restaurant.name}
           onPress={() => {
             setVisibility(true);
           }}
-        /> */}
+        />
       </View>
-      <View style={styles.btnContainer}>
+      {/* <View style={styles.btnContainer}>
         <TouchableOpacity
           style={styles.btn}
           onPress={() => {
@@ -57,7 +58,7 @@ const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
         >
           <Text style={styles.btnText}>NO</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -76,11 +77,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
-    width: 300,
-    height: 400,
+    width: wp('90%'),
+    height: hp('50%'),
     position: "absolute",
     backgroundColor: "white",
-    borderRadius: 30,
+    borderRadius: 20,
+    shadowRadius: 25,
+    shadowOpacity: 0.08,
+    shadowOffset: { width: 0, height: 0 },
   },
   btnText: {
     fontSize: 20,
