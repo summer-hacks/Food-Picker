@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { Dimensions } from "react-native";
-import { Slider } from "react-native";
+import { Slider, TouchableWithoutFeedback } from "react-native";
 // import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -164,33 +164,58 @@ const Search = ({ route, navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.mapStyle}
-        region={{
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        }}
-        provider={PROVIDER_GOOGLE}
-      >
-        <Marker
-          coordinate={{
+    <TouchableWithoutFeedback onPress={() => (Keyboard.dismiss())}>
+      <View style={styles.container}>
+        <MapView
+          style={styles.mapStyle}
+          region={{
             latitude: latitude,
             longitude: longitude,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
           }}
-          title="Current Location"
+          provider={PROVIDER_GOOGLE}
+        >
+          <Marker
+            coordinate={{
+              latitude: latitude,
+              longitude: longitude,
+            }}
+            title="Current Location"
           // description={marker.description}
-        />
-      </MapView>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+          />
+        </MapView>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <TextInput
+              placeholder="Location"
+              style={{ ...styles.label }}
+              onChangeText={onChangeLocation}
+              defaultValue={defaultLocation}
+              value={location}
+            />
+            <View style={styles.icon}>
+              <Icon
+                color="blue"
+                name="my-location"
+                size={25}
+                onPress={getCurrLocation}
+              />
+            </View>
+          </View>
+        </View>
         <View
           style={{
             flex: 1,
@@ -198,143 +223,120 @@ const Search = ({ route, navigation }) => {
             justifyContent: "space-between",
           }}
         >
-          <TextInput
-            placeholder="Location"
-            style={{ ...styles.label }}
-            onChangeText={onChangeLocation}
-            defaultValue={defaultLocation}
-            value={location}
-          />
-          <View style={styles.icon}>
-            <Icon
-              color="blue"
-              name="my-location"
-              size={25}
-              onPress={getCurrLocation}
-            />
-          </View>
+          <Text style={styles.label}>Max Distance</Text>
+          <Text style={styles.label}>{radius}</Text>
         </View>
-      </View>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <Text style={styles.label}>Max Distance</Text>
-        <Text style={styles.label}>{radius}</Text>
-      </View>
-      <Slider
-        style={{ marginTop: -100, width: 300, height: 30, alignSelf: "center" }}
-        minimumValue={0}
-        maximumValue={5}
-        minimumTrackTintColor={COLOR_PRIMARY}
-        maximumTrackTintColor={COLOR_PRIMARY}
-        onValueChange={onChangeRadius}
-        step={0.5}
-        thumbTintColor={COLOR_PRIMARY}
-      />
+        <Slider
+          style={{ marginTop: -100, width: 300, height: 30, alignSelf: "center" }}
+          minimumValue={0}
+          maximumValue={5}
+          minimumTrackTintColor={COLOR_PRIMARY}
+          maximumTrackTintColor={COLOR_PRIMARY}
+          onValueChange={onChangeRadius}
+          step={0.5}
+          thumbTintColor={COLOR_PRIMARY}
+        />
 
-      <TextInput
-        placeholder="Max Number of Restaurants"
-        keyboardType={"numeric"}
-        style={styles.label}
-        onChangeText={onChangeMaxRes}
-      />
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <TouchableOpacity
+        <TextInput
+          placeholder="Max Number of Restaurants"
+          keyboardType={"numeric"}
+          style={styles.label}
+          onChangeText={onChangeMaxRes}
+        />
+        <View
           style={{
-            ...styles.dollar,
-            backgroundColor: $clicked ? "salmon" : "white",
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-evenly",
           }}
-          onPress={handle$}
         >
-          <Text
+          <TouchableOpacity
             style={{
-              textAlign: "center",
-              color: $clicked ? "white" : "salmon",
+              ...styles.dollar,
+              backgroundColor: $clicked ? "salmon" : "white",
             }}
+            onPress={handle$}
           >
-            $
+            <Text
+              style={{
+                textAlign: "center",
+                color: $clicked ? "white" : "salmon",
+              }}
+            >
+              $
           </Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              ...styles.dollar,
+              backgroundColor: $$clicked ? "salmon" : "white",
+            }}
+            onPress={handle$$}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                color: $$clicked ? "white" : "salmon",
+              }}
+            >
+              $$
+          </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              ...styles.dollar,
+              backgroundColor: $$$clicked ? "salmon" : "white",
+            }}
+            onPress={handle$$$}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                color: $$$clicked ? "white" : "salmon",
+              }}
+            >
+              $$$
+          </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              ...styles.dollar,
+              backgroundColor: $$$$clicked ? "salmon" : "white",
+            }}
+            onPress={handle$$$$}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                color: $$$$clicked ? "white" : "salmon",
+              }}
+            >
+              $$$$
+          </Text>
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity
-          style={{
-            ...styles.dollar,
-            backgroundColor: $$clicked ? "salmon" : "white",
+          style={styles.btn}
+          onPress={async () => {
+            const data = await getData(
+              location,
+              longitude,
+              latitude,
+              radius,
+              maxRes,
+              dollars
+            );
+            navigation.navigate("CreateRoom", {
+              restaurants: data,
+              partySize: partySize,
+              partyName: partyName,
+            });
           }}
-          onPress={handle$$}
         >
-          <Text
-            style={{
-              textAlign: "center",
-              color: $$clicked ? "white" : "salmon",
-            }}
-          >
-            $$
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            ...styles.dollar,
-            backgroundColor: $$$clicked ? "salmon" : "white",
-          }}
-          onPress={handle$$$}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              color: $$$clicked ? "white" : "salmon",
-            }}
-          >
-            $$$
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            ...styles.dollar,
-            backgroundColor: $$$$clicked ? "salmon" : "white",
-          }}
-          onPress={handle$$$$}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              color: $$$$clicked ? "white" : "salmon",
-            }}
-          >
-            $$$$
-          </Text>
+          <Text style={styles.btnText}>Create Room</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={async () => {
-          const data = await getData(
-            location,
-            longitude,
-            latitude,
-            radius,
-            maxRes,
-            dollars
-          );
-          navigation.navigate("CreateRoom", {
-            restaurants: data,
-            partySize: partySize,
-            partyName: partyName,
-          });
-        }}
-      >
-        <Text style={styles.btnText}>Create Room</Text>
-      </TouchableOpacity>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

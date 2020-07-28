@@ -13,10 +13,15 @@ const Tinder = ({ route, navigation }) => {
   const [restaurants, setRestaurants] = useState([]);
   const [cardIndex, setCardIndex] = useState(0);
   const { roomId } = route.params;
+
+  // refs for Swiper 
   const swiperRef = createRef();
   const transitionRef = createRef();
+
+  // const animation duration for transition
   const ANIMATION_DURATION = 200;
 
+  // unused transition so far 
   const transition = (
     <Transition.Sequence>
       <Transition.Out type='slide-bottom' durationMs={ANIMATION_DURATION} interpolation='easeIn' />
@@ -27,6 +32,7 @@ const Tinder = ({ route, navigation }) => {
     </Transition.Sequence>
   )
 
+  // increments index for Swiper
   const onSwiped = () => {
     transitionRef.current.animateNextTransition();
     setCardIndex((cardIndex + 1) % restaurants.length)
