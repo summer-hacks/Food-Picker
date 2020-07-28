@@ -38,6 +38,7 @@ function RoomPage({ route, navigation }) {
   return (
     <Container>
       <BigHeader title={room.name} />
+      {/* <StepHeader step={room.roomId} /> */}
       {completed ? (
         <StepHeader step="Here are your matches!" />
       ) : (

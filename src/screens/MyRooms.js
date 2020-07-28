@@ -10,6 +10,7 @@ import firebase from "../../firebase.js";
 import { COLOR_PRIMARY_LIGHT, COLOR_SECONDARY, FONT_NORMAL } from "../common";
 import Container from "../components/Container";
 import BigHeader from "../components/BigHeader";
+import StepHeader from "../components/StepHeader";
 
 import { heightPercentageToDP } from "react-native-responsive-screen";
 function MyRooms({ route, navigation }) {
@@ -47,45 +48,49 @@ function MyRooms({ route, navigation }) {
       });
     }
   }, []);
-
+  console.log("rooms " + rooms);
   return (
     <Container>
       <BigHeader title="My Rooms" />
-      <FlatList
-        data={rooms}
-        keyExtractor={(item) => item.roomId.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={
-              item.completed === item.size
-                ? { ...styles.btn, backgroundColor: COLOR_PRIMARY_LIGHT }
-                : { ...styles.btn, backgroundColor: COLOR_SECONDARY }
-            }
-            onPress={() => {
-              navigation.navigate("RoomPage", { room: item });
-            }}
-          >
-            <Text
+      {rooms.length > 0 ? (
+        <FlatList
+          data={rooms}
+          keyExtractor={(item) => item.roomId.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
               style={
                 item.completed === item.size
-                  ? { ...styles.btnText, color: "white" }
-                  : { ...styles.btnText, color: "black" }
+                  ? { ...styles.btn, backgroundColor: COLOR_PRIMARY_LIGHT }
+                  : { ...styles.btn, backgroundColor: COLOR_SECONDARY }
               }
+              onPress={() => {
+                navigation.navigate("RoomPage", { room: item });
+              }}
             >
-              {item.name}
-            </Text>
-            <Text
-              style={
-                item.completed === item.size
-                  ? { ...styles.btnText, color: "white" }
-                  : { ...styles.btnText, color: "black" }
-              }
-            >
-              {item.completed}/{item.size}
-            </Text>
-          </TouchableOpacity>
-        )}
-      />
+              <Text
+                style={
+                  item.completed === item.size
+                    ? { ...styles.btnText, color: "white" }
+                    : { ...styles.btnText, color: "black" }
+                }
+              >
+                {item.name}
+              </Text>
+              <Text
+                style={
+                  item.completed === item.size
+                    ? { ...styles.btnText, color: "white" }
+                    : { ...styles.btnText, color: "black" }
+                }
+              >
+                {item.completed}/{item.size}
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <StepHeader step="no rooms yet!" />
+      )}
     </Container>
   );
 }
