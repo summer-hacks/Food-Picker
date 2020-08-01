@@ -11,53 +11,20 @@ import {
 } from "react-native-responsive-screen";
 import { COLOR_PRIMARY } from "../common";
 
-const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
+const Card = ({ roomId, restaurant, navigation }) => {
   const [visibility, setVisibility] = useState(false);
   return (
     <View style={styles.bigContainer}>
-      <Overlay
-        isVisible={visibility}
-        overlayBackgroundColor="red"
-        fullScreen={true}
-      >
-        <CardDetail restaurant={restaurant} closeCard={setVisibility} />
-      </Overlay>
+
       <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            setVisibility(true);
+
+        <Image
+          style={{ width: 250, height: 250 }}
+          source={{
+            uri: restaurant.image_url,
           }}
-        >
-          <Image
-            style={{ width: 250, height: 250 }}
-            source={{
-              uri: restaurant.image_url,
-            }}
-          />
-        </TouchableOpacity>
+        />
         <Text style={styles.text}>{restaurant.name} </Text>
-      </View>
-      <View style={styles.btnContainer}>
-        <TouchableOpacity
-          style={{ ...styles.btn, backgroundColor: "black" }}
-          onPress={() => {
-            handleChoice("no", restaurant.id, navigation);
-          }}
-        >
-          <View style={styles.icon}>
-            <FeatherIcon color="white" name="x" size={wp("10%")} />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ ...styles.btn, backgroundColor: COLOR_PRIMARY }}
-          onPress={() => {
-            handleChoice("yes", restaurant.id, navigation);
-          }}
-        >
-          <View style={styles.icon}>
-            <Icon color="white" name="check" size={wp("10%")} />
-          </View>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -80,11 +47,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     flex: 1,
-    width: wp("75%"),
+    width: wp("80%"),
     height: hp("45%"),
     position: "absolute",
     backgroundColor: "white",
     borderRadius: 10,
+    borderColor: "black",
+    borderWidth: 3,
     shadowColor: "gray",
     shadowOffset: {
       width: 0,
@@ -92,7 +61,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.05,
     shadowRadius: 8.3,
-    elevation: 10,
+    elevation: 0,
   },
   btnContainer: {
     marginTop: hp("50%"),
