@@ -78,6 +78,15 @@ const App = () => {
         onPress={() => navigation.goBack()}
       />
     ),
+    // headerRight: () => (
+    //   <Icon
+    //     name="chevron-right"
+    //     size={wp("9%")}
+    //     color={COLOR_PRIMARY}
+    //     style={{ marginLeft: wp("3%") }}
+    //     onPress={() => navigation.goBack()}
+    //   />
+    // ),
   });
 
   return (

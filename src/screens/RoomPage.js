@@ -37,8 +37,7 @@ function RoomPage({ route, navigation }) {
   // displays matches in a list if all users have finished swiping (a completed room)
   return (
     <Container>
-      <BigHeader title={room.name} />
-      {/* <StepHeader step={room.roomId} /> */}
+      <BigHeader title={room.name + "\n(" + room.roomId + ")"} />
       {completed ? (
         <StepHeader step="Here are your matches!" />
       ) : (

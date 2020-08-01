@@ -21,8 +21,6 @@ import {
 } from "react-native-responsive-screen";
 import Icon from "react-native-vector-icons/Feather";
 import ContainerWithBottomButton from "../components/ContainerWithBottomButton";
-import StepSection from "../components/StepSection";
-import PartyInfo from "./PartyInfo.js";
 
 // create a room record in firebase containing the party info + restaurant results
 async function pushRestaurants(roomId, restaurants) {
