@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { StyleSheet, FlatList, Text, View } from "react-native";
 import firebase from "../../firebase.js";
 import Container from "../components/Container";
@@ -10,6 +10,7 @@ import {
   widthPercentageToDP,
 } from "react-native-responsive-screen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import LottieView from "lottie-react-native";
 
 function RoomPage({ route, navigation }) {
   const { room } = route.params;
@@ -18,7 +19,6 @@ function RoomPage({ route, navigation }) {
 
   // get matches if everyone has finished swiping
   useEffect(() => {
-    console.log(room);
     const roomRef = firebase.database().ref("rooms/" + room.roomId);
     roomRef.once("value", (snap) => {
       const room = snap.val();
@@ -33,15 +33,26 @@ function RoomPage({ route, navigation }) {
       }
     });
   }, []);
-
   // displays matches in a list if all users have finished swiping (a completed room)
+
   return (
     <Container>
       <BigHeader title={room.name + "\n(" + room.roomId + ")"} />
       {completed ? (
         <StepHeader step="Here are your matches!" />
       ) : (
-        <StepHeader step="Still waiting on people..." />
+        <View style={styles.animationContainer}>
+          <StepHeader step="Still waiting on people..." />
+          <LottieView
+            autoPlay={true}
+            style={{
+              width: 400,
+              height: 400,
+              backgroundColor: "white",
+            }}
+            source={require("../../assets/7093-roll-it-chicken-roll.json")}
+          />
+        </View>
       )}
       {completed ? (
         <FlatList
@@ -74,6 +85,12 @@ const styles = StyleSheet.create({
     fontFamily: FONT_NORMAL,
     fontSize: heightPercentageToDP(2),
     marginBottom: heightPercentageToDP(4),
+  },
+  animationContainer: {
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
   },
   inline: {
     flex: 1,

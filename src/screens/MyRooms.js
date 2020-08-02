@@ -48,7 +48,6 @@ function MyRooms({ route, navigation }) {
       });
     }
   }, []);
-  console.log("rooms " + rooms);
   return (
     <Container>
       <BigHeader title="My Rooms" />
