@@ -20,8 +20,7 @@ const BirthdaySignUp = ({ currentUser }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const handleLogin = () => {
-    if (!confirmed) {
-      console.log(confirmed);
+    if (!date) {
       Alert.alert(
         "Empty field",
         "Please enter all info",
@@ -46,15 +45,6 @@ const BirthdaySignUp = ({ currentUser }) => {
 
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date) => {
-    // console.warn('A date has been picked: ', date);
-    hideDatePicker();
-    setDate(date);
-    setConfirmed(true);
-    console.log('handle confirm', confirmed);
-    setColor("black");
   };
 
   return (
@@ -100,7 +90,7 @@ const BirthdaySignUp = ({ currentUser }) => {
         pickerContainerStyleIOS={{
           fontFamily: "karla-bold",
         }}
-        onConfirm={handleConfirm}
+        onConfirm={setDate(date)}
         onCancel={hideDatePicker}
         onChange={(date) => setDate(date)}
         customHeaderIOS={() => {
