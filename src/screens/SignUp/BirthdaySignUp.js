@@ -17,12 +17,28 @@ import StepSection from "../../components/StepSection";
 const BirthdaySignUp = ({ currentUser }) => {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
+  const [confirmed, setConfirmed] = useState(false);
   const [color, setColor] = useState("#d3d3d3");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const handleLogin = () => {
-    currentUser.birthday = date;
-    navigation.navigate("EmailSignUp");
+    if (!date) {
+      Alert.alert(
+        "Empty field",
+        "Please enter all info",
+        [
+          {
+            text: "Ok",
+            style: "cancel",
+          },
+        ],
+        { cancelable: true }
+      );
+    }
+    else {
+      currentUser.birthday = date;
+      navigation.navigate("EmailSignUp");
+    }
   };
 
   const showDatePicker = () => {
@@ -31,13 +47,6 @@ const BirthdaySignUp = ({ currentUser }) => {
 
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date) => {
-    // console.warn('A date has been picked: ', date);
-    hideDatePicker();
-    setDate(date);
-    setColor("black");
   };
 
   return (
@@ -74,7 +83,7 @@ const BirthdaySignUp = ({ currentUser }) => {
         pickerContainerStyleIOS={{
           fontFamily: "karla-bold",
         }}
-        onConfirm={handleConfirm}
+        onConfirm={setDate(date)}
         onCancel={hideDatePicker}
         onChange={(date) => setDate(date)}
         customHeaderIOS={() => {
