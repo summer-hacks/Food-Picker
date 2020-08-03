@@ -10,6 +10,13 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 const DoneSignUp = () => {
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+    fullName: "",
+    phoneNum: "",
+    errorMessage: null,
+  });
 
   const navigation = useNavigation();
   return (

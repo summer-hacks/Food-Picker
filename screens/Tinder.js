@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import firebase from '../../firebase.js';
+import firebase from '../firebase.js';
 import Stack from './Stack'
 
 const Tinder = ({route, navigation}) => {

@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,16 +7,13 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import firebase from "../../firebase";
+import firebase from "../firebase.js";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import "./../../global";
-import {connect} from 'react-redux';
+import "../global";
 
-const Login = ({currentUser, actions}) =>  {
-
+const Login = () => {
   const navigation = useNavigation();
-
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -29,70 +26,12 @@ const Login = ({currentUser, actions}) =>  {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => navigation.navigate("Home"))
+      .then(() => this.props.navigation.navigate("Home"))
       .catch((error) => setUserInfo({ ...userInfo, errorMessage: error }));
   };
 
-  // phone number confirmation code but i don't think it works for our app
-
-  // async function signIn() {
-  //   const confirmation = await firebase.auth().signInWithPhoneNumber(userPhoneNum);
-  //   setConfirm(confirmation);
-  // }
-
-  // async function confirmCode() {
-  //   try {
-  //     await confirm.confirm(code);
-  //   } catch (error) {
-  //     console.log('Invalid code.');
-  //   }
-  // }
-
-  // const setUpRecaptcha = () => {
-  //   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-  //     'size': 'invisible',
-  //     'callback': function(response) {
-  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
-  //       onSignInSubmit();
-  //     }
-  //   });
-  // };
-
-  // const onSignInSubmit = () => {
-  //   // var phoneNumber = getPhoneNumberFromUserInput();
-  //   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-  //     'size': 'invisible',
-  //     'callback': function(response) {
-  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
-  //       onSignInSubmit();
-  //     }
-  //   });
-    
-  //   var phoneNumber = '+15629913412';
-  //   var appVerifier = window.recaptchaVerifier;
-  //   firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-  //       .then(function (confirmationResult) {
-  //         var code = getCodeFromUserInput();
-  //         confirmationResult.confirm(code).then(function (result) {
-  //           // User signed in successfully
-  //           var user = result.user;
-  //           // ...
-  //           console.log("User is signed in")
-  //         }).catch(function (error) {
-  //           // User couldn't sign in (bad verification code?)
-  //           // ...
-  //         });
-  //         // SMS sent. Prompt user to type the code from the message, then sign the
-  //         // user in with confirmationResult.confirm(code).
-  //         window.confirmationResult = confirmationResult;
-  //       }).catch(function (error) {
-  //         // Error; SMS not sent
-  //         // ...
-  //       });
-  // };
-
-    return (
-      <View style={styles.container}>
+  return (
+    <View style={styles.container}>
       <View>
         <View style={styles.icon}>
           <Icon color="black" name="phone-outline" size={25} />
@@ -123,21 +62,22 @@ const Login = ({currentUser, actions}) =>  {
           value={userInfo.password}
         />
       </View>
+      {/* <Button title="Login" onPress={handleLogin} />
       <Button
         title="Don't have an account? Sign Up"
-        onPress={() => navigation.navigate("StartSignUp")}
-      />
+        onPress={() => navigation.navigate("LocationSignUp")}
+      /> */}
       <View style={styles.buttonView}>
-        <TouchableOpacity onPress={handleLogin}>
+        {/* <TouchableOpacity onPress={handleLogin}> */}
+        <TouchableOpacity onPress={() => navigation.navigate("StartSignUp")}>
           <View style={styles.button}>
             <Icon style={{ color: "white" }} name="chevron-right" size={35} />
           </View>
         </TouchableOpacity>
       </View>
     </View>
-    );
-  }
-
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -186,11 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-function mapStateToProps(state) {
-  return {
-      currentUser: state.currentUser
-  }
-}
-
-export default connect(mapStateToProps)(Login);
+export default Login;

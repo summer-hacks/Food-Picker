@@ -9,31 +9,29 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {connect} from 'react-redux';
 
-const NameSignUp = ({currentUser}) => {
+const StartSignUp = () => {
   const [userInfo, setUserInfo] = useState({
-    firstName: '',
-    lastName: ''
+    email: '',
+    password: '',
+    fullName: '',
+    phoneNum: '',
+    errorMessage: null,
   });
-  const navigation = useNavigation();
-  const handleLogin = () => {
-    currentUser.name = userInfo.firstName + ' ' + userInfo.lastName;
-    navigation.navigate("BirthdaySignUp");
-  };
 
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.step}>Step 1 of 4</Text>
       <View>
         <View style={styles.icon}>
-          <Icon color="black" name="account-outline" size={25} />
+          <Icon color='black' name='account-outline' size={25} />
         </View>
       </View>
       <Text style={styles.normTxt}>What's your name?</Text>
       <TextInput
-        placeholder="First Name"
-        autoCapitalize="none"
+        placeholder='First Name'
+        autoCapitalize='none'
         onChangeText={(firstName) =>
           setUserInfo({ ...userInfo, firstName: firstName })
         }
@@ -41,8 +39,8 @@ const NameSignUp = ({currentUser}) => {
         style={styles.textInput}
       />
       <TextInput
-        placeholder="Last Name"
-        autoCapitalize="none"
+        placeholder='Last Name'
+        autoCapitalize='none'
         onChangeText={(lastName) =>
           setUserInfo({ ...userInfo, lastName: lastName })
         }
@@ -50,12 +48,17 @@ const NameSignUp = ({currentUser}) => {
         style={styles.textInput}
       />
       <View style={styles.buttonView}>
-        <TouchableOpacity onPress={handleLogin}>
+        {/* <TouchableOpacity onPress={handleLogin}> */}
+        <TouchableOpacity onPress={() => navigation.navigate('BirthdaySignUp')}>
           <View style={styles.button}>
-            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
+            <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
           </View>
         </TouchableOpacity>
       </View>
+      {/* <Button
+        title="Sign Up"
+        onPress={() => navigation.navigate("BirthdaySignUp")}
+      ></Button> */}
     </View>
   );
 };
@@ -96,11 +99,12 @@ const styles = StyleSheet.create({
   textInput: {
     alignSelf: 'stretch',
     padding: 5,
-    fontFamily: 'karla-regular',
+    fontFamily: 'karla-bold',
     fontSize: 35,
     borderBottomColor: '#000',
     margin: 5,
     marginBottom: 20,
+    // width: deviceWidth * 0.75,
     borderBottomWidth: 3,
     bottom: '15%',
   },
@@ -117,10 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
-  return {
-      currentUser: state.currentUser
-  }
-}
-
-export default connect(mapStateToProps)(NameSignUp);
+export default StartSignUp;

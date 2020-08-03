@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import firebase from '../../firebase.js';
+import { StyleSheet, Text, View, TouchableOpacity, Share } from 'react-native';
+import firebase from '../firebase.js';
 
 // create a room record in firebase containing the party info + restaurant results
 function createRoomRecord(roomId, restaurants, partySize, partyName, user) {
@@ -17,8 +17,10 @@ function createRoomRecord(roomId, restaurants, partySize, partyName, user) {
 
   // add the room id to the user's data record
   // sometimes int, sometimes string?
+
   const userRef = firebase.database().ref('users/' + user.uid)
-  userRef.once('value', snap => {
+  
+  {/* userRef.once('value', snap => {
     if (snap.val().rooms){
       userRef.update({
         rooms: [...snap.val().rooms, roomId]
@@ -28,8 +30,8 @@ function createRoomRecord(roomId, restaurants, partySize, partyName, user) {
         rooms: [roomId]
       })
     }
-  }, error => alert(error));
-}
+  }, error => alert(error)); */}
+} 
 
 const CreateRoom = ({ route, navigation }) => {
   // var name must match that of param passed in via route
@@ -50,10 +52,20 @@ const CreateRoom = ({ route, navigation }) => {
     setRoomId(newRoomId)
   }, [])
 
+
   return( 
+     
       <View style={styles.container}>
         <Text>New Room</Text>
         <Text>Room ID: {roomId}</Text>
+       <TouchableOpacity style={styles.btn} onPress={onShare = async() => {
+          Share.share({
+            title: "Share RoomID",
+            message: "Your room ID is: "
+          })
+        }}>
+          <Text style={styles.btnText}>Share </Text>
+      </TouchableOpacity> 
         <Text>restaurants length: {restaurants.length}</Text>
         <Text>party size: {partySize}</Text>
         <TouchableOpacity style={styles.btn} onPress={async() => {

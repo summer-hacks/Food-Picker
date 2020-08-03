@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import {connect} from 'react-redux';
+// import ".../global";
 
 import {
   StyleSheet,
@@ -11,16 +11,13 @@ import {
   Button,
 } from "react-native";
 
-const StartSignUp = ({clearCurrentUser}) => {
-  clearCurrentUser();
+const StartSignUp = () => {
   const navigation = useNavigation();
-  
   return (
     <View style={styles.bigContainer}>
       <View style={styles.container}>
         <Text style={styles.normTxt}>Looks like you're new!</Text>
         <Text style={styles.normTxt}>Make an account to start a party!</Text>
-        <View style={{ height: '1%', width: '10%', padding: 10, backgroundColor: global.yellow }} />
         <Text style={styles.shadowTxt}>party!</Text>
       </View>
       <TouchableOpacity
@@ -29,7 +26,7 @@ const StartSignUp = ({clearCurrentUser}) => {
       >
         <Text style={styles.btnTxt}>Sign Up</Text>
       </TouchableOpacity>
-    </View >
+    </View>
   );
 };
 
@@ -70,8 +67,14 @@ const styles = StyleSheet.create({
   shadowTxt: {
     fontFamily: "karla-bold",
     fontSize: 40,
-    // position: 'absolute'
-
+    shadowColor: global.yellow,
+    shadowOffset: {
+      width: 12,
+      height: 12,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation: 10,
   },
   normTxt: {
     fontFamily: "karla-bold",
@@ -79,17 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
-  return {
-      currentUser: state.currentUser
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-      clearCurrentUser: () => dispatch({ type: 'CLEAR_CURRENT_USER' })
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StartSignUp);
-
+export default StartSignUp;
