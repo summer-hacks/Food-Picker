@@ -2,61 +2,29 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Overlay } from "react-native-elements";
-import { Dimensions } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import FeatherIcon from "react-native-vector-icons/Feather";
 import CardDetail from "./CardDetail";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { COLOR_PRIMARY } from "../common";
 
-const Card = ({ roomId, restaurant, handleChoice, navigation }) => {
+const Card = ({ roomId, restaurant, navigation }) => {
   const [visibility, setVisibility] = useState(false);
   return (
     <View style={styles.bigContainer}>
-      <Overlay
-        isVisible={visibility}
-        overlayBackgroundColor="red"
-        fullScreen={true}
-      >
-        <CardDetail restaurant={restaurant} closeCard={setVisibility} />
-      </Overlay>
+
       <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            setVisibility(true);
-          }}
-        >
-          <Image
-            style={{ width: 250, height: 250 }}
-            source={{
-              uri: restaurant.image_url,
-            }}
-          />
-        </TouchableOpacity>
-        <Text> </Text>
-        <Text> </Text>
-        <Button
-          style={styles.text}
-          title={restaurant.name}
-          onPress={() => {
-            setVisibility(true);
+
+        <Image
+          style={{ width: 250, height: 250 }}
+          source={{
+            uri: restaurant.image_url,
           }}
         />
-      </View>
-      <View style={styles.btnContainer}>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => {
-            handleChoice("yes", restaurant.id, navigation);
-          }}
-        >
-          <Text style={styles.btnText}>YES</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => {
-            handleChoice("no", restaurant.id, navigation);
-          }}
-        >
-          <Text style={styles.btnText}>NO</Text>
-        </TouchableOpacity>
+        <Text style={styles.text}>{restaurant.name} </Text>
       </View>
     </View>
   );
@@ -68,36 +36,49 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flex: 1,
     position: "absolute",
-    // width: screenWidth,
-    // height: screenHeight,
   },
-
+  text: {
+    fontFamily: "karla-bold",
+    fontSize: hp("2%"),
+    marginTop: hp("4%"),
+  },
   container: {
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
     flex: 1,
-    width: 300,
-    height: 400,
+    width: wp("80%"),
+    height: hp("45%"),
     position: "absolute",
     backgroundColor: "white",
-    borderRadius: 30,
-  },
-  btnText: {
-    fontSize: 20,
-    color: "white",
-    textAlign: "center",
+    borderRadius: 10,
+    borderColor: "black",
+    borderWidth: 3,
+    shadowColor: "gray",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 8.3,
+    elevation: 0,
   },
   btnContainer: {
-    marginTop: 425,
+    marginTop: hp("50%"),
+    width: wp("70%"),
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
+  },
+  icon: {
+    width: wp("20%"),
+    height: wp("20%"),
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
   btn: {
-    backgroundColor: "salmon",
-    marginLeft: 50,
-    marginRight: 50,
-    width: 50,
-    height: 50,
+    width: wp("15%"),
+    height: wp("15%"),
     borderRadius: 50,
     justifyContent: "center",
   },

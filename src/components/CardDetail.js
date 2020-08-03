@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, Linking } from "react-native";
 const screenWidth = Math.round(Dimensions.get("window").width);
-const screenHeight = Math.round(Dimensions.get("window").height);
 import { Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import StarRating from "react-native-star-rating";
-const api_key =
-  "rfzFsGmwjhmXJqBMeXgjk8VTwpz8zevZE0xPzGz2YAzDiP15VI5alXOxkDD_GlFneIOTsee7mp5RYx5DVb10CJOlNw58NqlfmwItWr4D5NzfFWge7XEnp8kNrE7UXnYx";
+import {
+  COLOR_PRIMARY,
+  FONT_NORMAL,
+  TEXTINPUT_BOTTOM_BORDER_WIDTH,
+  CONTAINER_PADDING_LEFT,
+  CONTAINER_PADDING_RIGHT,
+} from "../common";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const CardDetail = ({ restaurant, closeCard }) => {
   const [index, setIndex] = useState(0);
@@ -37,42 +45,58 @@ const CardDetail = ({ restaurant, closeCard }) => {
         />
       </TouchableOpacity>
 
-      <View style={{}}>
+      <View>
         <TouchableOpacity
           style={{
             width: screenWidth,
             backgroundColor: "salmon",
-            height: 30,
+            height: hp("5%"),
             justifyContent: "center",
           }}
           onPress={() => {
             closeCard(false);
           }}
         >
-          <Text style={{ textAlign: "center", color: "white" }}>Close</Text>
+          <Text
+            style={{
+              fontFamily: FONT_NORMAL,
+              textAlign: "center",
+              fontSize: hp(2),
+              color: "white",
+            }}
+          >
+            Close
+          </Text>
         </TouchableOpacity>
         <View style={styles.container}>
-          <Text style={{ fontSize: 25, marginTop: 10, marginBottom: 5 }}>
+          <Text
+            style={{
+              fontFamily: FONT_NORMAL,
+              fontSize: hp(2.5),
+              marginTop: hp(2.5),
+              marginBottom: hp(1),
+            }}
+          >
             {restaurant.name} ({restaurant.price})
           </Text>
-          <StarRating
-            disabled={true}
-            maxStars={5}
-            rating={restaurant.rating}
-            fullStarColor="salmon"
-            emptyStarColor="salmon"
-            starSize={25}
-            // containerStyle={{ marginBottom: 20 }}
-            // selectedStar={(rating) => this.onStarRatingPress(rating)}
-          />
-          <Text style={{ marginBottom: 20 }}>
-            with {restaurant.review_count} reviews
-          </Text>
-          <Text>
+          <View style={styles.inline}>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={restaurant.rating}
+              fullStarColor={COLOR_PRIMARY}
+              emptyStarColor={COLOR_PRIMARY}
+              starSize={wp(4)}
+            />
+            <Text style={{ ...styles.txt, marginLeft: wp(3) }}>
+              with {restaurant.review_count} reviews
+            </Text>
+          </View>
+
+          <Text style={styles.txt}>
             Categories:{" "}
             {restaurant.categories.map((cat) => cat.title).join(", ")}
           </Text>
-          <Text>Address: {restaurant.location.display_address.join("\n")}</Text>
           <MapView
             style={styles.mapStyle}
             region={{
@@ -89,15 +113,14 @@ const CardDetail = ({ restaurant, closeCard }) => {
                 longitude: restaurant.coordinates.longitude,
               }}
               title={restaurant.name}
-              // description={marker.description}
+              description={restaurant.location.display_address.join("\n")}
             />
           </MapView>
-          {/* <TouchableOpacity style={{width: screenWidth,
-            backgroundColor: "salmon",}}>
-
-          </TouchableOpacity> */}
           <Text
-            style={{ color: "salmon", fontSize: 20, marginTop: 20 }}
+            style={{
+              ...styles.txt,
+              color: "salmon",
+            }}
             onPress={() => Linking.openURL(restaurant.url)}
           >
             Open in Yelp
@@ -120,13 +143,26 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flex: 1,
     position: "absolute",
-    marginTop: 40,
-    marginLeft: 20,
-    marginRight: 20,
+    marginTop: hp(5),
+    marginLeft: CONTAINER_PADDING_LEFT,
+    marginRight: CONTAINER_PADDING_RIGHT,
   },
   mapStyle: {
-    width: 0.9 * Dimensions.get("window").width,
-    height: 0.33 * Dimensions.get("window").height,
+    width: "100%",
+    height: hp(33),
+    marginBottom: hp(2),
+  },
+  txt: {
+    marginBottom: 20,
+    fontFamily: FONT_NORMAL,
+    fontSize: hp(1.75),
+  },
+  inline: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    alignSelf: "flex-start",
+    justifyContent: "space-between",
   },
 });
 

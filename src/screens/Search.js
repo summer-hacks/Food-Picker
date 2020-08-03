@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import { Dimensions } from "react-native";
 import { Slider } from "react-native";
-// import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import NextButton from "../components/NextButton";
+import Container from "../components/Container";
+import StepSection from "../components/StepSection";
+import DollarSigns from "../components/DollarSigns";
 
 import {
   View,
@@ -20,9 +22,14 @@ import * as Location from "expo-location";
 import {
   COLOR_PRIMARY,
   FONT_NORMAL,
-  ICON_BORDER_WIDTH,
-  ICON_BORDER_RADIUS,
+  TEXTINPUT_BOTTOM_BORDER_WIDTH,
 } from "../common";
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { max } from "react-native-reanimated";
 
 const url = "https://api.yelp.com/v3/businesses/search?";
 
@@ -163,8 +170,30 @@ const Search = ({ route, navigation }) => {
     defaultLocation = "Current Location";
   }
 
+  const handleNext = async () => {
+    const data = await getData(
+      location,
+      longitude,
+      latitude,
+      radius,
+      maxRes,
+      dollars
+    );
+    if (data.length === 0) {
+      alert(
+        "no restaurants found. please try searching again with different criteria."
+      );
+    } else {
+      navigation.navigate("CreateRoom", {
+        restaurants: data,
+        partySize: partySize,
+        partyName: partyName,
+      });
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <Container>
       <MapView
         style={styles.mapStyle}
         region={{
@@ -181,206 +210,115 @@ const Search = ({ route, navigation }) => {
             longitude: longitude,
           }}
           title="Current Location"
-          // description={marker.description}
         />
       </MapView>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <StepSection>
         <View
           style={{
-            flex: 1,
             flexDirection: "row",
-            justifyContent: "space-between",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <TextInput
-            placeholder="Location"
-            style={{ ...styles.label }}
-            onChangeText={onChangeLocation}
-            defaultValue={defaultLocation}
-            value={location}
-          />
-          <View style={styles.icon}>
-            <Icon
-              color="blue"
-              name="my-location"
-              size={25}
-              onPress={getCurrLocation}
+          <View style={styles.inline}>
+            <TextInput
+              placeholder="Search Origin"
+              style={{ ...styles.textInput, width: "90%" }}
+              onChangeText={onChangeLocation}
+              defaultValue={defaultLocation}
+              value={location}
             />
+            <View style={styles.icon}>
+              <Icon
+                color={COLOR_PRIMARY}
+                name="my-location"
+                size={25}
+                onPress={getCurrLocation}
+              />
+            </View>
           </View>
         </View>
-      </View>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <Text style={styles.label}>Max Distance</Text>
-        <Text style={styles.label}>{radius}</Text>
-      </View>
-      <Slider
-        style={{ marginTop: -100, width: 300, height: 30, alignSelf: "center" }}
-        minimumValue={0}
-        maximumValue={5}
-        minimumTrackTintColor={COLOR_PRIMARY}
-        maximumTrackTintColor={COLOR_PRIMARY}
-        onValueChange={onChangeRadius}
-        step={0.5}
-        thumbTintColor={COLOR_PRIMARY}
-      />
-
-      <TextInput
-        placeholder="Max Number of Restaurants"
-        keyboardType={"numeric"}
-        style={styles.label}
-        onChangeText={onChangeMaxRes}
-      />
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <TouchableOpacity
-          style={{
-            ...styles.dollar,
-            backgroundColor: $clicked ? "salmon" : "white",
-          }}
-          onPress={handle$}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              color: $clicked ? "white" : "salmon",
-            }}
-          >
-            $
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            ...styles.dollar,
-            backgroundColor: $$clicked ? "salmon" : "white",
-          }}
-          onPress={handle$$}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              color: $$clicked ? "white" : "salmon",
-            }}
-          >
-            $$
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            ...styles.dollar,
-            backgroundColor: $$$clicked ? "salmon" : "white",
-          }}
-          onPress={handle$$$}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              color: $$$clicked ? "white" : "salmon",
-            }}
-          >
-            $$$
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            ...styles.dollar,
-            backgroundColor: $$$$clicked ? "salmon" : "white",
-          }}
-          onPress={handle$$$$}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              color: $$$$clicked ? "white" : "salmon",
-            }}
-          >
-            $$$$
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={async () => {
-          const data = await getData(
-            location,
-            longitude,
-            latitude,
-            radius,
-            maxRes,
-            dollars
-          );
-          navigation.navigate("CreateRoom", {
-            restaurants: data,
-            partySize: partySize,
-            partyName: partyName,
-          });
-        }}
-      >
-        <Text style={styles.btnText}>Create Room</Text>
-      </TouchableOpacity>
-    </View>
+        <View style={styles.inline}>
+          <Text style={styles.label}>Max Distance</Text>
+          <Text style={styles.label}>{radius} mi</Text>
+        </View>
+        <Slider
+          style={styles.slider}
+          minimumValue={0}
+          maximumValue={5}
+          minimumTrackTintColor={COLOR_PRIMARY}
+          maximumTrackTintColor={COLOR_PRIMARY}
+          onValueChange={onChangeRadius}
+          step={0.5}
+          thumbTintColor={COLOR_PRIMARY}
+        />
+        <View style={styles.inline}>
+          <Text style={styles.label}>Max Option Count</Text>
+          <Text style={styles.label}>{maxRes}</Text>
+        </View>
+        <Slider
+          style={styles.slider}
+          minimumValue={0}
+          maximumValue={20}
+          minimumTrackTintColor={COLOR_PRIMARY}
+          maximumTrackTintColor={COLOR_PRIMARY}
+          onValueChange={onChangeMaxRes}
+          step={1}
+          thumbTintColor={COLOR_PRIMARY}
+        />
+        <DollarSigns
+          $clicked={$clicked}
+          $$clicked={$$clicked}
+          $$$clicked={$$$clicked}
+          $$$$clicked={$$$$clicked}
+          handle$={handle$}
+          handle$$={handle$$}
+          handle$$$={handle$$$}
+          handle$$$$={handle$$$$}
+        />
+      </StepSection>
+      <NextButton onPress={handleNext} />
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
   label: {
-    fontSize: 20,
     fontFamily: FONT_NORMAL,
-    height: 60,
-    padding: 8,
-    marginRight: 10,
-    marginLeft: 10,
-  },
-  btn: {
-    backgroundColor: "#c2bad8",
-    padding: 9,
-    marginBottom: 100,
-  },
-  btnText: {
-    color: "darkslateblue",
-    fontSize: 20,
-    textAlign: "center",
-  },
-  dollar: {
-    height: 50,
-    width: 50,
-    justifyContent: "center",
-    borderRadius: 10,
-    borderColor: COLOR_PRIMARY,
-    borderStyle: "solid",
-    borderWidth: 2,
+    fontSize: hp("2.5%"),
+    height: hp("3%"),
   },
   mapStyle: {
-    width: 0.9 * Dimensions.get("window").width,
-    height: 0.33 * Dimensions.get("window").height,
-    marginBottom: 10,
+    width: "100%",
+    height: hp("30%"),
   },
   icon: {
     width: 44,
     height: 44,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 3,
+    marginTop: -hp("1.5%"),
+  },
+  textInput: {
+    alignSelf: "stretch",
+    fontFamily: "karla-regular",
+    fontSize: hp("2.5%"),
+    borderBottomColor: "#000",
+    marginBottom: hp("3%"),
+    marginTop: -hp("1%"),
+    borderBottomWidth: TEXTINPUT_BOTTOM_BORDER_WIDTH,
+  },
+  slider: {
+    marginTop: hp("2%"),
+    width: "100%",
+    height: hp("7.5%"),
+    alignSelf: "center",
+    marginBottom: hp("1%"),
+  },
+  inline: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 

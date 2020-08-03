@@ -7,6 +7,14 @@ import {
   TextInput,
 } from "react-native";
 import firebase from "../../firebase.js";
+import ContainerWithBottomButton from "../components/ContainerWithBottomButton";
+import StepSection from "../components/StepSection";
+import BigHeader from "../components/BigHeader";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { BODY_FONT_SIZE, TEXTINPUT_BOTTOM_BORDER_WIDTH } from "../common";
 
 // checks if room exists & is not yet full -- increments number of users joined if both conditions satisfied
 function joinRoom(roomId, navigation, user) {
@@ -27,6 +35,7 @@ function joinRoom(roomId, navigation, user) {
               if (snap.val().rooms) {
                 if (snap.val().rooms.includes(roomId)) {
                   alert("already in room");
+                  return;
                 } else {
                   // add room to user's collection
                   userRef.update({
@@ -80,38 +89,30 @@ const JoinRoom = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.header}>
+    <ContainerWithBottomButton
+      bottomText="Start Swiping!"
+      bottomOnPress={() => joinRoom(roomId, navigation, user)}
+    >
+      <BigHeader title="Join the party!" />
       <TextInput
         placeholder="Room Id"
-        style={styles.input}
+        style={styles.textInput}
         keyboardType={"numeric"}
         onChangeText={onChangeRoomId}
       />
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => joinRoom(roomId, navigation, user)}
-      >
-        <Text style={styles.btnText}>Join</Text>
-      </TouchableOpacity>
-    </View>
+    </ContainerWithBottomButton>
   );
 };
 
 const styles = StyleSheet.create({
-  input: {
-    height: 60,
-    padding: 8,
-    fontSize: 16,
-  },
-  btn: {
-    backgroundColor: "#c2bad8",
-    padding: 9,
+  textInput: {
+    alignSelf: "stretch",
+    fontFamily: "karla-regular",
+    fontSize: BODY_FONT_SIZE,
+    borderBottomColor: "#000",
     margin: 5,
-  },
-  btnText: {
-    color: "darkslateblue",
-    fontSize: 20,
-    textAlign: "center",
+    marginBottom: 25,
+    borderBottomWidth: TEXTINPUT_BOTTOM_BORDER_WIDTH,
   },
 });
 
