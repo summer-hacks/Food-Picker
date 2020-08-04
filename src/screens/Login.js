@@ -43,18 +43,15 @@ const Login = ({ currentUser, actions }) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => navigation.navigate("Home"))
-      .catch((error) => setUserInfo({ ...userInfo, errorMessage: error }));
+      .catch((error) => setUserInfo({...userInfo, errorMessage: error }));
   };
-
   return (
     <Container>
       <StepHeader mb={hp("10%")} />
       <StepTitleWithIcon title="It's Chikin Tinder Time!" iconName="food" />
       <Text style={{ fontFamily: "karla-bold", fontSize: 40 }}></Text>
-      {userInfo.errorMessage && (
-        <Text style={{ color: "red" }}>{userInfo.errorMessage}</Text>
-      )}
       <StepSection>
+        {userInfo.errorMessage ? <Text style={{ color: 'red' }}>{userInfo.errorMessage.toString()}</Text> : null }
         <TextInput
           style={styles.textInput}
           autoCapitalize="none"
