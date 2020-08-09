@@ -11,33 +11,15 @@ import {
 } from "react-native-responsive-screen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import LottieView from "lottie-react-native";
-import * as Permissions from 'expo-permissions';
-import { Notifications } from 'expo';
+
 
 function RoomPage({ route, navigation }) {
   const { room } = route.params;
   const [matches, setMatches] = useState([]);
   const [completed, setCompleted] = useState(false);
 
-  const sendPushNotification = () => {
-    let response = fetch('https://exp.host/--/api/v2/push/send', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        to: 'ExponentPushToken[08fGggNMhJ2yvcYPUyALNV]', // user's push token
-        sound: 'default',
-        title: 'Demo',
-        body: 'Demo notificaiton'
-      })
-    });
-  };
-
   // get matches if everyone has finished swiping
-  useEffect(async() => {
-    sendPushNotification();
+  useEffect(() => {
     const roomRef = firebase.database().ref("rooms/" + room.roomId);
     roomRef.once("value", (snap) => {
       const room = snap.val()
