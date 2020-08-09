@@ -83,7 +83,7 @@ const BirthdaySignUp = ({ currentUser }) => {
         pickerContainerStyleIOS={{
           fontFamily: "karla-bold",
         }}
-        onConfirm={setDate(date)}
+        onConfirm={(date) => setDate(date)}
         onCancel={hideDatePicker}
         onChange={(date) => setDate(date)}
         customHeaderIOS={() => {
