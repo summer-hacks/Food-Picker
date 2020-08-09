@@ -32,13 +32,7 @@ async function pushRestaurants(roomId, restaurants) {
   }
 }
 
-async function createRoomRecord(
-  roomId,
-  restaurants,
-  partySize,
-  partyName,
-  user
-) {
+async function createRoomRecord(roomId, restaurants, partySize, partyName, user) {
   firebase
     .database()
     .ref("rooms/" + roomId)
@@ -47,6 +41,7 @@ async function createRoomRecord(
       numJoined: 1,
       partySize: parseInt(partySize),
       partyName: partyName,
+      users: [user.uid],
     });
 
   await pushRestaurants(roomId, restaurants);

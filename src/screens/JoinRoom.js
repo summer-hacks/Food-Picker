@@ -48,12 +48,13 @@ function joinRoom(roomId, navigation, user) {
                 });
               }
 
-              // update num joined for room
+              // update num joined for room and add user to room
               const roomRef = firebase.database().ref("rooms/" + roomId);
 
               roomRef.once("value", (snap) => {
                 roomRef.update({
                   numJoined: ++snap.val().numJoined,
+                  users: [...snap.val().users, user.uid]
                 });
               });
 
