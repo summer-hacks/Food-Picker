@@ -64,6 +64,7 @@ const Tinder = ({ route, navigation }) => {
 
 
   return (
+
     <Container>
       <BigHeader title="Swipe Away!" />
 
@@ -73,6 +74,7 @@ const Tinder = ({ route, navigation }) => {
         nav={navigation}
       />
     </Container>
+
   );
 };
 

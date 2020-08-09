@@ -3,14 +3,14 @@ import { View, StyleSheet } from "react-native";
 import { Overlay } from "react-native-elements";
 import CardDetail from "./CardDetail";
 import StepHeader from "./StepHeader";
-
 import Card from "./Card";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { COLOR_TERTIARY, COLOR_SECONDARY, COLOR_PRIMARY } from '../common.js';
+import { COLOR_TERTIARY, COLOR_SECONDARY, COLOR_PRIMARY, DEVICE_HEIGHT, DEVICE_WIDTH } from '../common.js';
 import Swiper from 'react-native-deck-swiper';
+import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import firebase from "../../firebase.js";
 
@@ -20,6 +20,7 @@ const Stack = ({ cards, roomId, nav }) => {
   const [cardIndex, setCardIndex] = useState(0);
   const swiperRef = createRef();
   const [visibility, setVisibility] = useState(false);
+
   // function that handles the yes/no user choice for each restaurant
   const handleChoice = (roomId, cards, cardIndex, navigation, direction) => {
     const resRef = firebase
@@ -59,13 +60,15 @@ const Stack = ({ cards, roomId, nav }) => {
   };
   return (
     <View style={styles.container}>
-      <StepHeader step={(cards.length - cardIndex) + " cards left"} />
-      <Overlay
-        isVisible={visibility}
-        fullScreen={true}
-      >
-        <CardDetail restaurant={cards[cardIndex]} closeCard={setVisibility} />
-      </Overlay>
+      {cards.length - cardIndex === 1 ?
+        <StepHeader step={(cards.length - cardIndex) + " card left"} /> :
+        <StepHeader step={(cards.length - cardIndex) + " cards left"} />
+      }
+      <Modal isVisible={visibility} backdropOpacity={1} backdropColor='white' height={DEVICE_HEIGHT} width={DEVICE_WIDTH} >
+        <View style={{ flex: 1, margin: -20.75 }}>
+          <CardDetail restaurant={cards[cardIndex]} closeCard={setVisibility} />
+        </View>
+      </Modal>
 
       <View style={styles.swiperContainer}>
         <Swiper
@@ -110,7 +113,7 @@ const Stack = ({ cards, roomId, nav }) => {
                   alignItems: 'flex-end',
                   justifyContent: 'flex-start',
                   marginTop: 30,
-                  marginLeft: 30
+                  marginLeft: 20
                 }
               }
             },
@@ -129,7 +132,7 @@ const Stack = ({ cards, roomId, nav }) => {
                   alignItems: 'flex-start',
                   justifyContent: 'flex-start',
                   marginTop: 30,
-                  marginLeft: 30
+                  marginLeft: 20
                 }
               }
             }
@@ -176,7 +179,6 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     flex: 0.15,
-    // borderWidth: 5,
     top: hp('12%'),
     justifyContent: 'space-evenly'
 
@@ -187,7 +189,7 @@ const styles = StyleSheet.create({
   },
   swiperContainer: {
     flex: 0.55,
-    // borderWidth: 3
+    width: DEVICE_WIDTH
   },
 });
 
