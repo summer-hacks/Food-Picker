@@ -38,7 +38,7 @@ const DrawerNavigatorNotLoggedIn = createDrawerNavigator({
       navigationOptions: {
         //title: "Home"
         title: "Not Signed in. Please sign in!",
-        headerTitle: () => <Header />,
+        // headerTitle: () => <Header />,
         drawerIcon: ({tintColor}) => <AntDesign name="home" size={16} color={tintColor}/>
       },
     }

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
+import { FontAwesome5} from "@expo/vector-icons";
+
 import firebase from "../../firebase.js";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {
@@ -123,7 +125,7 @@ function HomeScreen({ navigation }) {
         </View>
       </View>
     </View>
-  );
+  )    
 }
 
 const styles = StyleSheet.create({

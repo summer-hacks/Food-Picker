@@ -10,33 +10,19 @@ import SignOutScreen from "./Screen";
 
 import SideBar from "./SideBar";
 import PartyInfo from "../screens/PartyInfo";
-import HomeScreen from "../screens/HomeScreen";
-import CreateRoom from "../screens/CreateRoom";
-import JoinRoom from "../screens/JoinRoom.js";
 import MyRooms from "../screens/MyRooms";
-import RoomPage from "../screens/RoomPage.js";
-import Login from "../screens/Login";
 import "../../global.js";
-import * as Font from "expo-font";
-import { AppLoading } from "expo";
-
-import Header from "./header"
 import HomeStack from "../components/HomeStack"
+import firebase from "../../firebase"
 
-// user for now
-const currentUser = {
-  displayName: "Janet",
-  uid: "jhuang",
-};
-
-const user = currentUser
+const currentUser = firebase.auth().currentUser;
  
 const DrawerNavigator = createDrawerNavigator({
     HomeScreen: {
       screen: HomeStack,
       navigationOptions: {
         title: "Home",
-        headerTitle: () => <Header />,
+        // headerTitle: () => <Header />,
         drawerIcon: ({tintColor}) => <AntDesign name="home" size={16} color={tintColor}/>
       }
     },
@@ -44,7 +30,7 @@ const DrawerNavigator = createDrawerNavigator({
       screen: MyRooms,
       navigationOptions: {
           title: "My Rooms",
-          headerTitle: () => <Header />,
+          // headerTitle: () => <Header />,
           drawerIcon: ({tintColor}) => <MaterialIcons name="group" size={16} color={tintColor} /> 
       }
     },
@@ -52,7 +38,7 @@ const DrawerNavigator = createDrawerNavigator({
       screen: PartyInfo,
       navigationOptions: {
         title: "Create a Room",
-        headerTitle: () => <Header />,
+        // headerTitle: () => <Header />,
         drawerIcon: ({tintColor}) => <MaterialCommunityIcons name="food" size={16} color={tintColor} /> 
       }
     },
@@ -60,7 +46,7 @@ const DrawerNavigator = createDrawerNavigator({
       screen: SignOutScreen,
       navigationOptions: {
         title: "Sign Out",
-        headerTitle: () => <Header />,
+        // headerTitle: () => <Header />,
         drawerIcon: ({tintColor}) => <Feather name="log-out" size={16} color={tintColor} /> 
       }
 

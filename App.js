@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import {createDrawerNavigator}  from "react-navigation-drawer";
 import { Button, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import {
@@ -238,10 +239,10 @@ const App = () => {
   //     </Provider>
   //   );
   // }
+
   return (
     <Provider store={store}>
       <NavigationContainer>
-        {/* <DrawerNavigator screenOptions={{ gestureEnabled: false }}> */}
         <DrawerNavigator>
         <Stack.Navigator>
           <Stack.Screen name="Login" component={Login}/>

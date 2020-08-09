@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView, ImageBackground, Image } from 'react-native'
 import { DrawerNavigatorItems, DrawerActions } from 'react-navigation-drawer'
 import { EvilIcons } from '@expo/vector-icons'
@@ -6,7 +6,6 @@ import { Button } from 'native-base'
 import firebase from '../../firebase'
 
 const currentUser = firebase.auth().currentUser;
-
 
 export default Sidebar = props => (
     <ScrollView>
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
     },
     name: {
         color: "#FFF",
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: "600",
         fontStyle: "italic",
         alignSelf: "center"
