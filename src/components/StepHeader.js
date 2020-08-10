@@ -1,10 +1,10 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import {
   STEP_HEIGHT,
   STEP_SUBSCRIPT_FONT_SIZE,
   STEP_FONT_SIZE,
-} from "../common";
+} from '../common';
 
 const StepHeader = ({ step, subscript, mb }) => {
   return (
@@ -16,14 +16,14 @@ const StepHeader = ({ step, subscript, mb }) => {
 };
 const styles = StyleSheet.create({
   step: {
-    alignSelf: "center",
-    fontSize: STEP_FONT_SIZE,
-    fontFamily: "karla-bold",
+    alignSelf: 'center',
+    fontSize: STEP_FONT_SIZE - 1,
+    fontFamily: 'karla-regular',
   },
   stepSubscript: {
-    alignSelf: "center",
+    alignSelf: 'center',
     fontSize: STEP_SUBSCRIPT_FONT_SIZE,
-    fontFamily: "karla-bold",
+    fontFamily: 'karla-bold',
   },
 });
 

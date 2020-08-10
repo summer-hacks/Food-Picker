@@ -1,20 +1,24 @@
-import React, { useEffect, useState, createRef } from "react";
-import { View, StyleSheet } from "react-native";
-import { Overlay } from "react-native-elements";
-import CardDetail from "./CardDetail";
-import StepHeader from "./StepHeader";
-import Card from "./Card";
+import React, { useEffect, useState, createRef } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Overlay } from 'react-native-elements';
+import CardDetail from './CardDetail';
+import StepHeader from './StepHeader';
+import Card from './Card';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import { COLOR_TERTIARY, COLOR_SECONDARY, COLOR_PRIMARY, DEVICE_HEIGHT, DEVICE_WIDTH } from '../common.js';
+} from 'react-native-responsive-screen';
+import {
+  COLOR_TERTIARY,
+  COLOR_SECONDARY,
+  COLOR_PRIMARY,
+  DEVICE_HEIGHT,
+  DEVICE_WIDTH,
+} from '../common.js';
 import Swiper from 'react-native-deck-swiper';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import firebase from "../../firebase.js";
-
-
+import firebase from '../../firebase.js';
 
 const Stack = ({ cards, roomId, nav }) => {
   const [cardIndex, setCardIndex] = useState(0);
@@ -25,12 +29,12 @@ const Stack = ({ cards, roomId, nav }) => {
   const handleChoice = (roomId, cards, cardIndex, navigation, direction) => {
     const resRef = firebase
       .database()
-      .ref("rooms/" + roomId + "/restaurants/" + cards[cardIndex].id);
+      .ref('rooms/' + roomId + '/restaurants/' + cards[cardIndex].id);
 
     // increment relevant field in firebase to keep count of choices
-    resRef.once("value", (snap) => {
+    resRef.once('value', (snap) => {
       if (snap.exists()) {
-        if (direction === "right") {
+        if (direction === 'right') {
           resRef.update({
             yes: ++snap.val().yes,
           });
@@ -44,27 +48,36 @@ const Stack = ({ cards, roomId, nav }) => {
 
     // if no more restaurants left, update number of users completed for that room
     if (cardIndex === cards.length - 1) {
-      const roomRef = firebase.database().ref("rooms/" + roomId);
-      roomRef.once("value", (snap) => {
+      const roomRef = firebase.database().ref('rooms/' + roomId);
+      roomRef.once('value', (snap) => {
         if (snap.exists()) {
           roomRef.update({
             numCompleted: ++snap.val().numCompleted,
           });
         }
       });
-      navigation.navigate("MyRooms");
+      navigation.navigate('MyRooms');
     }
 
-    setCardIndex(prev => prev + 1)
-
+    setCardIndex((prev) => prev + 1);
   };
   return (
     <View style={styles.container}>
-      {cards.length - cardIndex === 1 ?
-        <StepHeader step={(cards.length - cardIndex) + " card left"} /> :
-        <StepHeader step={(cards.length - cardIndex) + " cards left"} />
-      }
-      <Modal isVisible={visibility} backdropOpacity={1} backdropColor='white' height={DEVICE_HEIGHT} width={DEVICE_WIDTH} >
+      <View style={{ marginBottom: 5 }}>
+        {cards.length - cardIndex === 1 ? (
+          <StepHeader step={cards.length - cardIndex + ' restaurant left'} />
+        ) : (
+          <StepHeader step={cards.length - cardIndex + ' restaurants left'} />
+        )}
+      </View>
+
+      <Modal
+        isVisible={visibility}
+        backdropOpacity={1}
+        backdropColor='white'
+        height={DEVICE_HEIGHT}
+        width={DEVICE_WIDTH}
+      >
         <View style={{ flex: 1, margin: -20.75 }}>
           <CardDetail restaurant={cards[cardIndex]} closeCard={setVisibility} />
         </View>
@@ -76,24 +89,25 @@ const Stack = ({ cards, roomId, nav }) => {
           backgroundColor='white'
           cards={cards}
           cardIndex={cardIndex}
-          renderCard={card => {
+          renderCard={(card) => {
             if (card) {
               return (
-                <Card
-                  roomId={roomId}
-                  restaurant={card}
-                  navigation={nav} />
-              )
+                <Card roomId={roomId} restaurant={card} navigation={nav} />
+              );
             }
           }}
-          onSwipedLeft={() => handleChoice(roomId, cards, cardIndex, nav, "left")}
-          onSwipedRight={() => handleChoice(roomId, cards, cardIndex, nav, "right")}
+          onSwipedLeft={() =>
+            handleChoice(roomId, cards, cardIndex, nav, 'left')
+          }
+          onSwipedRight={() =>
+            handleChoice(roomId, cards, cardIndex, nav, 'right')
+          }
+          goBackToPreviousCardOnSwipeBottom={true}
           onTapCard={(index) => setVisibility(true)}
           stackSize={4}
           stackScale={10}
           stackSeparation={14}
           disableTopSwipe
-          disableBottomSwipe
           animateOverlayLabelsOpacity
           // animateCardOpacity
           infinite
@@ -104,43 +118,42 @@ const Stack = ({ cards, roomId, nav }) => {
                 label: {
                   backgroundColor: COLOR_TERTIARY,
                   color: COLOR_PRIMARY,
-                  fontSize: 25,
-                  borderRadius: 20,
-                  position: 'absolute'
+                  fontSize: 30,
+                  borderRadius: 25,
+                  position: 'absolute',
                 },
                 wrapper: {
                   flexDirection: 'column',
                   alignItems: 'flex-end',
                   justifyContent: 'flex-start',
                   marginTop: 30,
-                  marginLeft: 20
-                }
-              }
+                  marginLeft: 20,
+                },
+              },
             },
             right: {
               title: 'YEP',
               style: {
                 label: {
-                  backgroundColor: COLOR_TERTIARY,
+                  backgroundColor: COLOR_SECONDARY,
                   color: 'black',
-                  fontSize: 25,
-                  borderRadius: 20,
-                  position: 'absolute'
+                  fontSize: 30,
+                  borderRadius: 25,
+                  position: 'absolute',
                 },
                 wrapper: {
                   flexDirection: 'column',
                   alignItems: 'flex-start',
                   justifyContent: 'flex-start',
                   marginTop: 30,
-                  marginLeft: 20
-                }
-              }
-            }
+                  marginLeft: 0,
+                },
+              },
+            },
           }}
         />
       </View>
       <View style={styles.bottomContainer}>
-        {/* <Transitioning.View ref={transitionRef} transition={transition}> */}
         <View style={styles.bottomButtonsContainer}>
           <Icon.Button
             name='close-circle-outline'
@@ -149,7 +162,32 @@ const Stack = ({ cards, roomId, nav }) => {
             underlayColor='transparent'
             activeOpacity={0.3}
             color={COLOR_PRIMARY}
-            onPress={() => swiperRef.current.swipeLeft()} />
+            onPress={() => swiperRef.current.swipeLeft()}
+          />
+          <View
+            style={{
+              borderWidth: 6,
+              borderRadius: 60,
+              height: 80,
+              width: 80,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderColor: COLOR_TERTIARY,
+
+              marginRight: 10,
+            }}
+          >
+            <Icon.Button
+              name='refresh'
+              size={45}
+              backgroundColor='transparent'
+              underlayColor='transparent'
+              activeOpacity={0.3}
+              color={COLOR_TERTIARY}
+              // style={{ alignSelf: 'center' }}
+              onPress={() => swiperRef.current.swipeBottom()}
+            />
+          </View>
           <Icon.Button
             name='check-circle-outline'
             size={90}
@@ -157,39 +195,40 @@ const Stack = ({ cards, roomId, nav }) => {
             underlayColor='transparent'
             activeOpacity={0.3}
             color={COLOR_SECONDARY}
-            onPress={() => swiperRef.current.swipeRight()} />
+            onPress={() => swiperRef.current.swipeRight()}
+          />
         </View>
-        {/* </Transitioning.View> */}
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    marginTop: -hp("10%"),
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: -hp('15%'),
     width: wp('100%'),
     borderRadius: 10,
-
   },
   bottomContainer: {
     flex: 0.15,
     top: hp('12%'),
-    justifyContent: 'space-evenly'
-
+    justifyContent: 'space-evenly',
   },
   bottomButtonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-between',
+    // borderWidth: 4,
+    bottom: hp('3%'),
   },
   swiperContainer: {
     flex: 0.55,
-    width: DEVICE_WIDTH
+    width: DEVICE_WIDTH,
+    bottom: hp('3%'),
   },
 });
 
