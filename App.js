@@ -78,15 +78,6 @@ const App = () => {
         onPress={() => navigation.goBack()}
       />
     ),
-    // headerRight: () => (
-    //   <Icon
-    //     name="chevron-right"
-    //     size={wp("9%")}
-    //     color={COLOR_PRIMARY}
-    //     style={{ marginLeft: wp("3%") }}
-    //     onPress={() => navigation.goBack()}
-    //   />
-    // ),
   });
 
   return (
@@ -128,11 +119,15 @@ const App = () => {
             component={DoneSignUp}
             options={backButton}
           />
-          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={backButton}
+            options={{ headerShown: false }}
           />
           <Stack.Screen name="Search" component={Search} options={backButton} />
           <Stack.Screen name="Tinder" component={Tinder} options={backButton} />
