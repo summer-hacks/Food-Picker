@@ -11,6 +11,7 @@ import {
   TEXTINPUT_BOTTOM_BORDER_WIDTH,
   CONTAINER_PADDING_LEFT,
   CONTAINER_PADDING_RIGHT,
+  DEVICE_WIDTH,
 } from "../common";
 import {
   widthPercentageToDP as wp,
@@ -38,7 +39,7 @@ const CardDetail = ({ restaurant, closeCard }) => {
         }}
       >
         <Image
-          style={{ width: screenWidth, height: 300 }}
+          style={{ width: DEVICE_WIDTH, height: hp('35%') }}
           source={{
             uri: photos[index],
           }}
@@ -48,7 +49,7 @@ const CardDetail = ({ restaurant, closeCard }) => {
       <View>
         <TouchableOpacity
           style={{
-            width: screenWidth,
+            width: DEVICE_WIDTH,
             backgroundColor: "salmon",
             height: hp("5%"),
             justifyContent: "center",
@@ -77,7 +78,7 @@ const CardDetail = ({ restaurant, closeCard }) => {
               marginBottom: hp(1),
             }}
           >
-            {restaurant.name} ({restaurant.price})
+            {restaurant.name} ({restaurant.price}) ({restaurant.rating.toFixed(1)})
           </Text>
           <View style={styles.inline}>
             <StarRating
@@ -146,11 +147,13 @@ const styles = StyleSheet.create({
     marginTop: hp(5),
     marginLeft: CONTAINER_PADDING_LEFT,
     marginRight: CONTAINER_PADDING_RIGHT,
+    alignSelf: 'center'
   },
   mapStyle: {
     width: "100%",
-    height: hp(33),
+    height: hp(30),
     marginBottom: hp(2),
+    borderRadius: 2
   },
   txt: {
     marginBottom: 20,
