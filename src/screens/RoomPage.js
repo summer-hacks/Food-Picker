@@ -15,15 +15,17 @@ import LottieView from "lottie-react-native";
 function RoomPage({ route, navigation }) {
   const { room } = route.params;
   const [matches, setMatches] = useState([]);
-  const [completed, setCompleted] = useState(false);
+  const [numCompleted, setCompleted] = useState(0);
+  const [partySize, setSize] = useState(0);
 
   // get matches if everyone has finished swiping
   useEffect(() => {
     const roomRef = firebase.database().ref("rooms/" + room.roomId);
     roomRef.once("value", (snap) => {
       const room = snap.val();
+      setCompleted(room.numCompleted);
+      setSize(room.partySize);
       if (room.numCompleted === room.partySize) {
-        setCompleted(true);
         const restaurants = [];
         Object.keys(room.restaurants).forEach((key) => {
           restaurants.push(room.restaurants[key]);
@@ -38,11 +40,15 @@ function RoomPage({ route, navigation }) {
   return (
     <Container>
       <BigHeader title={room.name + "\n(" + room.roomId + ")"} />
-      {completed ? (
+      {numCompleted === partySize ? (
         <StepHeader step="Here are your matches!" />
       ) : (
         <View style={styles.animationContainer}>
-          <StepHeader step="Still waiting on people..." />
+          <StepHeader
+            step={`Still waiting on ${
+              partySize - numCompleted
+            }/${partySize} people...`}
+          />
           <LottieView
             autoPlay={true}
             style={{
@@ -54,7 +60,7 @@ function RoomPage({ route, navigation }) {
           />
         </View>
       )}
-      {completed ? (
+      {numCompleted === partySize ? (
         <FlatList
           data={matches}
           keyExtractor={(item) => item.id}
