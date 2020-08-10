@@ -30,17 +30,27 @@ function MyRooms({ route, navigation }) {
             let name = "";
             let size = 0;
             let completed = 0;
+            let date = {};
             await roomRef.once("value", (snap) => {
               const res = snap.val();
               name = res.partyName;
               size = res.partySize;
               completed = res.numCompleted;
+              date = new Date(res.timestamp);
             });
+            console.log(
+              `${date.getMonth() + 1}/${date.getDate()}/${
+                date.getFullYear() - 2000
+              }`
+            );
             return {
               roomId: room,
               name: name,
               size: size,
               completed: completed,
+              date: `${date.getMonth() + 1}/${date.getDate()}/${
+                date.getFullYear() - 2000
+              }`,
             };
           })
         );
@@ -66,20 +76,39 @@ function MyRooms({ route, navigation }) {
                 navigation.navigate("RoomPage", { room: item });
               }}
             >
+              <View>
+                <Text
+                  style={
+                    item.completed === item.size
+                      ? { ...styles.btnText, color: "white" }
+                      : { ...styles.btnText, color: "black" }
+                  }
+                >
+                  {item.name}
+                </Text>
+                <Text
+                  style={
+                    item.completed === item.size
+                      ? {
+                          ...styles.btnText,
+                          color: "white",
+                          fontSize: heightPercentageToDP("2"),
+                        }
+                      : {
+                          ...styles.btnText,
+                          color: "black",
+                          fontSize: heightPercentageToDP("2"),
+                        }
+                  }
+                >
+                  {item.date}
+                </Text>
+              </View>
               <Text
                 style={
                   item.completed === item.size
-                    ? { ...styles.btnText, color: "white" }
-                    : { ...styles.btnText, color: "black" }
-                }
-              >
-                {item.name}
-              </Text>
-              <Text
-                style={
-                  item.completed === item.size
-                    ? { ...styles.btnText, color: "white" }
-                    : { ...styles.btnText, color: "black" }
+                    ? { ...styles.btnText, color: "white", alignSelf: "center" }
+                    : { ...styles.btnText, color: "black", alignSelf: "center" }
                 }
               >
                 {item.completed}/{item.size}
@@ -107,11 +136,10 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: heightPercentageToDP("2.5"),
-    textAlign: "center",
     marginRight: 10,
     marginLeft: 10,
-    alignSelf: "center",
     fontFamily: FONT_NORMAL,
+    textAlign: "left",
   },
 });
 export default MyRooms;

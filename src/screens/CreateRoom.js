@@ -47,6 +47,7 @@ async function createRoomRecord(
       numJoined: 1,
       partySize: parseInt(partySize),
       partyName: partyName,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
     });
 
   await pushRestaurants(roomId, restaurants);
