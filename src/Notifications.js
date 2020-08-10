@@ -37,7 +37,7 @@ export async function registerForPushNotifications() {
     }
 };
 
-export const sendPushNotification = (token) => {
+export const sendPushNotification = (token, partyName) => {
     console.log('token', token);
     let response = fetch('https://exp.host/--/api/v2/push/send', {
       method: 'POST',
@@ -48,8 +48,8 @@ export const sendPushNotification = (token) => {
       body: JSON.stringify({
         to: token, // user's push token
         sound: 'default',
-        title: 'Demo',
-        body: 'Demo notificaiton'
+        title: `Matches found for ${partyName}!`,
+        body: 'Go to the room page in View Rooms to see your matches.'
       })
     });
   };

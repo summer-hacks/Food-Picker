@@ -19,7 +19,7 @@ const Stack = ({ cards, roomId, nav }) => {
   const swiperRef = createRef();
   const [visibility, setVisibility] = useState(false);
   const currentUser = firebase.auth().currentUser;
-  const userRef = firebase.database().ref('users/' + currentUser.uid);
+
 
   // function that handles the yes/no user choice for each restaurant
   const handleChoice = async (roomId, cards, cardIndex, navigation, direction) => {
@@ -56,9 +56,13 @@ const Stack = ({ cards, roomId, nav }) => {
           await registerForPushNotifications();
           if (increment === snap.val().partySize) {
             // MUST IMPLEMENT: for each user in the room
-            userRef.once("value", (snap) => {
-              const user = snap.val();
-              sendPushNotification(user.push_token)
+            const users = snap.val().users;
+            users.forEach((userId) => {
+              const userRef = firebase.database().ref('users/' + userId);
+              userRef.once("value", (snap) => {
+                const user = snap.val();
+                sendPushNotification(user.push_token, snap.val().partyName);
+              });
             });
           }
         }
