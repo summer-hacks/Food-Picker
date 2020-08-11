@@ -1,9 +1,9 @@
-import React, { useEffect, useState, createRef } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Overlay } from 'react-native-elements';
-import CardDetail from './CardDetail';
-import StepHeader from './StepHeader';
-import Card from './Card';
+import React, { useEffect, useState, createRef } from "react";
+import { View, StyleSheet } from "react-native";
+import { Overlay } from "react-native-elements";
+import CardDetail from "./CardDetail";
+import StepHeader from "./StepHeader";
+import Card from "./Card";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -18,18 +18,22 @@ import {
 import Swiper from 'react-native-deck-swiper';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import firebase from '../../firebase.js';
+import firebase from "../../firebase.js";
+import { registerForPushNotifications, sendPushNotification } from '../Notifications';
 
 const Stack = ({ cards, roomId, nav }) => {
   const [cardIndex, setCardIndex] = useState(0);
   const swiperRef = createRef();
   const [visibility, setVisibility] = useState(false);
+  const currentUser = firebase.auth().currentUser;
 
   // function that handles the yes/no user choice for each restaurant
-  const handleChoice = (roomId, cards, cardIndex, navigation, direction) => {
+  const handleChoice = async (roomId, cards, cardIndex, navigation, direction) => {
     const resRef = firebase
       .database()
-      .ref('rooms/' + roomId + '/restaurants/' + cards[cardIndex].id);
+      .ref("rooms/" + roomId + "/restaurants/" + cards[cardIndex].id);
+    
+    const roomRef = firebase.database().ref("rooms/" + roomId);
 
     // increment relevant field in firebase to keep count of choices
     resRef.once('value', (snap) => {
@@ -47,20 +51,33 @@ const Stack = ({ cards, roomId, nav }) => {
     });
 
     // if no more restaurants left, update number of users completed for that room
+    // then if all users have completed, fire notification
     if (cardIndex === cards.length - 1) {
-      const roomRef = firebase.database().ref('rooms/' + roomId);
-      roomRef.once('value', (snap) => {
+      roomRef.once("value", async (snap) => {
         if (snap.exists()) {
+          const increment = ++snap.val().numCompleted;
           roomRef.update({
-            numCompleted: ++snap.val().numCompleted,
+            numCompleted: increment,
           });
+          await registerForPushNotifications();
+          if (increment === snap.val().partySize) {
+            // MUST IMPLEMENT: for each user in the room
+            const users = snap.val().users;
+            users.forEach((userId) => {
+              const userRef = firebase.database().ref('users/' + userId);
+              userRef.once("value", (snap) => {
+                const user = snap.val();
+                sendPushNotification(user.push_token, snap.val().partyName);
+              });
+            });
+          }
         }
       });
       navigation.navigate('MyRooms');
     }
-
     setCardIndex((prev) => prev + 1);
   };
+  
   return (
     <View style={styles.container}>
       <View style={{ marginBottom: 5 }}>

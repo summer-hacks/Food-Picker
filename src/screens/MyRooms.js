@@ -9,7 +9,13 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-} from 'react-native';
+} from "react-native";
+import firebase from "../../firebase.js";
+import { COLOR_PRIMARY_LIGHT, COLOR_SECONDARY, FONT_NORMAL } from "../common";
+import Container from "../components/Container";
+import BigHeader from "../components/BigHeader";
+import StepHeader from "../components/StepHeader";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 import firebase from '../../firebase.js';
 import {
   COLOR_PRIMARY_LIGHT,
@@ -24,10 +30,10 @@ import Container from '../components/Container';
 import BigHeader from '../components/BigHeader';
 import StepHeader from '../components/StepHeader';
 import Swipeout from 'react-native-swipeout';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 const { width } = Dimensions.get('window');
 
-import { heightPercentageToDP } from 'react-native-responsive-screen';
 function MyRooms({ route, navigation }) {
   const [user, setUser] = useState({});
   const [rooms, setRooms] = useState([]);
@@ -87,9 +93,11 @@ function MyRooms({ route, navigation }) {
     handleSlide(xTabTwo);
   };
 
+  // notifications
+  // let currentUser = firebase.auth().currentUser;
+
   useEffect(() => {
     const currentUser = firebase.auth().currentUser;
-
     if (currentUser) {
       setUser(currentUser);
       const userRef = firebase.database().ref('users/' + currentUser.uid);
