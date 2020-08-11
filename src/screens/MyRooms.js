@@ -231,6 +231,7 @@ function MyRooms({ route, navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
+
         <ScrollView>
           <Animated.View
             style={{
