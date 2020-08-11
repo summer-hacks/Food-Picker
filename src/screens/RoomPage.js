@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
-import { StyleSheet, FlatList, Text, View } from "react-native";
-import firebase from "../../firebase.js";
-import Container from "../components/Container";
-import BigHeader from "../components/BigHeader";
-import StepHeader from "../components/StepHeader";
-import { FONT_NORMAL, COLOR_PRIMARY } from "../common.js";
+import React, { useState, useRef, useEffect } from 'react';
+import { StyleSheet, FlatList, Text, View } from 'react-native';
+import firebase from '../../firebase.js';
+import Container from '../components/Container';
+import BigHeader from '../components/BigHeader';
+import StepHeader from '../components/StepHeader';
+import { FONT_NORMAL, COLOR_PRIMARY } from '../common.js';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
-} from "react-native-responsive-screen";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import LottieView from "lottie-react-native";
+} from 'react-native-responsive-screen';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import LottieView from 'lottie-react-native';
 
 function RoomPage({ route, navigation }) {
   const { room } = route.params;
@@ -20,8 +20,8 @@ function RoomPage({ route, navigation }) {
 
   // get matches if everyone has finished swiping
   useEffect(() => {
-    const roomRef = firebase.database().ref("rooms/" + room.roomId);
-    roomRef.once("value", (snap) => {
+    const roomRef = firebase.database().ref('rooms/' + room.roomId);
+    roomRef.once('value', (snap) => {
       const room = snap.val();
       setCompleted(room.numCompleted);
       setSize(room.partySize);
@@ -39,24 +39,22 @@ function RoomPage({ route, navigation }) {
 
   return (
     <Container>
-      <BigHeader title={room.name + "\n(" + room.roomId + ")"} />
+      <BigHeader title={room.name + '\n(' + room.roomId + ')'} />
       {numCompleted === partySize ? (
-        <StepHeader step="Here are your matches!" />
+        <StepHeader step='Here are your matches!' />
       ) : (
         <View style={styles.animationContainer}>
           <StepHeader
-            step={`Still waiting on ${
-              partySize - numCompleted
-            }/${partySize} people...`}
+            step={`Still waiting on ${partySize - numCompleted} people...`}
           />
           <LottieView
             autoPlay={true}
             style={{
               width: 400,
               height: 400,
-              backgroundColor: "white",
+              backgroundColor: 'white',
             }}
-            source={require("../../assets/7093-roll-it-chicken-roll.json")}
+            source={require('../../assets/7093-roll-it-chicken-roll.json')}
           />
         </View>
       )}
@@ -68,7 +66,7 @@ function RoomPage({ route, navigation }) {
             <View style={styles.inline}>
               <Icon
                 color={COLOR_PRIMARY}
-                name="heart"
+                name='heart'
                 size={heightPercentageToDP(1.5)}
                 style={{
                   marginRight: widthPercentageToDP(3),
@@ -93,17 +91,17 @@ const styles = StyleSheet.create({
     marginBottom: heightPercentageToDP(4),
   },
   animationContainer: {
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
   },
   inline: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    justifyContent: 'space-between',
   },
 });
 export default RoomPage;
