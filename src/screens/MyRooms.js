@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Alert,
@@ -11,28 +11,23 @@ import {
   Dimensions,
 } from "react-native";
 import firebase from "../../firebase.js";
-import { COLOR_PRIMARY_LIGHT, COLOR_SECONDARY, FONT_NORMAL } from "../common";
-import Container from "../components/Container";
 import BigHeader from "../components/BigHeader";
 import StepHeader from "../components/StepHeader";
-import { heightPercentageToDP } from "react-native-responsive-screen";
-import firebase from '../../firebase.js';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from "react-native-responsive-screen";
 import {
   COLOR_PRIMARY_LIGHT,
   COLOR_SECONDARY,
   FONT_NORMAL,
   COLOR_PRIMARY,
-  COLOR_GREY_TEXT,
   COLOR_TERTIARY,
-  DEVICE_WIDTH,
-} from '../common';
-import Container from '../components/Container';
-import BigHeader from '../components/BigHeader';
-import StepHeader from '../components/StepHeader';
-import Swipeout from 'react-native-swipeout';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+} from "../common";
+import Container from "../components/Container";
+import Swipeout from "react-native-swipeout";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 function MyRooms({ route, navigation }) {
   const [user, setUser] = useState({});
@@ -57,7 +52,6 @@ function MyRooms({ route, navigation }) {
     }).start();
 
     if (active === 0) {
-      console.log('active');
       Animated.parallel([
         Animated.spring(translateXTabOne, {
           toValue: 0,
@@ -69,7 +63,6 @@ function MyRooms({ route, navigation }) {
         }).start(),
       ]);
     } else {
-      console.log('inactive');
       Animated.parallel([
         Animated.spring(translateXTabOne, {
           toValue: -width,
@@ -100,17 +93,17 @@ function MyRooms({ route, navigation }) {
     const currentUser = firebase.auth().currentUser;
     if (currentUser) {
       setUser(currentUser);
-      const userRef = firebase.database().ref('users/' + currentUser.uid);
-      userRef.once('value', async (snap) => {
+      const userRef = firebase.database().ref("users/" + currentUser.uid);
+      userRef.once("value", async (snap) => {
         if (snap.val().rooms) {
           const promises = await Promise.all(
             snap.val().rooms.map(async (room) => {
-              const roomRef = firebase.database().ref('rooms/' + room);
-              let name = '';
+              const roomRef = firebase.database().ref("rooms/" + room);
+              let name = "";
               let size = 0;
               let completed = 0;
               let date = {};
-              await roomRef.once('value', (snap) => {
+              await roomRef.once("value", (snap) => {
                 const res = snap.val();
                 name = res.partyName;
                 size = res.partySize;
@@ -144,22 +137,22 @@ function MyRooms({ route, navigation }) {
 
   const handleDelete = () => {
     Alert.alert(
-      'Confirm Delete',
-      'Are you sure you want to delete this room? This will not impact anyone else.',
+      "Confirm Delete",
+      "Are you sure you want to delete this room? This will not impact anyone else.",
       [
         {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
         },
         {
-          text: 'Yes',
+          text: "Yes",
           onPress: () => {
             const userRef = firebase
               .database()
-              .ref('users/' + firebase.auth().currentUser.uid);
+              .ref("users/" + firebase.auth().currentUser.uid);
             userRef.once(
-              'value',
+              "value",
               (snap) => {
                 const remaining = snap
                   .val()
@@ -172,7 +165,7 @@ function MyRooms({ route, navigation }) {
               (error) => alert(error)
             );
           },
-          style: 'destructive',
+          style: "destructive",
         },
       ],
       { cancelable: false }
@@ -181,29 +174,29 @@ function MyRooms({ route, navigation }) {
 
   const swipeoutBtns = [
     {
-      text: 'Delete',
+      text: "Delete",
       onPress: handleDelete,
     },
   ];
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <View style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
-        <BigHeader title='My Rooms' />
+    <View style={{ flex: 1, backgroundColor: "white" }}>
+      <View style={{ width: "90%", marginLeft: "auto", marginRight: "auto" }}>
+        <BigHeader title="My Rooms" />
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: "row",
             marginTop: 40,
             marginBottom: 20,
             height: 36,
-            position: 'relative',
+            position: "relative",
           }}
         >
           <Animated.View
             style={{
-              position: 'absolute',
-              width: '50%',
-              height: '100%',
+              position: "absolute",
+              width: "50%",
+              height: "100%",
               top: 0,
               left: 0,
               backgroundColor: COLOR_PRIMARY,
@@ -223,7 +216,7 @@ function MyRooms({ route, navigation }) {
             <Text
               style={{ color: active === 0 ? COLOR_TERTIARY : COLOR_PRIMARY }}
             >
-              Active
+              In Progress
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -234,187 +227,158 @@ function MyRooms({ route, navigation }) {
             <Text
               style={{ color: active === 1 ? COLOR_TERTIARY : COLOR_PRIMARY }}
             >
-              Inactive
+              Completed
             </Text>
           </TouchableOpacity>
         </View>
         <ScrollView>
           <Animated.View
             style={{
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: "center",
+              alignItems: "center",
               transform: [{ translateX: translateXTabOne }],
+              width: widthPercentageToDP(100),
             }}
             onLayout={(event) => setTranslateY(event.nativeEvent.layout.height)}
           >
-            <View style={{ flex: 1 }}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                width: widthPercentageToDP(100),
+              }}
+            >
               {rooms.length > 0 ? (
-                rooms.map((item) => (
-                  <Swipeout
-                    key={item.roomId}
-                    right={swipeoutBtns}
-                    style={styles.btnView}
-                    onOpen={() => {
-                      setActive(item.roomId);
-                    }}
-                  >
-                    <TouchableOpacity
-                      style={
-                        item.completed === item.size
-                          ? {
-                              ...styles.btn,
-                              backgroundColor: COLOR_PRIMARY_LIGHT,
-                            }
-                          : {
-                              ...styles.btn,
-                              backgroundColor: COLOR_SECONDARY,
-                            }
-                      }
-                      onPress={() => {
-                        navigation.navigate('RoomPage', { room: item });
+                rooms
+                  .filter((room) => room.completed !== room.size)
+                  .map((item) => (
+                    <Swipeout
+                      key={item.roomId}
+                      right={swipeoutBtns}
+                      style={styles.btnView}
+                      onOpen={() => {
+                        setActive(item.roomId);
                       }}
                     >
-                      <Text
-                        style={
-                          item.completed === item.size
-                            ? { ...styles.btnText, color: 'white' }
-                            : { ...styles.btnText, color: 'black' }
-                        }
+                      <TouchableOpacity
+                        style={{
+                          ...styles.btn,
+                          backgroundColor: COLOR_SECONDARY,
+                        }}
+                        onPress={() => {
+                          navigation.navigate("RoomPage", { room: item });
+                        }}
                       >
-                        {item.name}
-                      </Text>
-                      <Text
-                        style={
-                          item.completed === item.size
-                            ? {
-                                ...styles.btnText,
-                                color: 'white',
-                                fontSize: heightPercentageToDP('2'),
-                              }
-                            : {
-                                ...styles.btnText,
-                                color: 'black',
-                                fontSize: heightPercentageToDP('2'),
-                              }
-                        }
-                      >
-                        {item.date}
-                      </Text>
-                    </TouchableOpacity>
-                  </Swipeout>
-                ))
+                        <Text style={{ ...styles.btnText, color: "black" }}>
+                          {item.name}
+                        </Text>
+                        <Text
+                          style={{
+                            ...styles.btnText,
+                            color: "black",
+                            fontSize: heightPercentageToDP("2"),
+                          }}
+                        >
+                          {item.date}
+                        </Text>
+                      </TouchableOpacity>
+                    </Swipeout>
+                  ))
               ) : (
-                <StepHeader step='no rooms yet!' />
+                <StepHeader step="no rooms yet!" />
               )}
             </View>
           </Animated.View>
 
           <Animated.View
             style={{
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: "center",
+              alignItems: "center",
               transform: [
                 { translateX: translateXTabTwo },
                 { translateY: -translateY },
               ],
             }}
           >
-            <Text>Hi, I am cute dog</Text>
-            <View style={{ marginTop: 20 }}>
-              <Image
-                source={{
-                  uri:
-                    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg==',
-                }}
-                style={{ width: 30, height: 30, borderRadius: 15 }}
-              />
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                width: widthPercentageToDP(100),
+              }}
+            >
+              {rooms.length > 0 ? (
+                rooms
+                  .filter((room) => room.completed === room.size)
+                  .map((item) => (
+                    <Swipeout
+                      key={item.roomId}
+                      right={swipeoutBtns}
+                      style={styles.btnView}
+                      onOpen={() => {
+                        setActive(item.roomId);
+                      }}
+                    >
+                      <TouchableOpacity
+                        style={{
+                          ...styles.btn,
+                          backgroundColor: COLOR_PRIMARY_LIGHT,
+                        }}
+                        onPress={() => {
+                          navigation.navigate("RoomPage", { room: item });
+                        }}
+                      >
+                        <Text style={{ ...styles.btnText, color: "white" }}>
+                          {item.name}
+                        </Text>
+                        <Text
+                          style={{
+                            ...styles.btnText,
+                            color: "white",
+                            fontSize: heightPercentageToDP("2"),
+                          }}
+                        >
+                          {item.date}
+                        </Text>
+                      </TouchableOpacity>
+                    </Swipeout>
+                  ))
+              ) : (
+                <StepHeader step="no rooms yet!" />
+              )}
             </View>
           </Animated.View>
         </ScrollView>
       </View>
     </View>
-    // <Container>
-    //   <BigHeader title='My Rooms' />
-    //   <View style={{ flex: 1 }}>
-    //     {rooms.length > 0 ? (
-    //       rooms.map((item) => (
-    //         <Swipeout
-    //           key={item.roomId}
-    //           right={swipeoutBtns}
-    //           style={styles.btnView}
-    //           onOpen={() => {
-    //             setActive(item.roomId);
-    //           }}
-    //         >
-    //           <TouchableOpacity
-    //             style={
-    //               item.completed === item.size
-    //                 ? { ...styles.btn, backgroundColor: COLOR_PRIMARY_LIGHT }
-    //                 : { ...styles.btn, backgroundColor: COLOR_SECONDARY }
-    //             }
-    //             onPress={() => {
-    //               navigation.navigate('RoomPage', { room: item });
-    //             }}
-    //           >
-    //             <Text
-    //               style={
-    //                 item.completed === item.size
-    //                   ? { ...styles.btnText, color: 'white' }
-    //                   : { ...styles.btnText, color: 'black' }
-    //               }
-    //             >
-    //               {item.name}
-    //             </Text>
-    //             <Text
-    //               style={
-    //                 item.completed === item.size
-    //                   ? {
-    //                       ...styles.btnText,
-    //                       color: 'white',
-    //                       fontSize: heightPercentageToDP('2'),
-    //                     }
-    //                   : {
-    //                       ...styles.btnText,
-    //                       color: 'black',
-    //                       fontSize: heightPercentageToDP('2'),
-    //                     }
-    //               }
-    //             >
-    //               {item.date}
-    //             </Text>
-    //           </TouchableOpacity>
-    //         </Swipeout>
-    //       ))
-    //     ) : (
-    //       <StepHeader step='no rooms yet!' />
-    //     )}
-    //   </View>
-    // </Container>
   );
 }
 
 const styles = StyleSheet.create({
   btn: {
-    width: '100%',
-    height: '100%',
-    padding: heightPercentageToDP('1'),
+    width: "100%",
+    height: "100%",
+    padding: heightPercentageToDP("1"),
   },
   btnView: {
-    height: heightPercentageToDP('8'),
-    margin: heightPercentageToDP('.5'),
+    height: heightPercentageToDP("8"),
+    width: "75%",
+    margin: heightPercentageToDP(".5"),
     borderRadius: 10,
   },
   btnText: {
-    fontSize: heightPercentageToDP('2.5'),
+    fontSize: heightPercentageToDP("2.5"),
     marginRight: 10,
     marginLeft: 10,
     fontFamily: FONT_NORMAL,
-    textAlign: 'left',
+    textAlign: "left",
   },
   activeTab: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: COLOR_PRIMARY,
     borderRightWidth: 0,
@@ -424,8 +388,8 @@ const styles = StyleSheet.create({
   },
   inactiveTab: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: COLOR_PRIMARY,
     borderLeftWidth: 0,
