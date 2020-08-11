@@ -30,13 +30,21 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { max } from "react-native-reanimated";
+import { useNavigation, useNavigationParam } from 'react-navigation-hooks';
 
 const url = "https://api.yelp.com/v3/businesses/search?";
 
 const Search = ({ route, navigation }) => {
   // const { user } = route.params;
-  const { partySize } = route.params;
-  const { partyName } = route.params;
+
+  // const { partySize } = route.params;
+  // const { partyName } = route.params;
+
+  // const { partySize } = useNavigationParam('partySize');
+  // const { partyName } = useNavigationParam('partyName');
+  
+  const { partySize } = navigation.state.params;
+  const { partyName } = navigation.state.params;
 
   const [location, setLocation] = useState("");
   const [latitude, setLatitude] = useState(0);
@@ -171,6 +179,8 @@ const Search = ({ route, navigation }) => {
   }
 
   const handleNext = async () => {
+    
+
     const data = await getData(
       location,
       longitude,

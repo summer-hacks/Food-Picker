@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import {createDrawerNavigator}  from "react-navigation-drawer";
+// import {createDrawerNavigator}  from "react-navigation-drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { DrawerActions } from 'react-navigation-drawer';
 import { Button, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import {
@@ -35,11 +37,14 @@ import { COLOR_PRIMARY } from "./src/common";
 import firebase from "./firebase"
 import DrawerNavigatorNotLoggedIn from "./src/components/DrawerNavigator_notloggedin";
 import DrawerNavigator from "./src/components/DrawerNavigator"
+import { Drawer } from "native-base";
+import HomeStack from "./src/components/HomeStack"
 
 
 const store = createStore(reducer);
 const App = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [loggedIn, setLoggedIn] = useState("");
   const currentUser = firebase.auth().currentUser;
 
   const fetchFonts = () => {
@@ -50,6 +55,17 @@ const App = () => {
       "karla-regular": require("./assets/fonts/Karla-Regular.ttf"),
     });
   };
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        setLoggedIn("unlocked")
+      }
+      else {
+        setLoggedIn("locked-closed")
+      }
+      });
+    }, []);
 
   // set up navigation
   const Stack = createStackNavigator();
@@ -84,174 +100,63 @@ const App = () => {
       />
     ),
   });
-
-  // if(!currentUser){
-  //   return (
-  //     <Provider store={store}>
-  //       <NavigationContainer>
-  //         <DrawerNavigatorNotLoggedIn>
-  //         <Stack.Navigator>
-  //           {/* <Stack.Screen
-  //             name="PhoneNumberLogin"
-  //             component={Login}
-  //             options={{ title: "Login", headerShown: false }}
-  //           />
-  //           <Stack.Screen
-  //             name="StartSignUp"
-  //             component={StartSignUp}
-  //             options={backButton}
-  //           />
-  //           <Stack.Screen
-  //             name="NameSignUp"
-  //             component={NameSignUp}
-  //             options={backButton}
-  //           />
-  //           <Stack.Screen
-  //             name="BirthdaySignUp"
-  //             component={BirthdaySignUp}
-  //             options={backButton}
-  //           />
-  //           <Stack.Screen
-  //             name="EmailSignUp"
-  //             component={EmailSignUp}
-  //             options={backButton}
-  //           />
-  //           <Stack.Screen
-  //             name="LocationSignUp"
-  //             component={LocationSignUp}
-  //             options={backButton}
-  //           />
-  //           <Stack.Screen
-  //             name="DoneSignUp"
-  //             component={DoneSignUp}
-  //             options={backButton}
-  //           /> */}
-  //           {/* <Stack.Screen name="Login" component={Login} />
-  //           <Stack.Screen
-  //             name="Home"
-  //             component={HomeScreen}
-  //             options={backButton}
-  //           />
-  //           <Stack.Screen name="Search" component={Search} options={backButton} />
-  //           <Stack.Screen name="Tinder" component={Tinder} options={backButton} />
-  //           <Stack.Screen
-  //             name="JoinRoom"
-  //             component={JoinRoom}
-  //             options={backButton}
-  //           />
-  //           <Stack.Screen
-  //             name="CreateRoom"
-  //             component={CreateRoom}
-  //             options={backButton}
-  //           />
-  //           <Stack.Screen
-  //             name="PartyInfo"
-  //             component={PartyInfo}
-  //             options={backButton}
-  //           />
-  //           <Stack.Screen
-  //             name="RoomPage"
-  //             component={RoomPage}
-  //             options={backButton}
-  //           />
-  //           <Stack.Screen
-  //             name="MyRooms"
-  //             component={MyRooms}
-  //             options={({ navigation }) => ({
-  //               headerBackTitleVisible: false,
-  //               headerTitle: null,
-  //               headerStyle: {
-  //                 backgroundColor: "white",
-  //                 borderWidth: 0,
-  //                 shadowRadius: 0,
-  //                 shadowOffset: {
-  //                   height: 0,
-  //                 },
-  //               },
-  //               headerLeft: () => (
-  //                 <Icon
-  //                   name="chevron-left"
-  //                   size={wp("9%")}
-  //                   color={COLOR_PRIMARY}
-  //                   style={{ marginLeft: wp("3%") }}
-  //                   onPress={() => navigation.navigate("Home")}
-  //                 />
-  //               ),
-  //             })}
-  //           /> */}
-
-  //         <Stack.Screen name="Login" component={Login} />
-  //         <Stack.Screen
-  //           name="Home"
-  //           component={HomeScreen}
-  //           options={backButton}
-  //         />
-  //         <Stack.Screen name="Search" component={Search} options={backButton} />
-  //         <Stack.Screen name="Tinder" component={Tinder} options={backButton} />
-  //         <Stack.Screen
-  //           name="JoinRoom"
-  //           component={JoinRoom}
-  //           options={backButton}
-  //         />
-  //         <Stack.Screen
-  //           name="CreateRoom"
-  //           component={CreateRoom}
-  //           options={backButton}
-  //         />
-  //         <Stack.Screen
-  //           name="PartyInfo"
-  //           component={PartyInfo}
-  //           options={backButton}
-  //         />
-  //         <Stack.Screen
-  //           name="RoomPage"
-  //           component={RoomPage}
-  //           options={backButton}
-  //         />
-  //         <Stack.Screen
-  //           name="MyRooms"
-  //           component={MyRooms}
-  //           options={({ navigation }) => ({
-  //             headerBackTitleVisible: false,
-  //             headerTitle: null,
-  //             headerStyle: {
-  //               backgroundColor: "white",
-  //               borderWidth: 0,
-  //               shadowRadius: 0,
-  //               shadowOffset: {
-  //                 height: 0,
-  //               },
-  //             },
-  //             headerLeft: () => (
-  //               <Icon
-  //                 name="chevron-left"
-  //                 size={wp("9%")}
-  //                 color={COLOR_PRIMARY}
-  //                 style={{ marginLeft: wp("3%") }}
-  //                 onPress={() => navigation.navigate("Home")}
-  //               />
-  //             ),
-  //           })}
-  //         />
-  //         </Stack.Navigator>
-  //         </DrawerNavigatorNotLoggedIn>
-  //       </NavigationContainer>
-  //     </Provider>
-  //   );
-  // }
+  
+  function DrawerRoutes() {
+    return (
+      <DrawerNavigator/>
+    );
+  }
 
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <DrawerNavigator>
-        <Stack.Navigator>
+        <Stack.Navigator 
+        // screenOptions={{
+        //   headerShown: false
+        //   }}
+          >
+        <Stack.Screen
+              name="PhoneNumberLogin"
+              component={Login}
+              options={{ title: "Login", headerShown: false}}
+            />
+            <Stack.Screen
+              name="StartSignUp"
+              component={StartSignUp}
+              options={backButton}
+            />
+            <Stack.Screen
+              name="NameSignUp"
+              component={NameSignUp}
+              options={backButton}
+            />
+            <Stack.Screen
+              name="BirthdaySignUp"
+              component={BirthdaySignUp}
+              options={backButton}
+            />
+            <Stack.Screen
+              name="EmailSignUp"
+              component={EmailSignUp}
+              options={backButton}
+            />
+            <Stack.Screen
+              name="LocationSignUp"
+              component={LocationSignUp}
+              options={backButton}
+            />
+            <Stack.Screen
+              name="DoneSignUp"
+              component={DoneSignUp}
+              options={backButton}
+            />
           <Stack.Screen name="Login" component={Login}/>
           <Stack.Screen
             name="Home"
-            component={HomeScreen}
-            options={backButton}
+            component={DrawerRoutes}
+            options={{ headerShown: false }}
           />
-          <Stack.Screen name="Search" component={Search} options={backButton} />
+          {/* <Stack.Screen name="Search" component={Search} options={backButton} />
           <Stack.Screen name="Tinder" component={Tinder} options={backButton} />
           <Stack.Screen
             name="JoinRoom"
@@ -297,9 +202,8 @@ const App = () => {
                 />
               ),
             })}
-          />
+          /> */}
         </Stack.Navigator>
-        </DrawerNavigator>
       </NavigationContainer>
     </Provider>
   );

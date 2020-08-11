@@ -7,7 +7,9 @@ import BigHeader from "../components/BigHeader";
 
 const Tinder = ({ route, navigation }) => {
   const [restaurants, setRestaurants] = useState([]);
-  const { roomId } = route.params;
+  // const { roomId } = route.params;
+  
+  const { roomId } = navigation.state.params;
 
   // get restaurant data from firebase for given room id (passed in from CreateRoom component)
   useEffect(() => {

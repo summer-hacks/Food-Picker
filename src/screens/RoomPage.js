@@ -12,7 +12,8 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 function RoomPage({ route, navigation }) {
-  const { room } = route.params;
+  // const { room } = route.params;
+  const { room } = navigation.state.params
   const [matches, setMatches] = useState([]);
   const [completed, setCompleted] = useState(false);
 

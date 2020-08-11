@@ -5,7 +5,11 @@ import { EvilIcons } from '@expo/vector-icons'
 import { Button } from 'native-base'
 import firebase from '../../firebase'
 
-const currentUser = firebase.auth().currentUser;
+
+// const [currentUser, setCurrentUser] = useState("");
+// setCurrentUser(firebase.auth().currentUser);
+
+//const currentUser = firebase.auth().currentUser;
 
 export default Sidebar = props => (
     <ScrollView>

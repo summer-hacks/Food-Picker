@@ -23,6 +23,7 @@ import Icon from "react-native-vector-icons/Feather";
 import ContainerWithBottomButton from "../components/ContainerWithBottomButton";
 import StepSection from "../components/StepSection";
 import PartyInfo from "./PartyInfo.js";
+import { useNavigation, useNavigationParam } from 'react-navigation-hooks';
 
 // create a room record in firebase containing the party info + restaurant results
 async function pushRestaurants(roomId, restaurants) {
@@ -76,9 +77,14 @@ async function createRoomRecord(
 
 const CreateRoom = ({ route, navigation }) => {
   // var name must match that of param passed in via route
-  const { restaurants } = route.params;
-  const { partySize } = route.params;
-  const { partyName } = route.params;
+  // const { restaurants } = route.params;
+  // const { partySize } = route.params;
+  // const { partyName } = route.params;
+
+  const { restaurants } = navigation.state.params;
+  const { partySize } = navigation.state.params;
+  const { partyName } = navigation.state.params;
+
   // const { user } = route.params;
   const [roomId, setRoomId] = useState(0);
 

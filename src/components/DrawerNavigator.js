@@ -14,6 +14,8 @@ import MyRooms from "../screens/MyRooms";
 import "../../global.js";
 import HomeStack from "../components/HomeStack"
 import firebase from "../../firebase"
+import HomeScreen from "../screens/HomeScreen";
+import JoinRoom from "../screens/JoinRoom"
 
 const currentUser = firebase.auth().currentUser;
  
@@ -34,7 +36,7 @@ const DrawerNavigator = createDrawerNavigator({
           drawerIcon: ({tintColor}) => <MaterialIcons name="group" size={16} color={tintColor} /> 
       }
     },
-    CreateRoom: {
+    PartyInfo: {
       screen: PartyInfo,
       navigationOptions: {
         title: "Create a Room",
@@ -42,6 +44,15 @@ const DrawerNavigator = createDrawerNavigator({
         drawerIcon: ({tintColor}) => <MaterialCommunityIcons name="food" size={16} color={tintColor} /> 
       }
     },
+    JoinRoom: {
+      screen: JoinRoom,
+      navigationOptions: {
+        title: "Join a Room",
+        // headerTitle: () => <Header />,
+        drawerIcon: ({tintColor}) => <MaterialIcons name="room" size={16} color={tintColor} /> 
+      }
+    },
+
     SignOutScreen: {
       screen: SignOutScreen,
       navigationOptions: {
@@ -59,8 +70,10 @@ const DrawerNavigator = createDrawerNavigator({
     hideStatusBar: true,
 
     contentOptions: {
-        activeBackgroundColor: "rgba(255, 131, 100, 0.2)",
-        activeTintColor: "#FF8364",
+        // activeBackgroundColor: "rgba(255, 131, 100, 0.2)",
+        // activeTintColor: "#FF8364",
+        activeTintColor: "#000",
+        activeBackgroundColor: "#FFF",
         itemsContainerStyle: {
             marginTop: 16,
             marginHorizontal: 8
@@ -72,3 +85,4 @@ const DrawerNavigator = createDrawerNavigator({
 })
 
 export default createAppContainer(DrawerNavigator);
+//export default DrawerNavigator

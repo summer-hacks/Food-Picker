@@ -83,11 +83,39 @@ const screens = {
     }
 }
 
+const backButton = ({ navigation }) => ({
+    headerBackTitleVisible: false,
+    headerTitle: null,
+    headerStyle: {
+      backgroundColor: "white",
+      borderWidth: 0,
+      shadowRadius: 0,
+      shadowOffset: {
+        height: 0,
+      },
+    },
+    headerLeft: () => (
+      <Icon
+        name="chevron-left"
+        size={wp("9%")}
+        color={COLOR_PRIMARY}
+        style={{ marginLeft: wp("3%") }}
+        onPress={() => navigation.goBack()}
+      />
+    ),
+  });
+
 const HomeStack = createStackNavigator(screens, {
+    initialRouteName: "HomeScreen",
     defaultNavigationOptions: {
-        headerTintColor: "#444",
-        headerStyle: { backgroundColor: "#FFF", height: 100, shadowColor: 'transparent'},
-    }
+        headerTintColor: "#000",
+        headerStyle: { backgroundColor: "#FFF", height: 100, shadowColor: 'transparent'}
+    },
+    navigationOptions: {
+        header: ({ goBack }) => ({
+          left: <backButton onPress={goBack} />,
+        }),
+      },
 })
 
 export default HomeStack

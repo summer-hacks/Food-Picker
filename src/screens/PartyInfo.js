@@ -50,10 +50,15 @@ const PartyInfo = ({ route, navigation }) => {
         { cancelable: true }
       );
     } else {
-      navigation.navigate("Search", {
-        partyName: partyName,
-        partySize: partySize,
+      navigation.navigate({
+        routeName: "Search",
+        params: {
+          partyName: partyName,
+          partySize: partySize,
+        }
+        
       });
+
     }
   };
   return (
