@@ -42,6 +42,7 @@ async function createRoomRecord(roomId, restaurants, partySize, partyName, user)
       partySize: parseInt(partySize),
       partyName: partyName,
       users: [user.uid],
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
     });
 
   await pushRestaurants(roomId, restaurants);

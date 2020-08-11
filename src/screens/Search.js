@@ -164,6 +164,7 @@ const Search = ({ route, navigation }) => {
       return resJson.businesses;
     }
   };
+
   let defaultLocation = "";
 
   if (longitude && latitude) {
@@ -179,16 +180,18 @@ const Search = ({ route, navigation }) => {
       maxRes,
       dollars
     );
-    if (data.length === 0) {
-      alert(
-        "no restaurants found. please try searching again with different criteria."
-      );
-    } else {
-      navigation.navigate("CreateRoom", {
-        restaurants: data,
-        partySize: partySize,
-        partyName: partyName,
-      });
+    if (data !== undefined) {
+      if (data.length === 0) {
+        alert(
+          "no restaurants found. please try searching again with different criteria."
+        );
+      } else {
+        navigation.navigate("CreateRoom", {
+          restaurants: data,
+          partySize: partySize,
+          partyName: partyName,
+        });
+      }
     }
   };
 

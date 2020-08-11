@@ -47,9 +47,18 @@ function HomeScreen({ navigation }) {
     }
   }, []);
 
+  const signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => navigation.navigate("Login"));
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={[{ alignSelf: "flex-start" }, styles.normTxt]}>
+      <Text
+        style={[{ alignSelf: "flex-start", marginTop: hp(10) }, styles.normTxt]}
+      >
         Hello {"\n"}
         <Text style={styles.shadowTxt}>{firstName}!</Text>
       </Text>
@@ -121,6 +130,7 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
+      <Button onPress={() => signOut()} title="Sign Out"></Button>
     </View>
   );
 }
