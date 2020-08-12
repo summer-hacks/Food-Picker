@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
   step: {
     alignSelf: 'center',
     fontSize: STEP_FONT_SIZE - 1,
-    fontFamily: 'karla-regular',
+    fontFamily: 'karla-bold',
   },
   stepSubscript: {
     alignSelf: 'center',
     fontSize: STEP_SUBSCRIPT_FONT_SIZE,
-    fontFamily: 'karla-bold',
+    fontFamily: 'karla-regular',
   },
 });
 

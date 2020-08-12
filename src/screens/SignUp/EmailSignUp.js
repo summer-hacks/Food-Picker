@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Keyboard,
   StyleSheet,
@@ -8,15 +7,35 @@ import {
   View,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Alert
+  Alert,
 } from 'react-native';
+import StepHeader from '../../components/StepHeader';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import firebase from "../../../firebase";
+import firebase from '../../../firebase';
 import { connect } from 'react-redux';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { BODY_BOTTOM, COLOR_PRIMARY, CONTAINER_PADDING_LEFT, CONTAINER_PADDING_RIGHT, SECTION_HEIGHT, HEADING_BOTTOM, HEADING_FONT_SIZE, HEADING_PADDING_TOP, STEP_HEIGHT, STEP_SUBSCRIPT_FONT_SIZE, NEXT_BUTTON_BOTTOM, NEXT_BUTTON_LEFT, BODY_FONT_SIZE, STEP_FONT_SIZE, TEXTINPUT_BOTTOM_BORDER_WIDTH, ICON_BORDER_RADIUS, ICON_BORDER_WIDTH } from '../../common';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {
+  BODY_BOTTOM,
+  COLOR_PRIMARY,
+  CONTAINER_PADDING_LEFT,
+  CONTAINER_PADDING_RIGHT,
+  SECTION_HEIGHT,
+  HEADING_FONT_SIZE,
+  HEADING_PADDING_TOP,
+  STEP_HEIGHT,
+  STEP_SUBSCRIPT_FONT_SIZE,
+  NEXT_BUTTON_BOTTOM,
+  NEXT_BUTTON_LEFT,
+  BODY_FONT_SIZE,
+  STEP_FONT_SIZE,
+  TEXTINPUT_BOTTOM_BORDER_WIDTH,
+  ICON_BORDER_RADIUS,
+  ICON_BORDER_WIDTH,
+} from '../../common';
 
 const EmailSignUp = ({ currentUser }) => {
   const [email, setEmail] = useState('');
@@ -27,18 +46,17 @@ const EmailSignUp = ({ currentUser }) => {
   const handleLogin = () => {
     if (!email || !password) {
       Alert.alert(
-        "Empty field",
-        "Please enter all info",
+        'Empty field',
+        'Please enter all info',
         [
           {
-            text: "Ok",
-            style: "cancel",
+            text: 'Ok',
+            style: 'cancel',
           },
         ],
         { cancelable: true }
       );
-    }
-    else {
+    } else {
       currentUser.email = email;
       firebase
         .auth()
@@ -52,26 +70,24 @@ const EmailSignUp = ({ currentUser }) => {
           };
           firebase
             .database()
-            .ref("users/" + userID)
+            .ref('users/' + userID)
             .set(item);
           return result.user.updateProfile({
             displayName: currentUser.name,
           });
         })
         .then((result) => {
-          navigation.navigate("LocationSignUp");
+          navigation.navigate('LocationSignUp');
         })
         .catch((error) => setErrorMessage(error.message));
     }
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => (Keyboard.dismiss())}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-
         <View style={{ height: STEP_HEIGHT }}>
-          <Text style={styles.step}>Step 3 of 4</Text>
-          <Text style={styles.stepSubscript}>(almost there!)</Text>
+          <StepHeader step='Step 3 of 4' subscript='(almost there!)' />
         </View>
 
         <View style={{ bottom: BODY_BOTTOM, height: SECTION_HEIGHT }}>
@@ -81,10 +97,12 @@ const EmailSignUp = ({ currentUser }) => {
           <Text style={styles.normTxt}>What's your email?</Text>
         </View>
 
-        <View style={{ bottom: BODY_BOTTOM, height: SECTION_HEIGHT }}>
+        <View style={{ bottom: BODY_BOTTOM + 30, height: SECTION_HEIGHT }}>
           {errorMessage && (
-            <View style={{ bottom: hp('1%'), paddingLeft: 3, height: hp('3%') }}>
-              <Text style={{ color: "red" }}>{errorMessage}</Text>
+            <View
+              style={{ bottom: hp('1%'), paddingLeft: 3, height: hp('3%') }}
+            >
+              <Text style={{ color: 'red' }}>{errorMessage}</Text>
             </View>
           )}
           <TextInput
@@ -97,8 +115,8 @@ const EmailSignUp = ({ currentUser }) => {
           {/* <Text>Enter your password</Text> */}
           <TextInput
             secureTextEntry
-            placeholder="Password"
-            autoCapitalize="none"
+            placeholder='Password'
+            autoCapitalize='none'
             style={styles.textInput}
             onChangeText={(password) => setPassword(password)}
             value={password}
@@ -136,13 +154,13 @@ const styles = StyleSheet.create({
     height: 54,
     backgroundColor: COLOR_PRIMARY,
     borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   normTxt: {
     fontFamily: 'karla-bold',
     fontSize: HEADING_FONT_SIZE,
-    paddingTop: HEADING_PADDING_TOP
+    paddingTop: HEADING_PADDING_TOP,
   },
   textInput: {
     alignSelf: 'stretch',
@@ -177,8 +195,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser
-  }
+    currentUser: state.currentUser,
+  };
 }
 
 export default connect(mapStateToProps)(EmailSignUp);

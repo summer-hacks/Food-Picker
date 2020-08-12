@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,7 +7,7 @@ import {
   Button,
   TouchableOpacity,
   ActivityIndicator,
-  Alert
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -15,8 +15,30 @@ import { connect } from 'react-redux';
 import MapView, { AnimatedRegion, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { COLOR_PRIMARY, DEVICE_WIDTH, DEVICE_HEIGHT, STEP_HEIGHT, ICON_BORDER_WIDTH, ICON_BORDER_RADIUS, STEP_SUBSCRIPT_FONT_SIZE, STEP_FONT_SIZE, HEADING_FONT_SIZE, HEADING_PADDING_TOP, NEXT_BUTTON_LEFT, NEXT_BUTTON_BOTTOM, CONTAINER_PADDING_LEFT, CONTAINER_PADDING_RIGHT, HEADING_BOTTOM, SECTION_HEIGHT, BODY_BOTTOM } from '../../common';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {
+  COLOR_PRIMARY,
+  DEVICE_WIDTH,
+  DEVICE_HEIGHT,
+  STEP_HEIGHT,
+  ICON_BORDER_WIDTH,
+  ICON_BORDER_RADIUS,
+  STEP_SUBSCRIPT_FONT_SIZE,
+  STEP_FONT_SIZE,
+  HEADING_FONT_SIZE,
+  HEADING_PADDING_TOP,
+  NEXT_BUTTON_LEFT,
+  NEXT_BUTTON_BOTTOM,
+  CONTAINER_PADDING_LEFT,
+  CONTAINER_PADDING_RIGHT,
+  HEADING_BOTTOM,
+  SECTION_HEIGHT,
+  BODY_BOTTOM,
+} from '../../common';
+import StepHeader from '../../components/StepHeader';
 
 const initialState = {
   latitude: 0,
@@ -31,7 +53,6 @@ const LocationSignUp = ({ currentUser }) => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        // alert(JSON.stringify(position));
         const { latitude, longitude } = position.coords;
         setCurrentPosition({
           ...currentPosition,
@@ -47,49 +68,32 @@ const LocationSignUp = ({ currentUser }) => {
   const handleLogin = () => {
     if (!currentPosition) {
       Alert.alert(
-        "Empty field",
-        "Please enter all info",
+        'Empty field',
+        'Please enter all info',
         [
           {
-            text: "Ok",
-            style: "cancel",
+            text: 'Ok',
+            style: 'cancel',
           },
         ],
         { cancelable: true }
       );
-    }
-    else {
+    } else {
       currentUser.location = currentPosition;
-      navigation.navigate("DoneSignUp");
+      navigation.navigate('DoneSignUp');
     }
   };
 
-  // async function getCurrentLocation() {
-  //   const { status, permissions } = await Permissions.askAsync(
-  //     Permissions.LOCATION
-  //   );
-  //   if (status === 'granted') {
-  //     console.log('GRANTED');
-  //     const myLocation = await Location.getCurrentPositionAsync();
-  //     setLocation(myLocation);
-  //   } else {
-  //     throw new Error('Location permission not granted');
-  //   }
-  // }
-
   const navigation = useNavigation();
   return currentPosition.latitude ? (
-
     <View style={styles.container}>
-
       <View style={{ height: STEP_HEIGHT }}>
-        <Text style={styles.step}>Step 4 of 4</Text>
-        <Text style={styles.stepSubscript}>(last step!)</Text>
+        <StepHeader step='Step 4 of 4' subscript='(last step!)' />
       </View>
 
       <View style={{ bottom: HEADING_BOTTOM, height: SECTION_HEIGHT }}>
         <View style={styles.icon}>
-          <Icon color="black" name="map-marker-outline" size={25} />
+          <Icon color='black' name='map-marker-outline' size={25} />
         </View>
         <Text style={styles.normTxt}>Where do you live?</Text>
       </View>
@@ -110,14 +114,14 @@ const LocationSignUp = ({ currentUser }) => {
       <View style={styles.buttonView}>
         <TouchableOpacity onPress={handleLogin}>
           <View style={styles.button}>
-            <Icon style={{ color: "white" }} name="chevron-right" size={35} />
+            <Icon style={{ color: 'white' }} name='chevron-right' size={35} />
           </View>
         </TouchableOpacity>
       </View>
     </View>
   ) : (
-      <ActivityIndicator style={{ flex: 1 }} animating size="large" />
-    );
+    <ActivityIndicator style={{ flex: 1 }} animating size='large' />
+  );
 };
 
 const styles = StyleSheet.create({
@@ -133,20 +137,19 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     left: NEXT_BUTTON_LEFT,
     bottom: NEXT_BUTTON_BOTTOM,
-
   },
   button: {
     width: 54,
     height: 54,
     backgroundColor: COLOR_PRIMARY,
     borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   normTxt: {
     fontFamily: 'karla-bold',
     fontSize: HEADING_FONT_SIZE,
-    paddingTop: HEADING_PADDING_TOP
+    paddingTop: HEADING_PADDING_TOP,
   },
   step: {
     alignSelf: 'center',
