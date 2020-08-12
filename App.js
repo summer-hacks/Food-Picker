@@ -1,36 +1,36 @@
-import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Button, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Button, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import Tinder from "./src/screens/Tinder";
-import Search from "./src/screens/Search";
-import HomeScreen from "./src/screens/HomeScreen";
-import CreateRoom from "./src/screens/CreateRoom";
-import JoinRoom from "./src/screens/JoinRoom";
-import MyRooms from "./src/screens/MyRooms";
-import RoomPage from "./src/screens/RoomPage";
-import Login from "./src/screens/Login";
-import { Ionicons } from "@expo/vector-icons";
-import PartyInfo from "./src/screens/PartyInfo";
-import StartSignUp from "./src/screens/SignUp/StartSignUp";
-import NameSignUp from "./src/screens/SignUp/NameSignUp";
-import EmailSignUp from "./src/screens/SignUp/EmailSignUp";
-import LocationSignUp from "./src/screens/SignUp/LocationSignUp";
-import DoneSignUp from "./src/screens/SignUp/DoneSignUp";
-import BirthdaySignUp from "./src/screens/SignUp/BirthdaySignUp";
-import "./global.js";
-import * as Font from "expo-font";
-import { AppLoading } from "expo";
-import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
+} from 'react-native-responsive-screen';
+import Tinder from './src/screens/Tinder';
+import Search from './src/screens/Search';
+import HomeScreen from './src/screens/HomeScreen';
+import CreateRoom from './src/screens/CreateRoom';
+import JoinRoom from './src/screens/JoinRoom';
+import MyRooms from './src/screens/MyRooms';
+import RoomPage from './src/screens/RoomPage';
+import Login from './src/screens/Login';
+import { Ionicons } from '@expo/vector-icons';
+import PartyInfo from './src/screens/PartyInfo';
+import StartSignUp from './src/screens/SignUp/StartSignUp';
+import NameSignUp from './src/screens/SignUp/NameSignUp';
+import EmailSignUp from './src/screens/SignUp/EmailSignUp';
+import LocationSignUp from './src/screens/SignUp/LocationSignUp';
+import DoneSignUp from './src/screens/SignUp/DoneSignUp';
+import BirthdaySignUp from './src/screens/SignUp/BirthdaySignUp';
+import './global.js';
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 // import reduxThunk from "redux-thunk";
-import reducer from "./src/reducers/reducer";
-import { COLOR_PRIMARY } from "./src/common";
+import reducer from './src/reducers/reducer';
+import { COLOR_PRIMARY } from './src/common';
 
 const store = createStore(reducer);
 
@@ -39,10 +39,10 @@ const App = () => {
 
   const fetchFonts = () => {
     return Font.loadAsync({
-      "karla-bold": require("./assets/fonts/Karla-Bold.ttf"),
-      "karla-italic": require("./assets/fonts/Karla-Italic.ttf"),
-      "karla-bolditalic": require("./assets/fonts/Karla-BoldItalic.ttf"),
-      "karla-regular": require("./assets/fonts/Karla-Regular.ttf"),
+      'karla-bold': require('./assets/fonts/Karla-Bold.ttf'),
+      'karla-italic': require('./assets/fonts/Karla-Italic.ttf'),
+      'karla-bolditalic': require('./assets/fonts/Karla-BoldItalic.ttf'),
+      'karla-regular': require('./assets/fonts/Karla-Regular.ttf'),
     });
   };
 
@@ -62,7 +62,7 @@ const App = () => {
     headerBackTitleVisible: false,
     headerTitle: null,
     headerStyle: {
-      backgroundColor: "white",
+      backgroundColor: 'white',
       borderWidth: 0,
       shadowRadius: 0,
       shadowOffset: {
@@ -71,10 +71,10 @@ const App = () => {
     },
     headerLeft: () => (
       <Icon
-        name="chevron-left"
-        size={wp("9%")}
+        name='chevron-left'
+        size={wp('9%')}
         color={COLOR_PRIMARY}
-        style={{ marginLeft: wp("3%") }}
+        style={{ marginLeft: wp('3%') }}
         onPress={() => navigation.goBack()}
       />
     ),
@@ -85,80 +85,95 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="PhoneNumberLogin"
+            name='PhoneNumberLogin'
             component={Login}
-            options={{ title: "Login", headerShown: false }}
+            options={{ title: 'Login', headerShown: false }}
           />
           <Stack.Screen
-            name="StartSignUp"
+            name='StartSignUp'
             component={StartSignUp}
             options={backButton}
           />
           <Stack.Screen
-            name="NameSignUp"
+            name='NameSignUp'
             component={NameSignUp}
             options={backButton}
           />
           <Stack.Screen
-            name="BirthdaySignUp"
+            name='BirthdaySignUp'
             component={BirthdaySignUp}
             options={backButton}
           />
           <Stack.Screen
-            name="EmailSignUp"
+            name='EmailSignUp'
             component={EmailSignUp}
             options={backButton}
           />
           <Stack.Screen
-            name="LocationSignUp"
+            name='LocationSignUp'
             component={LocationSignUp}
             options={backButton}
           />
           <Stack.Screen
-            name="DoneSignUp"
+            name='DoneSignUp'
             component={DoneSignUp}
             options={backButton}
           />
           <Stack.Screen
-            name="Login"
+            name='Login'
             component={Login}
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Home"
+            name='Home'
             component={HomeScreen}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Search" component={Search} options={backButton} />
-          <Stack.Screen name="Tinder" component={Tinder} options={backButton} />
+          <Stack.Screen name='Search' component={Search} options={backButton} />
           <Stack.Screen
-            name="JoinRoom"
+            name='Tinder'
+            component={Tinder}
+            options={{
+              headerStyle: {
+                backgroundColor: 'white',
+                borderWidth: 0,
+                shadowRadius: 0,
+                shadowOffset: {
+                  height: 0,
+                },
+              },
+              headerLeft: null,
+              headerTitle: null,
+            }}
+          />
+          <Stack.Screen
+            name='JoinRoom'
             component={JoinRoom}
             options={backButton}
           />
           <Stack.Screen
-            name="CreateRoom"
+            name='CreateRoom'
             component={CreateRoom}
             options={backButton}
           />
           <Stack.Screen
-            name="PartyInfo"
+            name='PartyInfo'
             component={PartyInfo}
             options={backButton}
           />
           <Stack.Screen
-            name="RoomPage"
+            name='RoomPage'
             component={RoomPage}
             options={backButton}
           />
           <Stack.Screen
-            name="MyRooms"
+            name='MyRooms'
             component={MyRooms}
             options={({ navigation }) => ({
               headerBackTitleVisible: false,
               headerTitle: null,
               headerStyle: {
-                backgroundColor: "white",
+                backgroundColor: 'white',
                 borderWidth: 0,
                 shadowRadius: 0,
                 shadowOffset: {
@@ -167,11 +182,11 @@ const App = () => {
               },
               headerLeft: () => (
                 <Icon
-                  name="chevron-left"
-                  size={wp("9%")}
+                  name='chevron-left'
+                  size={wp('9%')}
                   color={COLOR_PRIMARY}
-                  style={{ marginLeft: wp("3%") }}
-                  onPress={() => navigation.navigate("Home")}
+                  style={{ marginLeft: wp('3%') }}
+                  onPress={() => navigation.navigate('Home')}
                 />
               ),
             })}
