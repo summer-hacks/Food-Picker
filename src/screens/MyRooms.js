@@ -23,8 +23,10 @@ import {
   FONT_NORMAL,
   COLOR_PRIMARY,
   COLOR_TERTIARY,
+  FONT_BOLD,
+  COLOR_GREY_TEXT,
+  HEADING_FONT_SIZE,
 } from '../common';
-import Container from '../components/Container';
 import Swipeout from 'react-native-swipeout';
 
 const { width } = Dimensions.get('window');
@@ -182,7 +184,16 @@ function MyRooms({ route, navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
-        <BigHeader title='My Rooms' />
+        <Text
+          style={{
+            fontFamily: FONT_BOLD,
+            fontSize: HEADING_FONT_SIZE,
+            marginLeft: 30,
+            marginBottom: 30,
+          }}
+        >
+          My Parties
+        </Text>
         <View
           style={{
             flexDirection: 'row',
@@ -190,6 +201,9 @@ function MyRooms({ route, navigation }) {
             marginBottom: 20,
             height: 36,
             position: 'relative',
+            bottom: 30,
+            width: '85%',
+            alignSelf: 'center',
           }}
         >
           <Animated.View
@@ -199,8 +213,8 @@ function MyRooms({ route, navigation }) {
               height: '100%',
               top: 0,
               left: 0,
-              backgroundColor: COLOR_PRIMARY,
-              borderRadius: 4,
+              backgroundColor: COLOR_PRIMARY_LIGHT,
+              borderRadius: 10,
               transform: [
                 {
                   translateX,
@@ -214,7 +228,11 @@ function MyRooms({ route, navigation }) {
             onPress={() => changeToActive()}
           >
             <Text
-              style={{ color: active === 0 ? COLOR_TERTIARY : COLOR_PRIMARY }}
+              style={{
+                fontFamily: FONT_NORMAL,
+                fontSize: 16,
+                color: active === 0 ? 'white' : COLOR_PRIMARY,
+              }}
             >
               In Progress
             </Text>
@@ -225,20 +243,24 @@ function MyRooms({ route, navigation }) {
             onPress={() => changeToInactive()}
           >
             <Text
-              style={{ color: active === 1 ? COLOR_TERTIARY : COLOR_PRIMARY }}
+              style={{
+                fontFamily: FONT_NORMAL,
+                fontSize: 16,
+                color: active === 1 ? COLOR_TERTIARY : COLOR_PRIMARY,
+              }}
             >
               Completed
             </Text>
           </TouchableOpacity>
         </View>
 
-        <ScrollView>
+        <ScrollView style={{ height: '100%', bottom: 40, paddingTop: 35 }}>
           <Animated.View
             style={{
               justifyContent: 'center',
               alignItems: 'center',
               transform: [{ translateX: translateXTabOne }],
-              width: widthPercentageToDP(100),
+              width: '100%',
             }}
             onLayout={(event) => setTranslateY(event.nativeEvent.layout.height)}
           >
@@ -277,8 +299,8 @@ function MyRooms({ route, navigation }) {
                         <Text
                           style={{
                             ...styles.btnText,
-                            color: 'black',
-                            fontSize: heightPercentageToDP('2'),
+                            color: COLOR_GREY_TEXT,
+                            fontSize: heightPercentageToDP('1.75'),
                           }}
                         >
                           {item.date}
@@ -338,7 +360,7 @@ function MyRooms({ route, navigation }) {
                           style={{
                             ...styles.btnText,
                             color: 'white',
-                            fontSize: heightPercentageToDP('2'),
+                            fontSize: heightPercentageToDP('1.75'),
                           }}
                         >
                           {item.date}
@@ -368,6 +390,7 @@ const styles = StyleSheet.create({
     width: '75%',
     margin: heightPercentageToDP('.5'),
     borderRadius: 10,
+    alignSelf: 'center',
   },
   btnText: {
     fontSize: heightPercentageToDP('2.5'),
@@ -375,28 +398,29 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontFamily: FONT_NORMAL,
     textAlign: 'left',
+    marginTop: 2,
   },
   activeTab: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: COLOR_PRIMARY,
+    borderColor: COLOR_PRIMARY_LIGHT,
     borderRightWidth: 0,
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
-    borderRadius: 4,
+    borderRadius: 10,
   },
   inactiveTab: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: COLOR_PRIMARY,
+    borderColor: COLOR_PRIMARY_LIGHT,
     borderLeftWidth: 0,
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
-    borderRadius: 4,
+    borderRadius: 10,
   },
 });
 export default MyRooms;
