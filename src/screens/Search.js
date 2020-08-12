@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import { Slider } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import NextButton from "../components/NextButton";
-import Container from "../components/Container";
-import StepSection from "../components/StepSection";
-import DollarSigns from "../components/DollarSigns";
+import React, { useState, useEffect } from 'react';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import { Slider } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import NextButton from '../components/NextButton';
+import Container from '../components/Container';
+import StepSection from '../components/StepSection';
+import DollarSigns from '../components/DollarSigns';
+import StepTitleWithIcon from '../components/StepTitleWithIcon';
 
 import {
   View,
@@ -17,28 +18,28 @@ import {
   TouchableOpacity,
   Alert,
   Keyboard,
-} from "react-native";
-import * as Location from "expo-location";
+} from 'react-native';
+import * as Location from 'expo-location';
 import {
   COLOR_PRIMARY,
   FONT_NORMAL,
   TEXTINPUT_BOTTOM_BORDER_WIDTH,
-} from "../common";
+} from '../common';
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import { max } from "react-native-reanimated";
+} from 'react-native-responsive-screen';
+import { max } from 'react-native-reanimated';
 
-const url = "https://api.yelp.com/v3/businesses/search?";
+const url = 'https://api.yelp.com/v3/businesses/search?';
 
 const Search = ({ route, navigation }) => {
   // const { user } = route.params;
   const { partySize } = route.params;
   const { partyName } = route.params;
 
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState('');
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [radius, setRadius] = useState(0);
@@ -51,13 +52,13 @@ const Search = ({ route, navigation }) => {
 
   const getCurrLocation = async () => {
     let { status } = await Location.requestPermissionsAsync();
-    if (status !== "granted") {
-      console.log("Permission to access location was denied");
+    if (status !== 'granted') {
+      console.log('Permission to access location was denied');
     } else {
       let location = await Location.getCurrentPositionAsync({});
       setLongitude(location.coords.longitude);
       setLatitude(location.coords.latitude);
-      setLocation("Current Location");
+      setLocation('Current Location');
     }
   };
 
@@ -125,22 +126,22 @@ const Search = ({ route, navigation }) => {
     maxRes,
     dollars
   ) => {
-    const prices = dollars.join(",");
+    const prices = dollars.join(',');
     if (!location || !radius || !maxRes) {
       Alert.alert(
-        "Empty field",
-        "Please enter all info",
+        'Empty field',
+        'Please enter all info',
         [
           {
-            text: "Ok",
-            style: "cancel",
+            text: 'Ok',
+            style: 'cancel',
           },
         ],
         { cancelable: true }
       );
     } else {
-      let full_url = "";
-      if (location == "Current Location") {
+      let full_url = '';
+      if (location == 'Current Location') {
         full_url =
           url +
           `latitude=${latitude}&longitude=${longitude}&radius=${Math.round(
@@ -155,9 +156,9 @@ const Search = ({ route, navigation }) => {
       }
 
       const res = await fetch(full_url, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          Authorization: "Bearer " + global.yelp_api_key,
+          Authorization: 'Bearer ' + global.yelp_api_key,
         },
       });
       const resJson = await res.json();
@@ -165,10 +166,10 @@ const Search = ({ route, navigation }) => {
     }
   };
 
-  let defaultLocation = "";
+  let defaultLocation = '';
 
   if (longitude && latitude) {
-    defaultLocation = "Current Location";
+    defaultLocation = 'Current Location';
   }
 
   const handleNext = async () => {
@@ -183,10 +184,10 @@ const Search = ({ route, navigation }) => {
     if (data !== undefined) {
       if (data.length === 0) {
         alert(
-          "no restaurants found. please try searching again with different criteria."
+          'no restaurants found. please try searching again with different criteria.'
         );
       } else {
-        navigation.navigate("CreateRoom", {
+        navigation.navigate('CreateRoom', {
           restaurants: data,
           partySize: partySize,
           partyName: partyName,
@@ -197,6 +198,7 @@ const Search = ({ route, navigation }) => {
 
   return (
     <Container>
+      {/* <StepTitleWithIcon title='Set eateries' iconName='balloon' /> */}
       <MapView
         style={styles.mapStyle}
         region={{
@@ -212,21 +214,21 @@ const Search = ({ route, navigation }) => {
             latitude: latitude,
             longitude: longitude,
           }}
-          title="Current Location"
+          title='Current Location'
         />
       </MapView>
       <StepSection>
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <View style={styles.inline}>
             <TextInput
-              placeholder="Search Origin"
-              style={{ ...styles.textInput, width: "90%" }}
+              placeholder='Search location'
+              style={{ ...styles.textInput, width: '90%' }}
               onChangeText={onChangeLocation}
               defaultValue={defaultLocation}
               value={location}
@@ -234,7 +236,7 @@ const Search = ({ route, navigation }) => {
             <View style={styles.icon}>
               <Icon
                 color={COLOR_PRIMARY}
-                name="my-location"
+                name='my-location'
                 size={25}
                 onPress={getCurrLocation}
               />
@@ -280,6 +282,7 @@ const Search = ({ route, navigation }) => {
           handle$$$$={handle$$$$}
         />
       </StepSection>
+      <View style={{ marginBottom: 30 }}></View>
       <NextButton onPress={handleNext} />
     </Container>
   );
@@ -288,40 +291,42 @@ const Search = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   label: {
     fontFamily: FONT_NORMAL,
-    fontSize: hp("2.5%"),
-    height: hp("3%"),
+    fontSize: hp('2.5%'),
+    height: hp('3%'),
   },
   mapStyle: {
-    width: "100%",
-    height: hp("30%"),
+    width: '100%',
+    height: hp('30%'),
+    marginTop: -hp('10%'),
+    marginBottom: hp('7%'),
   },
   icon: {
     width: 44,
     height: 44,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: -hp("1.5%"),
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: -hp('1.5%'),
   },
   textInput: {
-    alignSelf: "stretch",
-    fontFamily: "karla-regular",
-    fontSize: hp("2.5%"),
-    borderBottomColor: "#000",
-    marginBottom: hp("3%"),
-    marginTop: -hp("1%"),
+    alignSelf: 'stretch',
+    fontFamily: 'karla-regular',
+    fontSize: hp('2.5%'),
+    borderBottomColor: '#000',
+    marginBottom: hp('3%'),
+    marginTop: hp('1%'),
     borderBottomWidth: TEXTINPUT_BOTTOM_BORDER_WIDTH,
   },
   slider: {
-    marginTop: hp("2%"),
-    width: "100%",
-    height: hp("7.5%"),
-    alignSelf: "center",
-    marginBottom: hp("1%"),
+    marginTop: hp('2%'),
+    width: '100%',
+    height: hp('7.5%'),
+    alignSelf: 'center',
+    marginBottom: hp('1%'),
   },
   inline: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 

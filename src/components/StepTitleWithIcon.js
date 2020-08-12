@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import {
   COLOR_PRIMARY,
   CONTAINER_PADDING_LEFT,
@@ -10,15 +10,15 @@ import {
   HEADING_PADDING_TOP,
   ICON_BORDER_RADIUS,
   ICON_BORDER_WIDTH,
-} from "../common";
+} from '../common';
 
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const StepTitleWithIcon = ({ title, iconName }) => {
   return (
-    <View style={{ bottom: HEADING_BOTTOM, height: SECTION_HEIGHT }}>
+    <View style={{ bottom: HEADING_BOTTOM + 20, height: SECTION_HEIGHT }}>
       <View style={styles.icon}>
-        <Icon color="black" name={iconName} size={25} />
+        <Icon color='black' name={iconName} size={25} />
       </View>
       <Text style={styles.normTxt}>{title}</Text>
     </View>
@@ -28,24 +28,24 @@ const StepTitleWithIcon = ({ title, iconName }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    backgroundColor: "white",
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    backgroundColor: 'white',
     paddingLeft: CONTAINER_PADDING_LEFT,
     paddingRight: CONTAINER_PADDING_RIGHT,
   },
   icon: {
     width: 44,
     height: 44,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderWidth: ICON_BORDER_WIDTH,
     borderColor: COLOR_PRIMARY,
     borderRadius: ICON_BORDER_RADIUS,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   normTxt: {
-    fontFamily: "karla-bold",
+    fontFamily: 'karla-bold',
     fontSize: HEADING_FONT_SIZE,
     paddingTop: HEADING_PADDING_TOP,
   },

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginRight: 0,
     marginBottom: hp('1%'),
-    top: hp('9%'),
+    top: hp('11%'),
   },
   button: {
     width: 54,
