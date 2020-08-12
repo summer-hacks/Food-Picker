@@ -10,26 +10,12 @@ import firebase from "../../firebase.js";
 import { COLOR_PRIMARY_LIGHT, COLOR_SECONDARY, FONT_NORMAL } from "../common";
 import Container from "../components/Container";
 import BigHeader from "../components/BigHeader";
-import { NavigationActions } from 'react-navigation';
 
 import { heightPercentageToDP } from "react-native-responsive-screen";
 function MyRooms({ route, navigation }) {
   const [user, setUser] = useState({});
   const [rooms, setRooms] = useState([]);
 
-  // const resetAction = NavigationActions.reset({
-  //   index: 1,
-  //   actions: [
-  //     NavigationActions.navigate({
-  //       routeName: 'HomeStack'
-  //     }),
-  //     NavigationActions.navigate({
-  //       routeName: 'MyRooms'
-  //     })
-  //   ]
-  // });
-
-  // navigation.dispatch(resetAction);
 
   useEffect(() => {
     const currentUser = firebase.auth().currentUser;

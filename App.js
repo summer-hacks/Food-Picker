@@ -156,7 +156,7 @@ const App = () => {
             component={DrawerRoutes}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen name="Search" component={Search} options={backButton} />
+          <Stack.Screen name="Search" component={Search} options={backButton} />
           <Stack.Screen name="Tinder" component={Tinder} options={backButton} />
           <Stack.Screen
             name="JoinRoom"
@@ -202,7 +202,7 @@ const App = () => {
                 />
               ),
             })}
-          /> */}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

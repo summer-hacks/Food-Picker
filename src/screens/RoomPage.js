@@ -19,7 +19,6 @@ function RoomPage({ route, navigation }) {
 
   // get matches if everyone has finished swiping
   useEffect(() => {
-    console.log(room);
     const roomRef = firebase.database().ref("rooms/" + room.roomId);
     roomRef.once("value", (snap) => {
       const room = snap.val();
