@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Keyboard,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  TouchableWithoutFeedback,
-  Alert,
-} from 'react-native';
+import { StyleSheet, TextInput, Alert } from 'react-native';
 import {
   HEADING_FONT_SIZE,
   HEADING_PADDING_TOP,
@@ -15,7 +7,6 @@ import {
   TEXTINPUT_BOTTOM_BORDER_WIDTH,
 } from '../common';
 import NextButton from '../components/NextButton';
-import StepHeader from '../components/StepHeader';
 import Container from '../components/Container';
 import StepSection from '../components/StepSection';
 import StepTitleWithIcon from '../components/StepTitleWithIcon';
@@ -25,7 +16,6 @@ const PartyInfo = ({ route, navigation }) => {
   const [partySize, setPartySize] = useState(0);
 
   // extract data from route (variable name must equal whatever passed in)
-  // const {user} = route.params
 
   // helper functions to handle user input
   const onChangePartySize = (partySize) => {

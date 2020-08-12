@@ -14,10 +14,6 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import {
   BODY_BOTTOM,
   COLOR_PRIMARY,
   CONTAINER_PADDING_LEFT,
@@ -26,7 +22,6 @@ import {
   HEADING_BOTTOM,
   HEADING_FONT_SIZE,
   HEADING_PADDING_TOP,
-  STEP_HEIGHT,
   NEXT_BUTTON_BOTTOM,
   NEXT_BUTTON_LEFT,
   BODY_FONT_SIZE,

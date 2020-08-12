@@ -1,22 +1,18 @@
-import React, { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import { connect } from "react-redux";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import React, { useState } from 'react';
+import { StyleSheet, TextInput, View } from 'react-native';
+import { connect } from 'react-redux';
 
 export const MyTextInput = () => {
   const [userInfo, setUserInfo] = useState({
-    firstName: "",
-    lastName: "",
+    firstName: '',
+    lastName: '',
   });
 
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder="First Name"
-        autoCapitalize="none"
+        placeholder='First Name'
+        autoCapitalize='none'
         onChangeText={(firstName) =>
           setUserInfo({ ...userInfo, firstName: firstName })
         }
@@ -24,8 +20,8 @@ export const MyTextInput = () => {
         style={styles.textInput}
       />
       <TextInput
-        placeholder="Last Name"
-        autoCapitalize="none"
+        placeholder='Last Name'
+        autoCapitalize='none'
         onChangeText={(lastName) =>
           setUserInfo({ ...userInfo, lastName: lastName })
         }
@@ -38,23 +34,23 @@ export const MyTextInput = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "flex-start",
-    backgroundColor: "white",
-    paddingLeft: "15%",
-    paddingRight: "15%",
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'flex-start',
+    backgroundColor: 'white',
+    paddingLeft: '15%',
+    paddingRight: '15%',
   },
   textInput: {
-    alignSelf: "stretch",
+    alignSelf: 'stretch',
     padding: 5,
-    fontFamily: "karla-regular",
+    fontFamily: 'karla-regular',
     fontSize: 35,
-    borderBottomColor: "#000",
+    borderBottomColor: '#000',
     margin: 5,
     marginBottom: 20,
     borderBottomWidth: 3,
-    bottom: "15%",
+    bottom: '15%',
   },
 });
 

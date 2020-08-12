@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   View,
-  Button,
   TouchableOpacity,
 } from 'react-native';
 import {
@@ -106,7 +105,6 @@ const styles = StyleSheet.create({
     color: COLOR_PRIMARY,
     fontSize: 18,
     fontWeight: '500',
-    // textDecorationLine: "underline",
   },
 });
 

@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
-  Button,
   TouchableOpacity,
   ActivityIndicator,
   Alert,
@@ -12,7 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
-import MapView, { AnimatedRegion, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import {
@@ -21,8 +19,6 @@ import {
 } from 'react-native-responsive-screen';
 import {
   COLOR_PRIMARY,
-  DEVICE_WIDTH,
-  DEVICE_HEIGHT,
   STEP_HEIGHT,
   ICON_BORDER_WIDTH,
   ICON_BORDER_RADIUS,

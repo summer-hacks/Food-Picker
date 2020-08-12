@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Button, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {
   widthPercentageToDP as wp,
@@ -15,7 +14,6 @@ import JoinRoom from './src/screens/JoinRoom';
 import MyRooms from './src/screens/MyRooms';
 import RoomPage from './src/screens/RoomPage';
 import Login from './src/screens/Login';
-import { Ionicons } from '@expo/vector-icons';
 import PartyInfo from './src/screens/PartyInfo';
 import StartSignUp from './src/screens/SignUp/StartSignUp';
 import NameSignUp from './src/screens/SignUp/NameSignUp';
@@ -28,7 +26,6 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-// import reduxThunk from "redux-thunk";
 import reducer from './src/reducers/reducer';
 import { COLOR_PRIMARY } from './src/common';
 

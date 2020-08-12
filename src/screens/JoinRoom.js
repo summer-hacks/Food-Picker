@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import StepTitleWithIcon from '../components/StepTitleWithIcon';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import firebase from '../../firebase.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ContainerWithBottomButton from '../components/ContainerWithBottomButton';
-import StepSection from '../components/StepSection';
-import BigHeader from '../components/BigHeader';
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -19,7 +11,6 @@ import {
 import {
   BODY_FONT_SIZE,
   TEXTINPUT_BOTTOM_BORDER_WIDTH,
-  FONT_BOLD,
   BODY_BOTTOM,
   ICON_BORDER_WIDTH,
   ICON_BORDER_RADIUS,

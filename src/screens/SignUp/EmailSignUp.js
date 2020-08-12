@@ -66,7 +66,6 @@ const EmailSignUp = ({ currentUser }) => {
           var item = {
             name: currentUser.name,
             email: email,
-            //phoneNum: currentUser.phoneNum,
           };
           firebase
             .database()
@@ -112,7 +111,6 @@ const EmailSignUp = ({ currentUser }) => {
             onChangeText={(email) => setEmail(email)}
             value={email}
           />
-          {/* <Text>Enter your password</Text> */}
           <TextInput
             secureTextEntry
             placeholder='Password'

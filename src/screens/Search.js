@@ -6,16 +6,11 @@ import NextButton from '../components/NextButton';
 import Container from '../components/Container';
 import StepSection from '../components/StepSection';
 import DollarSigns from '../components/DollarSigns';
-import StepTitleWithIcon from '../components/StepTitleWithIcon';
-
 import {
   View,
   Text,
   StyleSheet,
-  Button,
-  Image,
   TextInput,
-  TouchableOpacity,
   Alert,
   Keyboard,
 } from 'react-native';
@@ -30,8 +25,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { max } from 'react-native-reanimated';
-
 const url = 'https://api.yelp.com/v3/businesses/search?';
 
 const Search = ({ route, navigation }) => {
@@ -69,7 +62,6 @@ const Search = ({ route, navigation }) => {
 
   const onChangeRadius = (radius) => {
     setRadius(radius);
-    // setRadius(Math.round(radius * 1609.34));
   };
 
   const onChangeMaxRes = (maxRes) => {
@@ -198,7 +190,6 @@ const Search = ({ route, navigation }) => {
 
   return (
     <Container>
-      {/* <StepTitleWithIcon title='Set eateries' iconName='balloon' /> */}
       <MapView
         style={styles.mapStyle}
         region={{

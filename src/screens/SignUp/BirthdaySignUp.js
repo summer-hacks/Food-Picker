@@ -28,11 +28,7 @@ import {
   NEXT_BUTTON_BOTTOM,
   NEXT_BUTTON_LEFT,
 } from '../../common';
-import NextButton from '../../components/NextButton';
 import StepHeader from '../../components/StepHeader';
-import StepTitleWithIcon from '../../components/StepTitleWithIcon';
-import Container from '../../components/Container';
-import StepSection from '../../components/StepSection';
 
 const BirthdaySignUp = ({ currentUser }) => {
   const navigation = useNavigation();

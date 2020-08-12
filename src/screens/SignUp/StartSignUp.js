@@ -1,15 +1,10 @@
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { connect } from "react-redux";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import {
-  COLOR_SECONDARY,
-  COLOR_PRIMARY,
-  BODY_BOTTOM,
-  FONT_NORMAL,
-} from "../../common";
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { connect } from 'react-redux';
+import { StyleSheet, Text } from 'react-native';
+import { COLOR_PRIMARY, BODY_BOTTOM, FONT_NORMAL } from '../../common';
 
-import ContainerWithBottomButton from "../../components/ContainerWithBottomButton";
+import ContainerWithBottomButton from '../../components/ContainerWithBottomButton';
 
 const StartSignUp = ({ clearCurrentUser }) => {
   clearCurrentUser();
@@ -17,13 +12,13 @@ const StartSignUp = ({ clearCurrentUser }) => {
 
   return (
     <ContainerWithBottomButton
-      bottomText="Sign Up"
+      bottomText='Sign Up'
       bottomOnPress={() => {
-        navigation.navigate("NameSignUp");
+        navigation.navigate('NameSignUp');
       }}
     >
       <Text style={[styles.normTxt, { bottom: BODY_BOTTOM }]}>
-        Looks like you're{" "}
+        Looks like you're{' '}
         <Text style={[{ fontFamily: FONT_NORMAL, color: COLOR_PRIMARY }]}>
           new.
         </Text>
@@ -37,7 +32,7 @@ const StartSignUp = ({ clearCurrentUser }) => {
 
 const styles = StyleSheet.create({
   normTxt: {
-    fontFamily: "karla-bold",
+    fontFamily: 'karla-bold',
     fontSize: 40,
   },
 });
@@ -50,7 +45,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    clearCurrentUser: () => dispatch({ type: "CLEAR_CURRENT_USER" }),
+    clearCurrentUser: () => dispatch({ type: 'CLEAR_CURRENT_USER' }),
   };
 }
 

@@ -7,11 +7,9 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  Image,
   Dimensions,
 } from 'react-native';
 import firebase from '../../firebase.js';
-import BigHeader from '../components/BigHeader';
 import StepHeader from '../components/StepHeader';
 import {
   heightPercentageToDP,
@@ -183,7 +181,14 @@ function MyRooms({ route, navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <View style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+      <View
+        style={{
+          flex: 1,
+          width: '90%',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
         <Text
           style={{
             fontFamily: FONT_BOLD,
@@ -254,7 +259,13 @@ function MyRooms({ route, navigation }) {
           </TouchableOpacity>
         </View>
 
-        <ScrollView style={{ height: '100%', bottom: 40, paddingTop: 35 }}>
+        <ScrollView
+          style={{
+            height: 70,
+            marginBottom: 35,
+            bottom: 20,
+          }}
+        >
           <Animated.View
             style={{
               justifyContent: 'center',

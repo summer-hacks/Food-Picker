@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, Linking } from 'react-native';
-const screenWidth = Math.round(Dimensions.get('window').width);
-import { Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import StarRating from 'react-native-star-rating';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   COLOR_PRIMARY,
   FONT_NORMAL,
-  TEXTINPUT_BOTTOM_BORDER_WIDTH,
-  CONTAINER_PADDING_LEFT,
-  CONTAINER_PADDING_RIGHT,
   DEVICE_WIDTH,
   FONT_BOLD,
   COLOR_GREY_TEXT,
@@ -91,7 +85,6 @@ const CardDetail = ({ restaurant, closeCard }) => {
             fontFamily: FONT_NORMAL,
             fontSize: hp(3),
             marginTop: hp(2.5),
-            // marginBottom: hp(1),
           }}
         >
           {restaurant.name}
