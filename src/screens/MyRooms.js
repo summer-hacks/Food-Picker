@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Alert,
@@ -9,25 +9,25 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-} from "react-native";
-import firebase from "../../firebase.js";
-import BigHeader from "../components/BigHeader";
-import StepHeader from "../components/StepHeader";
+} from 'react-native';
+import firebase from '../../firebase.js';
+import BigHeader from '../components/BigHeader';
+import StepHeader from '../components/StepHeader';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
-} from "react-native-responsive-screen";
+} from 'react-native-responsive-screen';
 import {
   COLOR_PRIMARY_LIGHT,
   COLOR_SECONDARY,
   FONT_NORMAL,
   COLOR_PRIMARY,
   COLOR_TERTIARY,
-} from "../common";
-import Container from "../components/Container";
-import Swipeout from "react-native-swipeout";
+} from '../common';
+import Container from '../components/Container';
+import Swipeout from 'react-native-swipeout';
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
 
 function MyRooms({ route, navigation }) {
   const [user, setUser] = useState({});
@@ -93,17 +93,17 @@ function MyRooms({ route, navigation }) {
     const currentUser = firebase.auth().currentUser;
     if (currentUser) {
       setUser(currentUser);
-      const userRef = firebase.database().ref("users/" + currentUser.uid);
-      userRef.once("value", async (snap) => {
+      const userRef = firebase.database().ref('users/' + currentUser.uid);
+      userRef.once('value', async (snap) => {
         if (snap.val().rooms) {
           const promises = await Promise.all(
             snap.val().rooms.map(async (room) => {
-              const roomRef = firebase.database().ref("rooms/" + room);
-              let name = "";
+              const roomRef = firebase.database().ref('rooms/' + room);
+              let name = '';
               let size = 0;
               let completed = 0;
               let date = {};
-              await roomRef.once("value", (snap) => {
+              await roomRef.once('value', (snap) => {
                 const res = snap.val();
                 name = res.partyName;
                 size = res.partySize;
@@ -137,22 +137,22 @@ function MyRooms({ route, navigation }) {
 
   const handleDelete = () => {
     Alert.alert(
-      "Confirm Delete",
-      "Are you sure you want to delete this room? This will not impact anyone else.",
+      'Confirm Delete',
+      'Are you sure you want to delete this room? This will not impact anyone else.',
       [
         {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
         },
         {
-          text: "Yes",
+          text: 'Yes',
           onPress: () => {
             const userRef = firebase
               .database()
-              .ref("users/" + firebase.auth().currentUser.uid);
+              .ref('users/' + firebase.auth().currentUser.uid);
             userRef.once(
-              "value",
+              'value',
               (snap) => {
                 const remaining = snap
                   .val()
@@ -165,7 +165,7 @@ function MyRooms({ route, navigation }) {
               (error) => alert(error)
             );
           },
-          style: "destructive",
+          style: 'destructive',
         },
       ],
       { cancelable: false }
@@ -174,29 +174,29 @@ function MyRooms({ route, navigation }) {
 
   const swipeoutBtns = [
     {
-      text: "Delete",
+      text: 'Delete',
       onPress: handleDelete,
     },
   ];
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <View style={{ width: "90%", marginLeft: "auto", marginRight: "auto" }}>
-        <BigHeader title="My Rooms" />
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
+        <BigHeader title='My Rooms' />
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: 'row',
             marginTop: 40,
             marginBottom: 20,
             height: 36,
-            position: "relative",
+            position: 'relative',
           }}
         >
           <Animated.View
             style={{
-              position: "absolute",
-              width: "50%",
-              height: "100%",
+              position: 'absolute',
+              width: '50%',
+              height: '100%',
               top: 0,
               left: 0,
               backgroundColor: COLOR_PRIMARY,
@@ -235,8 +235,8 @@ function MyRooms({ route, navigation }) {
         <ScrollView>
           <Animated.View
             style={{
-              justifyContent: "center",
-              alignItems: "center",
+              justifyContent: 'center',
+              alignItems: 'center',
               transform: [{ translateX: translateXTabOne }],
               width: widthPercentageToDP(100),
             }}
@@ -245,8 +245,8 @@ function MyRooms({ route, navigation }) {
             <View
               style={{
                 flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
                 width: widthPercentageToDP(100),
               }}
             >
@@ -268,17 +268,17 @@ function MyRooms({ route, navigation }) {
                           backgroundColor: COLOR_SECONDARY,
                         }}
                         onPress={() => {
-                          navigation.navigate("RoomPage", { room: item });
+                          navigation.navigate('RoomPage', { room: item });
                         }}
                       >
-                        <Text style={{ ...styles.btnText, color: "black" }}>
+                        <Text style={{ ...styles.btnText, color: 'black' }}>
                           {item.name}
                         </Text>
                         <Text
                           style={{
                             ...styles.btnText,
-                            color: "black",
-                            fontSize: heightPercentageToDP("2"),
+                            color: 'black',
+                            fontSize: heightPercentageToDP('2'),
                           }}
                         >
                           {item.date}
@@ -287,15 +287,15 @@ function MyRooms({ route, navigation }) {
                     </Swipeout>
                   ))
               ) : (
-                <StepHeader step="no rooms yet!" />
+                <StepHeader step='no rooms yet!' />
               )}
             </View>
           </Animated.View>
 
           <Animated.View
             style={{
-              justifyContent: "center",
-              alignItems: "center",
+              justifyContent: 'center',
+              alignItems: 'center',
               transform: [
                 { translateX: translateXTabTwo },
                 { translateY: -translateY },
@@ -305,8 +305,8 @@ function MyRooms({ route, navigation }) {
             <View
               style={{
                 flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
                 width: widthPercentageToDP(100),
               }}
             >
@@ -328,17 +328,17 @@ function MyRooms({ route, navigation }) {
                           backgroundColor: COLOR_PRIMARY_LIGHT,
                         }}
                         onPress={() => {
-                          navigation.navigate("RoomPage", { room: item });
+                          navigation.navigate('RoomPage', { room: item });
                         }}
                       >
-                        <Text style={{ ...styles.btnText, color: "white" }}>
+                        <Text style={{ ...styles.btnText, color: 'white' }}>
                           {item.name}
                         </Text>
                         <Text
                           style={{
                             ...styles.btnText,
-                            color: "white",
-                            fontSize: heightPercentageToDP("2"),
+                            color: 'white',
+                            fontSize: heightPercentageToDP('2'),
                           }}
                         >
                           {item.date}
@@ -347,7 +347,7 @@ function MyRooms({ route, navigation }) {
                     </Swipeout>
                   ))
               ) : (
-                <StepHeader step="no rooms yet!" />
+                <StepHeader step='no rooms yet!' />
               )}
             </View>
           </Animated.View>
@@ -359,27 +359,27 @@ function MyRooms({ route, navigation }) {
 
 const styles = StyleSheet.create({
   btn: {
-    width: "100%",
-    height: "100%",
-    padding: heightPercentageToDP("1"),
+    width: '100%',
+    height: '100%',
+    padding: heightPercentageToDP('1'),
   },
   btnView: {
-    height: heightPercentageToDP("8"),
-    width: "75%",
-    margin: heightPercentageToDP(".5"),
+    height: heightPercentageToDP('8'),
+    width: '75%',
+    margin: heightPercentageToDP('.5'),
     borderRadius: 10,
   },
   btnText: {
-    fontSize: heightPercentageToDP("2.5"),
+    fontSize: heightPercentageToDP('2.5'),
     marginRight: 10,
     marginLeft: 10,
     fontFamily: FONT_NORMAL,
-    textAlign: "left",
+    textAlign: 'left',
   },
   activeTab: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: COLOR_PRIMARY,
     borderRightWidth: 0,
@@ -389,8 +389,8 @@ const styles = StyleSheet.create({
   },
   inactiveTab: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: COLOR_PRIMARY,
     borderLeftWidth: 0,

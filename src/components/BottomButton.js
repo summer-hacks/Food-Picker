@@ -1,6 +1,6 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { COLOR_PRIMARY } from "../common";
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { COLOR_PRIMARY } from '../common';
 
 const BottomButton = ({ text, onPress }) => {
   return (
@@ -12,17 +12,17 @@ const BottomButton = ({ text, onPress }) => {
 const styles = StyleSheet.create({
   buttonView: {
     backgroundColor: COLOR_PRIMARY,
-    width: "100%",
-    height: "12%",
-    position: "absolute",
+    width: '100%',
+    height: '12%',
+    position: 'absolute',
     bottom: 0,
     left: 0,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   button: {
-    color: "white",
-    fontFamily: "karla-bold",
+    color: 'white',
+    fontFamily: 'karla-bold',
     fontSize: 30,
   },
 });
