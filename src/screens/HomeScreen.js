@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: hp('12%'),
+    marginBottom: hp('8%'),
   },
   menuRow: {
     display: 'flex',
