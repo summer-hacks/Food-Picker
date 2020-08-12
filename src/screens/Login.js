@@ -54,12 +54,16 @@ const Login = ({ currentUser, actions }) => {
       <StepHeader mb={hp('10%')} />
       <View style={styles.icon}>
         <Image
-          style={{ width: 85, height: 85, borderRadius: 50, top: 4 }}
-          source={require('../../assets/chikintinder.png')}
+          style={{
+            width: 83,
+            height: 82,
+            borderRadius: ICON_BORDER_RADIUS,
+            top: 6,
+          }}
+          source={require('../../assets/final_chikin_tinder_icon.png')}
         />
       </View>
       <Text style={styles.normTxt}>It's Chikin Tinder Time!</Text>
-      {/* <StepTitleWithIcon title="It's Chikin Tinder Time!" /> */}
       <Text style={{ fontFamily: 'karla-bold', fontSize: 40 }}></Text>
       <StepSection>
         {errorMessage && (
