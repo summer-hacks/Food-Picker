@@ -1,40 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import StepTitleWithIcon from '../components/StepTitleWithIcon';
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   TextInput,
-} from "react-native";
-import firebase from "../../firebase.js";
-import ContainerWithBottomButton from "../components/ContainerWithBottomButton";
-import StepSection from "../components/StepSection";
-import BigHeader from "../components/BigHeader";
+} from 'react-native';
+import firebase from '../../firebase.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ContainerWithBottomButton from '../components/ContainerWithBottomButton';
+import StepSection from '../components/StepSection';
+import BigHeader from '../components/BigHeader';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import { BODY_FONT_SIZE, TEXTINPUT_BOTTOM_BORDER_WIDTH } from "../common";
+} from 'react-native-responsive-screen';
+import {
+  BODY_FONT_SIZE,
+  TEXTINPUT_BOTTOM_BORDER_WIDTH,
+  FONT_BOLD,
+  BODY_BOTTOM,
+  ICON_BORDER_WIDTH,
+  ICON_BORDER_RADIUS,
+  COLOR_PRIMARY,
+  SECTION_HEIGHT,
+  HEADING_FONT_SIZE,
+  HEADING_PADDING_TOP,
+} from '../common';
 
 // checks if room exists & is not yet full -- increments number of users joined if both conditions satisfied
 function joinRoom(roomId, navigation, user) {
   firebase
     .database()
-    .ref("rooms/" + roomId)
-    .once("value", (snap) => {
+    .ref('rooms/' + roomId)
+    .once('value', (snap) => {
       // check if room exists
       if (snap.exists()) {
         // check if room is full
         if (snap.val().numJoined < snap.val().partySize) {
-          const userRef = firebase.database().ref("users/" + user.uid);
+          const userRef = firebase.database().ref('users/' + user.uid);
           userRef.once(
-            "value",
+            'value',
             (snap) => {
               console.log(snap.val());
               // check if user already in room
               if (snap.val().rooms) {
                 if (snap.val().rooms.includes(roomId)) {
-                  alert("already in room");
+                  alert('already in room');
                   return;
                 } else {
                   // add room to user's collection
@@ -49,26 +62,26 @@ function joinRoom(roomId, navigation, user) {
               }
 
               // update num joined for room and add user to room
-              const roomRef = firebase.database().ref("rooms/" + roomId);
+              const roomRef = firebase.database().ref('rooms/' + roomId);
 
-              roomRef.once("value", (snap) => {
+              roomRef.once('value', (snap) => {
                 roomRef.update({
                   numJoined: ++snap.val().numJoined,
-                  users: [...snap.val().users, user.uid]
+                  users: [...snap.val().users, user.uid],
                 });
               });
 
-              navigation.navigate("Tinder", {
+              navigation.navigate('Tinder', {
                 roomId: roomId,
               });
             },
             (error) => alert(error)
           );
         } else {
-          alert("full room");
+          alert('full room');
         }
       } else {
-        alert("nonexisting room");
+        alert('nonexisting room');
       }
     });
 }
@@ -91,14 +104,19 @@ const JoinRoom = ({ route, navigation }) => {
 
   return (
     <ContainerWithBottomButton
-      bottomText="Start Swiping!"
+      bottomText='Start Swiping!'
       bottomOnPress={() => joinRoom(roomId, navigation, user)}
     >
-      <BigHeader title="Join the party!" />
+      <View style={{ bottom: BODY_BOTTOM, height: SECTION_HEIGHT }}>
+        <View style={styles.icon}>
+          <Icon color='black' name='account-multiple-plus-outline' size={25} />
+        </View>
+        <Text style={styles.normTxt}>Join a party</Text>
+      </View>
       <TextInput
-        placeholder="Room Id"
+        placeholder='Room ID'
         style={styles.textInput}
-        keyboardType={"numeric"}
+        keyboardType={'numeric'}
         onChangeText={onChangeRoomId}
       />
     </ContainerWithBottomButton>
@@ -107,13 +125,28 @@ const JoinRoom = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   textInput: {
-    alignSelf: "stretch",
-    fontFamily: "karla-regular",
+    alignSelf: 'stretch',
+    fontFamily: 'karla-regular',
     fontSize: BODY_FONT_SIZE,
-    borderBottomColor: "#000",
+    borderBottomColor: '#000',
     margin: 5,
-    marginBottom: 25,
+    bottom: hp('10%'),
     borderBottomWidth: TEXTINPUT_BOTTOM_BORDER_WIDTH,
+  },
+  icon: {
+    width: 44,
+    height: 44,
+    backgroundColor: 'white',
+    borderWidth: ICON_BORDER_WIDTH,
+    borderColor: COLOR_PRIMARY,
+    borderRadius: ICON_BORDER_RADIUS,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  normTxt: {
+    fontFamily: 'karla-bold',
+    fontSize: HEADING_FONT_SIZE,
+    paddingTop: HEADING_PADDING_TOP,
   },
 });
 
