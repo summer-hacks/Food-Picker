@@ -5,6 +5,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -16,6 +17,10 @@ import {
   TEXTINPUT_BOTTOM_BORDER_WIDTH,
   COLOR_TERTIARY_DARK,
   COLOR_PRIMARY,
+  ICON_BORDER_WIDTH,
+  ICON_BORDER_RADIUS,
+  HEADING_FONT_SIZE,
+  HEADING_PADDING_TOP,
 } from '../common';
 import { useNavigation } from '@react-navigation/native';
 import './../../global';
@@ -47,7 +52,14 @@ const Login = ({ currentUser, actions }) => {
   return (
     <Container>
       <StepHeader mb={hp('10%')} />
-      <StepTitleWithIcon title="It's Chikin Tinder Time!" iconName='food' />
+      <View style={styles.icon}>
+        <Image
+          style={{ width: 85, height: 85, borderRadius: 50, top: 4 }}
+          source={require('../../assets/chikintinder.png')}
+        />
+      </View>
+      <Text style={styles.normTxt}>It's Chikin Tinder Time!</Text>
+      {/* <StepTitleWithIcon title="It's Chikin Tinder Time!" /> */}
       <Text style={{ fontFamily: 'karla-bold', fontSize: 40 }}></Text>
       <StepSection>
         {errorMessage && (
@@ -105,6 +117,23 @@ const styles = StyleSheet.create({
     color: COLOR_PRIMARY,
     fontSize: 18,
     fontWeight: '500',
+  },
+  icon: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'white',
+    borderWidth: ICON_BORDER_WIDTH,
+    borderColor: COLOR_PRIMARY,
+    borderRadius: ICON_BORDER_RADIUS,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 50,
+  },
+  normTxt: {
+    fontFamily: 'karla-bold',
+    fontSize: HEADING_FONT_SIZE,
+    paddingTop: HEADING_PADDING_TOP,
+    bottom: hp('5%'),
   },
 });
 
