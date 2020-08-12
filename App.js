@@ -30,8 +30,8 @@ import { COLOR_PRIMARY } from "./src/common";
 import firebase from "./firebase"
 import DrawerNavigator from "./src/components/DrawerNavigator"
 
-
 const store = createStore(reducer);
+
 const App = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [loggedIn, setLoggedIn] = useState("");
@@ -39,10 +39,10 @@ const App = () => {
 
   const fetchFonts = () => {
     return Font.loadAsync({
-      "karla-bold": require("./assets/fonts/Karla-Bold.ttf"),
-      "karla-italic": require("./assets/fonts/Karla-Italic.ttf"),
-      "karla-bolditalic": require("./assets/fonts/Karla-BoldItalic.ttf"),
-      "karla-regular": require("./assets/fonts/Karla-Regular.ttf"),
+      'karla-bold': require('./assets/fonts/Karla-Bold.ttf'),
+      'karla-italic': require('./assets/fonts/Karla-Italic.ttf'),
+      'karla-bolditalic': require('./assets/fonts/Karla-BoldItalic.ttf'),
+      'karla-regular': require('./assets/fonts/Karla-Regular.ttf'),
     });
   };
 
@@ -178,15 +178,15 @@ const App = () => {
                   height: 0,
                 },
               },
-              headerLeft: () => (
-                <Icon
-                  name="chevron-left"
-                  size={wp("9%")}
-                  color={COLOR_PRIMARY}
-                  style={{ marginLeft: wp("3%") }}
-                  onPress={() => navigation.navigate("Home")}
-                />
-              ),
+              // headerLeft: () => (
+              //   <Icon
+              //     name="chevron-left"
+              //     size={wp("9%")}
+              //     color={COLOR_PRIMARY}
+              //     style={{ marginLeft: wp("3%") }}
+              //     onPress={() => navigation.navigate("Home")}
+              //   />
+              // ),
             })}
           />
         </Stack.Navigator>

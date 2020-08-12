@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from "react";
-import {
-  Share,
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native";
-import firebase from "../../firebase.js";
+import React, { useState, useEffect } from 'react';
+import { Share, StyleSheet, Text, View } from 'react-native';
+import firebase from '../../firebase.js';
 import {
   COLOR_PRIMARY,
   BODY_FONT_SIZE,
   HEADING_FONT_SIZE,
   ICON_BORDER_WIDTH,
   ICON_BORDER_RADIUS,
-} from "../common";
+} from '../common';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import Icon from "react-native-vector-icons/Feather";
-import ContainerWithBottomButton from "../components/ContainerWithBottomButton";
-import StepSection from "../components/StepSection";
-import PartyInfo from "./PartyInfo.js";
+} from 'react-native-responsive-screen';
+import Icon from 'react-native-vector-icons/Feather';
+import ContainerWithBottomButton from '../components/ContainerWithBottomButton';
 import { useNavigation, useNavigationParam } from 'react-navigation-hooks';
 
 // create a room record in firebase containing the party info + restaurant results
@@ -30,7 +21,7 @@ async function pushRestaurants(roomId, restaurants) {
   for (var i = 0, len = restaurants.length; i < len; i++) {
     await firebase
       .database()
-      .ref("rooms/" + roomId + "/restaurants/" + restaurants[i].id)
+      .ref('rooms/' + roomId + '/restaurants/' + restaurants[i].id)
       .set({ ...restaurants[i], yes: 0, no: 0 });
   }
 }
@@ -44,22 +35,24 @@ async function createRoomRecord(
 ) {
   firebase
     .database()
-    .ref("rooms/" + roomId)
+    .ref('rooms/' + roomId)
     .set({
       numCompleted: 0,
       numJoined: 1,
       partySize: parseInt(partySize),
       partyName: partyName,
+      users: [user.uid],
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
     });
 
   await pushRestaurants(roomId, restaurants);
 
   // add the room id to the user's data record
   // sometimes int, sometimes string?
-  const userRef = firebase.database().ref("users/" + user.uid);
+  const userRef = firebase.database().ref('users/' + user.uid);
 
   userRef.once(
-    "value",
+    'value',
     (snap) => {
       if (snap.val().rooms) {
         userRef.update({
@@ -77,10 +70,6 @@ async function createRoomRecord(
 
 const CreateRoom = ({ route, navigation }) => {
   // var name must match that of param passed in via route
-  // const { restaurants } = route.params;
-  // const { partySize } = route.params;
-  // const { partyName } = route.params;
-
   const { restaurants } = navigation.state.params;
   const { partySize } = navigation.state.params;
   const { partyName } = navigation.state.params;
@@ -121,9 +110,9 @@ const CreateRoom = ({ route, navigation }) => {
 
   return (
     <ContainerWithBottomButton
-      bottomText="Start Swiping"
+      bottomText='Start Swiping'
       bottomOnPress={() => {
-        navigation.navigate("Tinder", {
+        navigation.navigate('Tinder', {
           roomId: roomId,
         });
       }}
@@ -139,8 +128,8 @@ const CreateRoom = ({ route, navigation }) => {
       <View style={styles.icon}>
         <Icon
           color={COLOR_PRIMARY}
-          name="share"
-          size={wp("10%")}
+          name='share'
+          size={wp('10%')}
           onPress={() => {
             onShare(roomId);
           }}
@@ -152,19 +141,19 @@ const CreateRoom = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   bigTxt: {
-    fontFamily: "karla-bold",
+    fontFamily: 'karla-bold',
     fontSize: HEADING_FONT_SIZE,
   },
   normTxt: {
-    fontFamily: "karla-bold",
+    fontFamily: 'karla-bold',
     fontSize: BODY_FONT_SIZE,
   },
   icon: {
-    width: wp("15%"),
-    height: wp("15%"),
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
+    width: wp('15%'),
+    height: wp('15%'),
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderColor: COLOR_PRIMARY,
     borderWidth: ICON_BORDER_WIDTH,
     borderRadius: ICON_BORDER_RADIUS,

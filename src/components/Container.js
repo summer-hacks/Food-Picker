@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   Keyboard,
   View,
   TouchableWithoutFeedback,
-} from "react-native";
-import { CONTAINER_PADDING_LEFT, CONTAINER_PADDING_RIGHT } from "../common";
+} from 'react-native';
+import { CONTAINER_PADDING_LEFT, CONTAINER_PADDING_RIGHT } from '../common';
 
 const Container = ({ children }) => {
   return (
@@ -17,9 +17,9 @@ const Container = ({ children }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    backgroundColor: "white",
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: 'white',
     paddingLeft: CONTAINER_PADDING_LEFT,
     paddingRight: CONTAINER_PADDING_RIGHT,
   },
