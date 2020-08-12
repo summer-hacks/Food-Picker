@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Alert,
   Animated,
-  FlatList,
+  Button,
   Text,
   View,
   ScrollView,
@@ -389,6 +389,7 @@ function MyRooms({ route, navigation }) {
           </Animated.View>
         </ScrollView>
       </View>
+      <Button onPress={() => navigation.navigate('HomeScreen')} title='Return Home'></Button>
     </View>
   );
 }
